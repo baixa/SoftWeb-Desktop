@@ -4,4 +4,13 @@ spring:
   application:
     ui:
       title: SoftWeb
+  datasource:
+    url: jdbc:mariadb://45.153.230.50:3306/softwebdb
+    username: softwebuser
+    password: SoftWUser
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
