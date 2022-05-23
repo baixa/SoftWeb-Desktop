@@ -22,7 +22,7 @@ public class FtpLoader {
     private static String encoding = System.getProperty("file.encoding");
 
     @Value("${connections.ftp.username}")
-    private static String username = ;
+    private static String username;
 
     @Value("${connections.ftp.password}")
     private static String password;
