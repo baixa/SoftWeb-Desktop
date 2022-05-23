@@ -1,5 +1,8 @@
 package com.softweb.desktop;
 
+import com.softweb.desktop.database.repositories.ApplicationRepository;
+import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.utils.ftp.FtpLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -22,9 +25,13 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
     private String applicationTitle;
     private ApplicationContext applicationContext;
 
-    public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, ApplicationContext applicationContext) {
+    public static DataService dataService;
+
+    public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, ApplicationContext applicationContext, DataService dataService) {
         this.applicationTitle = applicationTitle;
         this.applicationContext = applicationContext;
+        StageInitializer.dataService = dataService;
+        FtpLoader.testUpLoadFromDisk();
     }
 
     public static BorderPane getRootElement() {

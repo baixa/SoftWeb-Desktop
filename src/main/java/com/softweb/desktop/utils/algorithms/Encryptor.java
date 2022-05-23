@@ -1,4 +1,4 @@
-package com.softweb.desktop.utils;
+package com.softweb.desktop.utils.algorithms;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class Encryptor {

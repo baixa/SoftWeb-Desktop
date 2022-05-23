@@ -1,16 +1,18 @@
 package com.softweb.desktop.database.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "applications_systems")
 @AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class ApplicationsSystems {
     @EmbeddedId
     private ApplicationsSystemsKey id;
@@ -30,4 +32,18 @@ public class ApplicationsSystems {
 
     @Column(name = "Version")
     private String version;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        ApplicationsSystems that = (ApplicationsSystems) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

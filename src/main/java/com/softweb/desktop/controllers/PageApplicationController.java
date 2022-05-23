@@ -2,7 +2,11 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.controllers.components.ApplicationCell;
 import com.softweb.desktop.database.DBActivity;
-import com.softweb.desktop.database.entities.Application;
+import com.softweb.desktop.database.entity.Application;
+import com.softweb.desktop.database.entity.Developer;
+import com.softweb.desktop.database.repositories.ApplicationRepository;
+import com.softweb.desktop.database.repositories.DeveloperRepository;
+import com.softweb.desktop.services.DataService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -15,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -22,6 +27,11 @@ import java.util.stream.Collectors;
 public class PageApplicationController implements Initializable {
 
     private DBActivity dbActivity;
+
+    private static ApplicationRepository applicationRepository;
+    private static DeveloperRepository developerRepository;
+
+    private List<Application> applications;
 
     @FXML
     private ComboBox<String> comboDeveloper;
@@ -36,10 +46,16 @@ public class PageApplicationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dbActivity = new DBActivity();
 
-        List<String> developers = dbActivity.getDevelopersUsername();
-        comboDeveloper.setItems(FXCollections.observableArrayList(developers));
+        developerRepository = DataService.getDeveloperRepository();
+        applicationRepository = DataService.getApplicationRepository();
 
-        List<Application> applications = dbActivity.getApplications();
+        List<Developer> developers = new ArrayList<>();
+        developerRepository.findAll().forEach(developers::add);
+
+        comboDeveloper.setItems(FXCollections.observableArrayList(developers.stream().map(Developer::getUsername).collect(Collectors.toList())));
+
+        this.applications = new ArrayList<>();
+        applicationRepository.findAll().forEach(applications::add);
 
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
 
@@ -54,22 +70,22 @@ public class PageApplicationController implements Initializable {
     }
 
     public void btnFilterClick(ActionEvent actionEvent) {
-        List<Application> applications = dbActivity.getApplications();
-
         String searchName = tbSearch.textProperty().getValue();
         String searchDeveloper = comboDeveloper.valueProperty().getValue();
 
+        List<Application> filteredApplications = applications;
+
         if(searchName != null && !searchName.equals(""))
-            applications = applications.stream()
+            filteredApplications = filteredApplications.stream()
                     .filter(app -> app.getName().toLowerCase().contains(searchName.toLowerCase()))
                     .collect(Collectors.toList());
 
         if(searchDeveloper != null && !searchDeveloper.equals(""))
-            applications = applications.stream()
-                    .filter(app -> app.getDeveloperShortName().equals(searchDeveloper))
+            filteredApplications = filteredApplications.stream()
+                    .filter(app -> app.getDeveloper().getUsername().equals(searchDeveloper))
                     .collect(Collectors.toList());
 
-        renderApplicationList(applications);
+        renderApplicationList(filteredApplications);
 
     }
 
@@ -77,6 +93,6 @@ public class PageApplicationController implements Initializable {
         tbSearch.textProperty().setValue(null);
         comboDeveloper.valueProperty().setValue(null);
 
-        renderApplicationList(dbActivity.getApplications());
+        renderApplicationList(applications);
     }
 }

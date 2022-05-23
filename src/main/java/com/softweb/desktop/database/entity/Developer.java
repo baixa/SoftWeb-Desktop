@@ -1,16 +1,22 @@
 package com.softweb.desktop.database.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "developers")
 @AllArgsConstructor
+@Transactional
 public class Developer {
 
     @Id
@@ -31,9 +37,20 @@ public class Developer {
     private boolean isAdmin;
 
     @OneToMany(mappedBy = "developer")
+    @ToString.Exclude
     private List<Application> applications = new ArrayList<>();
 
-    public Developer() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Developer developer = (Developer) o;
 
+        return Objects.equals(id, developer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1551116209;
     }
 }

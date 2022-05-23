@@ -1,38 +1,39 @@
 package com.softweb.desktop.auth;
 
-import com.softweb.desktop.database.DBActivity;
-import com.softweb.desktop.utils.Encryptor;
-
-import java.util.Map;
+import com.softweb.desktop.database.entity.Developer;
+import com.softweb.desktop.database.repositories.DeveloperRepository;
+import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.utils.algorithms.Encryptor;
 
 public class Authorization {
 
-    private static String currentUser;
+    private static Developer currentUser;
     private static boolean isAuthorized = false;
+    private static DeveloperRepository developerRepository;
 
 
     public static boolean authorize(String username, String password) {
         if(isAuthorized)
             return false;
 
-        DBActivity dbActivity = new DBActivity();
-        Map<String, String> users = dbActivity.getDevelopersUsernameAndPassword();
+        developerRepository = DataService.getDeveloperRepository();
+
+        Developer developer = developerRepository.findByUsername(username).stream().findFirst().orElse(null);
+
+
 
         String hashedPassword = Encryptor.hashSHA(password);
 
-        if (!users.containsKey(username))
+        if (developer == null || !developer.getPassword().equals(hashedPassword))
             return false;
-        else if (!users.get(username).equals(hashedPassword)){
-            return false;
-        }
         else {
-            currentUser = username;
+            currentUser = developer;
             isAuthorized = true;
             return true;
         }
     }
 
-    public static String getCurrentUser() {
+    public static Developer getCurrentUser() {
         return currentUser;
     }
 }

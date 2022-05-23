@@ -1,14 +1,18 @@
 package com.softweb.desktop.database.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "applications")
 @AllArgsConstructor
@@ -40,12 +44,24 @@ public class Application{
     private Developer developer;
 
     @OneToMany(mappedBy = "application")
+    @ToString.Exclude
     private List<ApplicationImage> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "application")
+    @ToString.Exclude
     private List<ApplicationsSystems> applicationsSystems;
 
-    public Application() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Application that = (Application) o;
 
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 85634910;
     }
 }

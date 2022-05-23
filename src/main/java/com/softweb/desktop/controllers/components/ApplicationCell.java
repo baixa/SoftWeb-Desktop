@@ -1,11 +1,12 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.database.entities.Application;
+import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -55,10 +56,10 @@ public class ApplicationCell extends ListCell<Application> {
             setId("listApplicationCell");
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             setGraphic(rootElement);
-            this.applicationLogo.setImage(application.getLogo());
+            this.applicationLogo.setImage(new Image(application.getLogoPath()));
             this.labelApplicationName.setText(application.getName());
             this.labelShortDescription.setText(application.getShortDescription());
-            this.labelDeveloper.setText(application.getDeveloperFullName());
+            this.labelDeveloper.setText(application.getDeveloper().getFullName());
         }
     }
 }

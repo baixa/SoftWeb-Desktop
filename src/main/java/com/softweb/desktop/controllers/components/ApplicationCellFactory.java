@@ -1,6 +1,6 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.database.entities.Application;
+import com.softweb.desktop.database.entity.Application;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;

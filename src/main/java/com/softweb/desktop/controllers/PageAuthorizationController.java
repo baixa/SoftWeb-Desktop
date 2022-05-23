@@ -52,7 +52,7 @@ public class PageAuthorizationController implements Initializable {
         if(Authorization.authorize(tbLogin.textProperty().getValue(), tbMaskedPassword.textProperty().getValue())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Успешно");
-            alert.setHeaderText("Здравствуйте, " + Authorization.getCurrentUser()+"!");
+            alert.setHeaderText("Здравствуйте, " + Authorization.getCurrentUser().getFullName()+"!");
             alert.showAndWait();
 
             StageInitializer.navigate("/layout/PageApplicationsLayout");

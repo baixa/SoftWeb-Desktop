@@ -1,41 +1,40 @@
 package com.softweb.desktop.database;
 
 import com.softweb.desktop.database.entities.Application;
+import com.softweb.desktop.database.entity.Developer;
+import com.softweb.desktop.database.repositories.DeveloperRepository;
 import javafx.scene.image.Image;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@Component
 public class DBActivity {
 
     private Connection connection;
+
+    @Autowired
+    private DeveloperRepository developerRepository;
 
 
     public DBActivity() {
         this.connection = DBEntity.getConnection();
     }
 
-    public Map<String, String> getDevelopersUsernameAndPassword() {
-        Map<String, String> developers = new HashMap<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT Username, Password FROM developers")){
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String username = resultSet.getString(1);
-                String password = resultSet.getString(2);
-
-                developers.put(username, password);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public List<Developer> getDevelopers() {
+        List<Developer> developers = new ArrayList<>();
+        developerRepository.findAll().forEach(developers::add);
         return developers;
+    }
+
+    public Developer getDeveloperByUsername(String username) {
+        return developerRepository.findDeveloperByUsername(username);
     }
 
     public List<String> getDevelopersUsername() {

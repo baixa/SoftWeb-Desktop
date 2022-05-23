@@ -1,4 +1,4 @@
-package com.softweb.desktop.database.repository;
+package com.softweb.desktop.database.repositories;
 
 import com.softweb.desktop.database.entity.ApplicationImage;
 import org.springframework.data.repository.CrudRepository;
