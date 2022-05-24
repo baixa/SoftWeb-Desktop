@@ -1,83 +1,103 @@
 package com.softweb.desktop;
 
 import com.softweb.desktop.utils.ftp.FtpClient;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.mockftpserver.fake.FakeFtpServer;
-import org.mockftpserver.fake.UserAccount;
-import org.mockftpserver.fake.filesystem.DirectoryEntry;
-import org.mockftpserver.fake.filesystem.FileEntry;
-import org.mockftpserver.fake.filesystem.FileSystem;
-import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
+import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testng.Assert;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;
-import java.util.Objects;
 
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Integration test for FtpClient class
+ */
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FtpClientIntegrationTest {
-
-    private FakeFtpServer fakeFtpServer;
 
     private FtpClient ftpClient;
 
+    /**
+     * Setup ftp client and open connection
+     *
+     * @throws IOException
+     */
     public void setup() throws IOException {
-        fakeFtpServer = new FakeFtpServer();
-        fakeFtpServer.addUserAccount(new UserAccount("user", "password", "/data"));
-
-        FileSystem fileSystem = new UnixFakeFileSystem();
-        fileSystem.add(new DirectoryEntry("/data"));
-        fileSystem.add(new FileEntry("/data/foobar.txt", "abcdef 1234567890"));
-        fakeFtpServer.setFileSystem(fileSystem);
-        fakeFtpServer.setServerControlPort(0);
-
-        fakeFtpServer.start();
-
-        ftpClient = new FtpClient("localhost", fakeFtpServer.getServerControlPort(), "user", "password");
+        ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
         ftpClient.open();
     }
 
+    /**
+     * Close connection to FTP Server
+     *
+     * @throws IOException
+     */
     public void teardown() throws IOException {
         ftpClient.close();
-        fakeFtpServer.stop();
     }
 
+    /**
+     * Test of getting list of files from FTP Server
+     *
+     * @throws IOException
+     */
     @Test
-    public void givenRemoteFile_whenListingRemoteFiles_thenItIsContainedInList() throws IOException {
+    public void getFilesListFromFtpServer() throws IOException {
         setup();
         Collection<String> files = ftpClient.listFiles("/");
-        assertTrue((files).contains("data"));
+        assertTrue((files).contains("upload"));
         teardown();
     }
 
+    /**
+     * Test of uploading file to FTP Server
+     *
+     * @throws IOException
+     */
     @Test
-    public void givenRemoteFile_whenDownloading_thenItIsOnTheLocalFilesystem() throws IOException {
-        setup();
-        ftpClient.downloadFile("/list.txt", "downloaded_buz.txt");
-        assertTrue(new File("downloaded_buz.txt").exists());
-        new File("downloaded_buz.txt").delete(); // cleanup
-        teardown();
-    }
-
-    @Test
-    public void givenLocalFile_whenUploadingIt_thenItExistsOnRemoteLocation()
-            throws URISyntaxException, IOException {
+    public void dropFileOnFtpServer()
+            throws IOException {
 
         setup();
         File file = new File("D:/list.txt");
-        ftpClient.putFileToPath(file, "/list.txt");
-        assertTrue(fakeFtpServer.getFileSystem().exists("/list.txt"));
+        ftpClient.putFileToPath(file, "/upload/list.txt");
+        assertTrue(ftpClient.listFiles("/upload").contains("list.txt"));
         teardown();
     }
 
+    /**
+     * Test of downloading file from FTP Server
+     *
+     * @throws IOException
+     */
+    @Test
+    public void getFileFromFtpServer() throws IOException {
+        setup();
+        ftpClient.downloadFile("/upload/list.txt", "downloaded_list.txt");
+        assertTrue(new File("downloaded_list.txt").exists());
+        new File("downloaded_list.txt").delete(); // cleanup
+        teardown();
+    }
 
+    /**
+     * Test of delete file on FTP Server
+     *
+     * @throws IOException
+     */
+    @Test
+    public void removeFileFromFtpServer()
+            throws IOException {
+
+        setup();
+        ftpClient.deleteFile("/upload/list.txt");
+        assertFalse(ftpClient.listFiles("/upload").contains("list.txt"));
+        teardown();
+    }
 
 }

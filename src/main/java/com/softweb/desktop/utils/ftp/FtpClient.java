@@ -60,5 +60,9 @@ public class FtpClient {
         ftp.storeFile(path, new FileInputStream(file));
     }
 
+    public void deleteFile(String path) throws IOException {
+        ftp.deleteFile(path);
+    }
+
 
 }
