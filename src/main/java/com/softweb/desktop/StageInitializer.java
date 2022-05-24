@@ -1,6 +1,7 @@
 package com.softweb.desktop;
 
 import com.softweb.desktop.database.repositories.ApplicationRepository;
+import com.softweb.desktop.database.utils.ConnectionValidator;
 import com.softweb.desktop.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpLoader;
 import javafx.scene.Parent;
@@ -19,8 +20,6 @@ import java.io.IOException;
 @Component
 public class StageInitializer implements ApplicationListener<JavaFXMain.StageReadyEvent> {
 
-    @Value("classpath:/layout/test.fxml")
-    private static Resource rootResource;
     private static BorderPane rootElement;
     private String applicationTitle;
     private ApplicationContext applicationContext;
@@ -31,6 +30,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
         this.applicationTitle = applicationTitle;
         this.applicationContext = applicationContext;
         StageInitializer.dataService = dataService;
+        ConnectionValidator.isConnectionValid();
         FtpLoader.testUpLoadFromDisk();
     }
 
@@ -44,6 +44,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             FXMLLoader loader = new FXMLLoader(StageInitializer.class.getResource("/layout/RootLayout.fxml"));
             loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             rootElement = loader.load();
+            showDefaultContent();
 
             Stage stage = event.getStage();
             stage.setMinWidth(1200);
@@ -68,5 +69,9 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showDefaultContent() {
+        StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
     }
 }

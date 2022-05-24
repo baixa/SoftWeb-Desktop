@@ -55,7 +55,7 @@ public class PageAuthorizationController implements Initializable {
             alert.setHeaderText("Здравствуйте, " + Authorization.getCurrentUser().getFullName()+"!");
             alert.showAndWait();
 
-            StageInitializer.navigate("/layout/PageApplicationsLayout");
+            StageInitializer.navigate("/layout/PageUserApplicationsLayout");
         }
         else {
             Alert alert = new Alert(Alert.AlertType.WARNING);

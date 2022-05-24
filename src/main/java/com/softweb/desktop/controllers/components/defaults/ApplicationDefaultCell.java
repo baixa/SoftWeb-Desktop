@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.defaults;
 
 import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
-public class ApplicationCell extends ListCell<Application> {
+public class ApplicationDefaultCell extends ListCell<Application> {
     @FXML
     private ImageView applicationLogo;
 
@@ -28,13 +28,13 @@ public class ApplicationCell extends ListCell<Application> {
     @FXML
     private GridPane rootElement;
 
-    public ApplicationCell() {
+    public ApplicationDefaultCell() {
         loadFXML();
     }
 
     private void loadFXML(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ApplicationItemLayout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/DefaultApplicationItemLayout.fxml"));
             loader.setController(this);
             loader.load();
         }

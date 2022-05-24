@@ -8,19 +8,16 @@ import com.softweb.desktop.utils.algorithms.Encryptor;
 public class Authorization {
 
     private static Developer currentUser;
-    private static boolean isAuthorized = false;
+    private static boolean authorized = false;
     private static DeveloperRepository developerRepository;
 
 
     public static boolean authorize(String username, String password) {
-        if(isAuthorized)
+        if(authorized)
             return false;
 
         developerRepository = DataService.getDeveloperRepository();
-
         Developer developer = developerRepository.findByUsername(username).stream().findFirst().orElse(null);
-
-
 
         String hashedPassword = Encryptor.hashSHA(password);
 
@@ -28,9 +25,18 @@ public class Authorization {
             return false;
         else {
             currentUser = developer;
-            isAuthorized = true;
+            authorized = true;
             return true;
         }
+    }
+
+    public static void unauthorize() {
+        currentUser = null;
+        authorized = false;
+    }
+
+    public static boolean isAuthorized() {
+        return authorized;
     }
 
     public static Developer getCurrentUser() {

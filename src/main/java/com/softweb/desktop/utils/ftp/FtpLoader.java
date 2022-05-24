@@ -9,10 +9,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
+import com.softweb.desktop.database.utils.ConnectionValidator;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,17 +24,16 @@ public class FtpLoader {
     private static FTPClient ftpClient = new FTPClient();
     private static String encoding = System.getProperty("file.encoding");
 
-    @Value("${connections.ftp.username}")
-    private static String username;
+    private static final Logger logger = LoggerFactory.getLogger(
+            ConnectionValidator.class);
 
-    @Value("${connections.ftp.password}")
-    private static String password;
+    private static String username = "newftpuser";
 
-    @Value("${connections.ftp.url}")
-    private static String url;
+    private static String password = "ftp";
 
-    @Value("${connections.ftp.port}")
-    private static int port;
+    private static String url = "45.153.230.50";
+
+    private static int port = 21;
 
     /**
      * Описание: загрузка файлов на FTP-сервер
@@ -52,11 +54,8 @@ public class FtpLoader {
             int reply;
             ftpClient.connect(url, port);
             ftpClient.login(username, password);
-            ftpClient.enterLocalPassiveMode();
-            ftpClient.setControlEncoding(encoding);
             reply = ftpClient.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
-                System.out.println ("Ошибка подключения");
                 ftpClient.disconnect();
                 return result;
             }
@@ -65,9 +64,6 @@ public class FtpLoader {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             if (change) {
                 result = ftpClient.storeFile(new String(filename.getBytes(encoding), StandardCharsets.ISO_8859_1), input);
-                if (result) {
-                    System.out.println ("Загрузка успешно завершена!");
-                }
             }
             input.close();
             ftpClient.logout();
@@ -90,11 +86,15 @@ public class FtpLoader {
      */
     public static void testUpLoadFromDisk() {
         try {
+            logger.info("Check FTP upload connection");
             FileInputStream in = new FileInputStream("D:/list.txt");
             boolean flag = uploadFile("/", "lis.txt", in);
-            System.out.println(flag);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            if(flag)
+                logger.info("FTP upload testing success");
+            else
+                logger.warn("FTP upload testing failed");
+        } catch (Exception e) {
+            logger.error("FTP upload connection refused", e);
         }
     }
 
@@ -159,10 +159,15 @@ public class FtpLoader {
      */
     public static void testDownFile() {
         try {
+            logger.info("Check FTP download connection");
             boolean flag = downFile("/", "lis.txt", "D:/newfolder/");
             System.out.println(flag);
+            if(flag)
+                logger.info("FTP download testing success");
+            else
+                logger.warn("FTP download testing failed");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("FTP download connection refused", e);
         }
     }
 }

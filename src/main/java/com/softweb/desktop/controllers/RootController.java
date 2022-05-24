@@ -1,18 +1,19 @@
 package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
+import com.softweb.desktop.auth.Authorization;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.softweb.desktop.StageInitializer.showDefaultContent;
 
 @Component
 public class RootController implements Initializable {
@@ -41,12 +42,11 @@ public class RootController implements Initializable {
 
     public void btnBackClick(ActionEvent event) {
         rebuildButtons(false, false);
-        clearCenter();
+        Authorization.unauthorize();
+        showDefaultContent();
     }
 
-    private void clearCenter() {
-        StageInitializer.getRootElement().setCenter(null);
-    }
+
 
     private void rebuildButtons(boolean canGoBack, boolean isAuthorized) {
         btnBack.setVisible(canGoBack);
