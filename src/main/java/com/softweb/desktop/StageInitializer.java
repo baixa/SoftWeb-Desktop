@@ -1,9 +1,7 @@
 package com.softweb.desktop;
 
-import com.softweb.desktop.database.repositories.ApplicationRepository;
 import com.softweb.desktop.database.utils.ConnectionValidator;
 import com.softweb.desktop.services.DataService;
-import com.softweb.desktop.utils.ftp.FtpLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,7 +28,6 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
         this.applicationContext = applicationContext;
         StageInitializer.dataService = dataService;
         ConnectionValidator.isConnectionValid();
-        FtpLoader.testUpLoadFromDisk();
     }
 
     public static BorderPane getRootElement() {

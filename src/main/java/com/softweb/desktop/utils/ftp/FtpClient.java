@@ -1,6 +1,7 @@
 package com.softweb.desktop.utils.ftp;
 
 import org.apache.commons.net.PrintCommandListener;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
@@ -27,17 +28,16 @@ public class FtpClient {
 
     public void open() throws IOException {
         ftp = new FTPClient();
-
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
-
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
             throw new IOException("Exception in connecting to FTP Server");
         }
-
         ftp.login(user, password);
+
+        ftp.setFileType(FTP.BINARY_FILE_TYPE);
     }
 
     public void close() throws IOException {
@@ -52,12 +52,13 @@ public class FtpClient {
     }
 
     public void downloadFile(String source, String destination) throws IOException {
-        FileOutputStream out = new FileOutputStream(destination);
+        OutputStream out = new FileOutputStream(destination);
+        ftp.setFileType(FTP.BINARY_FILE_TYPE);
         ftp.retrieveFile(source, out);
     }
 
-    public void putFileToPath(File file, String path) throws IOException {
-        ftp.storeFile(path, new FileInputStream(file));
+    public void putFileToPath(InputStream inputStream, String path) throws IOException {
+        ftp.storeFile(path, inputStream);
     }
 
     public void deleteFile(String path) throws IOException {

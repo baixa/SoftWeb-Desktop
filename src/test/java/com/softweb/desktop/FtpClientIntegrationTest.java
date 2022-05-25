@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Collection;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Integration test for FtpClient class
+ * Integration test for FTPClient class
  */
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -59,15 +60,16 @@ public class FtpClientIntegrationTest {
      * Test of uploading file to FTP Server
      *
      * @throws IOException
+     * @throws URISyntaxException
      */
     @Test
     public void dropFileOnFtpServer()
-            throws IOException {
+            throws IOException, URISyntaxException {
 
         setup();
-        File file = new File("D:/list.txt");
-        ftpClient.putFileToPath(file, "/upload/list.txt");
-        assertTrue(ftpClient.listFiles("/upload").contains("list.txt"));
+        InputStream inputStream = this.getClass().getResourceAsStream("/images/logo.png");
+        ftpClient.putFileToPath(inputStream, "/upload/logo.png");
+        assertTrue(ftpClient.listFiles("/upload").contains("logo.png"));
         teardown();
     }
 
@@ -79,9 +81,8 @@ public class FtpClientIntegrationTest {
     @Test
     public void getFileFromFtpServer() throws IOException {
         setup();
-        ftpClient.downloadFile("/upload/list.txt", "downloaded_list.txt");
-        assertTrue(new File("downloaded_list.txt").exists());
-        new File("downloaded_list.txt").delete(); // cleanup
+        ftpClient.downloadFile("/upload/logo.png", "downloaded_logo.png");
+        assertTrue(new File("downloaded_logo.png").exists());
         teardown();
     }
 
@@ -95,8 +96,8 @@ public class FtpClientIntegrationTest {
             throws IOException {
 
         setup();
-        ftpClient.deleteFile("/upload/list.txt");
-        assertFalse(ftpClient.listFiles("/upload").contains("list.txt"));
+        ftpClient.deleteFile("/upload/logo.png");
+        assertFalse(ftpClient.listFiles("/upload").contains("logo.png"));
         teardown();
     }
 
