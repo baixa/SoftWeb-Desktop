@@ -11,18 +11,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class ApplicationsSystems {
     @EmbeddedId
     private ApplicationsSystemsKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("applicationId")
     @JoinColumn(name = "application_id")
     private Application application;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("systemId")
     @JoinColumn(name = "system_id")
     private OperationSystem system;
@@ -45,5 +44,16 @@ public class ApplicationsSystems {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationsSystems{" +
+                "id=" + id +
+                ", application=" + application.getId() +
+                ", system=" + system.getName() +
+                ", installerPath='" + installerPath + '\'' +
+                ", version='" + version + '\'' +
+                '}';
     }
 }

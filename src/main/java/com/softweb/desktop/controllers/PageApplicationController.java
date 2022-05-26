@@ -1,7 +1,6 @@
 package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
-import com.softweb.desktop.controllers.components.user.ApplicationUserCell;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.repositories.ApplicationRepository;

@@ -25,11 +25,11 @@
             </Label>
             <AnchorPane maxWidth="250.0" minWidth="250.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="78.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <ImageView fitHeight="78.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="0.0">
                      <image>
                         <Image url="@../images/logo.png" />
                      </image></ImageView>
-                  <Label text="SoftWeb" textFill="#075d5b" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                  <Label text="SoftWeb" textFill="#075d5b" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="Segoe UI Bold" size="30.0" />
                      </font>
@@ -39,7 +39,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <VBox alignment="CENTER" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+            <VBox alignment="CENTER" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
                <children>
                   <Button id="btnBack" fx:id="btnBack" mnemonicParsing="false" onAction="#btnBackClick" text="Назад">
                      <VBox.margin>

@@ -1,8 +1,14 @@
 package com.softweb.desktop.controllers.components.defaults;
 
+import com.softweb.desktop.StageInitializer;
+import com.softweb.desktop.controllers.ApplicationController;
 import com.softweb.desktop.database.entity.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -27,6 +33,11 @@ public class ApplicationDefaultCell extends ListCell<Application> {
 
     @FXML
     private GridPane rootElement;
+
+    @FXML
+    private Button btnOpen;
+
+    private Application application;
 
     public ApplicationDefaultCell() {
         loadFXML();
@@ -60,6 +71,17 @@ public class ApplicationDefaultCell extends ListCell<Application> {
             this.labelApplicationName.setText(application.getName());
             this.labelShortDescription.setText(application.getShortDescription());
             this.labelDeveloper.setText(application.getDeveloper().getFullName());
+            this.application = application;
         }
+
+        btnOpen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
+                if (controller instanceof ApplicationController) {
+                    ((ApplicationController) controller).setApplication(application);
+                }
+            }
+        });
     }
 }

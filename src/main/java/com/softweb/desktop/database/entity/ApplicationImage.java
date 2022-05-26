@@ -4,15 +4,16 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Objects;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "applications_images")
 @AllArgsConstructor
+@Transactional
 public class ApplicationImage {
 
     @Id
@@ -35,5 +36,13 @@ public class ApplicationImage {
     @Override
     public int hashCode() {
         return 2093808656;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationImage{" +
+                "path='" + path + '\'' +
+                ", application=" + application.getId() +
+                '}';
     }
 }

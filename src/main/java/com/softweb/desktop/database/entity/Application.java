@@ -4,14 +4,11 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "applications")
@@ -43,13 +40,13 @@ public class Application{
     @JoinColumn(name = "Developer_ID")
     private Developer developer;
 
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<ApplicationImage> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<ApplicationsSystems> applicationsSystems;
+    private Set<ApplicationsSystems> applicationsSystems;
 
     @Override
     public boolean equals(Object o) {
@@ -63,5 +60,31 @@ public class Application{
     @Override
     public int hashCode() {
         return 85634910;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
+                ", logoPath='" + logoPath + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                ", license='" + license + '\'' +
+                ", developer=" + developer.getUsername() +
+                ", images=" + images.stream().map(ApplicationImage::getPath).collect(Collectors.joining(",", "{", "}")) +
+                ", applicationsSystems{" + getApplicationSystemString() +
+                "}}";
+    }
+
+    private String getApplicationSystemString() {
+        StringBuilder result = new StringBuilder();
+        applicationsSystems.forEach(applicationSystem -> result.append("{")
+                                                                .append(applicationSystem.getApplication())
+                                                                .append(", ")
+                                                                .append(applicationSystem.getSystem())
+                                                                .append("}"));
+        return result.toString();
     }
 }

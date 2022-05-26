@@ -2,6 +2,7 @@ package com.softweb.desktop;
 
 import com.softweb.desktop.database.utils.ConnectionValidator;
 import com.softweb.desktop.services.DataService;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -54,17 +55,16 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
         }
     }
 
-    public static Parent loadFXML(String path) throws IOException {
+    public static Initializable navigate(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource(path + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public static void navigate(String path) {
         try {
-            getRootElement().setCenter(loadFXML(path));
+            Parent loaded = fxmlLoader.load();
+            getRootElement().setCenter(loaded);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return fxmlLoader.getController();
     }
 
     public static void showDefaultContent() {

@@ -18,14 +18,14 @@
     <bottom>
         <AnchorPane maxHeight="73.0" minHeight="73.0" prefHeight="73.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#btnHelpClick" text="Установить" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                <Button fx:id="btnInstall" mnemonicParsing="false" onAction="#btnInstallClick" text="Установить" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
             </children>
         </AnchorPane>
     </bottom>
    <top>
       <AnchorPane maxHeight="100.0" minHeight="100.0" prefHeight="120.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="13.0">
+            <ImageView fx:id="ivLogo" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="13.0">
                <image>
                   <Image url="@../images/logo.png" />
                </image>
@@ -66,17 +66,32 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="tbDateUpdate" text="&lt;Дата&gt;" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0">
+            <Label fx:id="tbDateUpdate" maxHeight="25.0" minHeight="25.0" text="&lt;Дата&gt;" textFill="#054a48" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="tbLicense" maxHeight="25.0" minHeight="25.0" text="&lt;Лицензия&gt;" textFill="#054a48" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font name="Segoe UI Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="tbLicense" text="&lt;Лицензия&gt;" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="100.0">
-               <font>
-                  <Font name="Segoe UI Bold" size="16.0" />
-               </font>
-            </Label>
-            <HBox fx:id="hbOperationSystems" maxHeight="35.0" maxWidth="150.0" minHeight="35.0" minWidth="150.0" prefHeight="100.0" prefWidth="150.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="145.0" />
+            <HBox fx:id="hbOperationSystems" maxHeight="35.0" maxWidth="150.0" minHeight="35.0" minWidth="150.0" prefHeight="100.0" prefWidth="150.0" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="145.0">
+               <children>
+                  <ImageView fx:id="ivWindows" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/windows.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="ivLinux" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/linux.png" />
+                     </image>
+                  </ImageView>
+               </children></HBox>
          </children>
          <BorderPane.margin>
             <Insets right="20.0" top="20.0" />
@@ -87,18 +102,18 @@
       </AnchorPane>
    </right>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" style="-fx-background-color: none; -fx-border-color: none;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="30.0" right="20.0" />
          </BorderPane.margin>
          <children>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #fff;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="spImages" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane fx:id="apImages" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <HBox fx:id="hbImages" alignment="CENTER" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="200.0">
+                        <HBox fx:id="hbImages" alignment="CENTER" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="676.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivFirstImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -106,7 +121,7 @@
                                     <Image url="@../images/logo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivSecondImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -114,7 +129,7 @@
                                     <Image url="@../images/logo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivThirdImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
