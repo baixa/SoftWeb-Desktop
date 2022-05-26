@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers;
 
+import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
 import com.softweb.desktop.controllers.components.user.ApplicationUserCell;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.Developer;
@@ -36,6 +37,9 @@ public class PageApplicationController implements Initializable {
     public Button btnClear;
 
     @FXML
+    public Button btnHelp;
+
+    @FXML
     private ComboBox<String> comboDeveloper;
 
     @FXML
@@ -65,7 +69,7 @@ public class PageApplicationController implements Initializable {
         ObservableList<Application> applicationObservableList = FXCollections.observableArrayList();
         applicationObservableList.addAll(applications);
         listApplications.setItems(applicationObservableList);
-        listApplications.setCellFactory(applicationListView -> new ApplicationUserCell());
+        listApplications.setCellFactory(applicationListView -> new ApplicationDefaultCell());
     }
 
     public void btnFilterClick(ActionEvent actionEvent) {
@@ -93,5 +97,8 @@ public class PageApplicationController implements Initializable {
         comboDeveloper.valueProperty().setValue(null);
 
         renderApplicationList(applications);
+    }
+
+    public void btnHelpClick(ActionEvent actionEvent) {
     }
 }

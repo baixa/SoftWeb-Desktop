@@ -57,8 +57,7 @@
    <bottom>
       <AnchorPane maxHeight="73.0" minHeight="73.0" prefHeight="73.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Добавить" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
-            <Button mnemonicParsing="false" text="Удалить" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+            <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#btnHelpClick" text="Помощь" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
          </children>
       </AnchorPane>
    </bottom>

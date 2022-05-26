@@ -1,0 +1,7 @@
+#details {
+    /*-fx-effect: dropshadow(three-pass-box, #bebebe, 25, 0.01, 5, 5);*/
+}
+
+#tbFullDescription {
+    -fx-background-color: none;
+}
