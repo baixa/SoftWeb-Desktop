@@ -27,8 +27,8 @@
             <Image url="@../images/default.png" />
          </image>
       </ImageView>
-      <Button alignment="CENTER" mnemonicParsing="false" text="Редактировать" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <Button alignment="CENTER" mnemonicParsing="false" text="Удалить" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="btnEdit" alignment="CENTER" mnemonicParsing="false" text="Редактировать" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="btnRemove" alignment="CENTER" mnemonicParsing="false" text="Удалить" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <Label fx:id="labelApplicationName" text="Название" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font name="Segoe UI Bold" size="30.0" />
