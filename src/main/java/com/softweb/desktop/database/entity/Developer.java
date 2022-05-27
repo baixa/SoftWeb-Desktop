@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,9 +37,9 @@ public class Developer {
     @Column(name = "is_Admin")
     private boolean isAdmin;
 
-    @OneToMany(mappedBy = "developer")
+    @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<Application> applications = new ArrayList<>();
+    private Set<Application> applications;
 
     @Override
     public boolean equals(Object o) {

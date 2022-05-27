@@ -48,7 +48,7 @@ public class RootController implements Initializable {
 
 
 
-    private void rebuildButtons(boolean canGoBack, boolean isAuthorized) {
+    public void rebuildButtons(boolean canGoBack, boolean isAuthorized) {
         btnBack.setVisible(canGoBack);
         btnLogin.setVisible(!isAuthorized);
 

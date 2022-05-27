@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers;
 
+import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +16,11 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ApplicationController implements Initializable {
 
@@ -77,7 +81,6 @@ public class ApplicationController implements Initializable {
     private Application application;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hbImages.getChildren().stream().forEach(child -> ((ImageView) child).hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
@@ -89,10 +92,12 @@ public class ApplicationController implements Initializable {
                 imageTip.setMaxWidth(imageTip.getMaxHeight() * imageTip.getPrefWidth() / imageTip.getPrefHeight());
                 imageTip.setStyle("-fx-background-image: url(" + ((ImageView) child).getImage().getUrl() + ");" +
                         "-fx-background-repeat: stretch; " +
-                        "-fx-background-size: stretch;");
+                        "-fx-background-size: stretch; ");
+
                 Tooltip.install(child, imageTip);
             }
         })));
+        StageInitializer.getRootController().rebuildButtons(true, false);
     }
 
     public void btnInstallClick(ActionEvent event) {
@@ -117,7 +122,7 @@ public class ApplicationController implements Initializable {
         this.tbDateUpdate.setText(dateFormat.format(application.getLastUpdate()));
         this.tbLicense.setText(application.getLicense());
         this.ivLogo.setImage(new Image(application.getLogoPath()));
-        List<ApplicationImage> imageList = application.getImages();
+        List<ApplicationImage> imageList = new ArrayList<>(application.getImages());
         ivFirstImage.setImage(new Image(imageList.get(0).getPath()));
         ivSecondImage.setImage(new Image(imageList.get(1).getPath()));
         ivThirdImage.setImage(new Image(imageList.get(2).getPath()));

@@ -113,7 +113,7 @@
                      <children>
                         <HBox fx:id="hbImages" alignment="CENTER" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="676.0">
                            <children>
-                              <ImageView fx:id="ivFirstImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivFirstImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="appImages">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -121,7 +121,7 @@
                                     <Image url="@../images/logo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="ivSecondImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivSecondImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="appImages">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>
@@ -129,7 +129,7 @@
                                     <Image url="@../images/logo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="ivThirdImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ivThirdImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="appImages">
                                  <HBox.margin>
                                     <Insets right="20.0" />
                                  </HBox.margin>

@@ -6,3 +6,12 @@
     -fx-border-color: none;
     -fx-background-color: none;
 }
+
+.appImages {
+    -fx-padding: 5;
+    -fx-border-color: #000;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+}

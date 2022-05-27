@@ -1,16 +1,14 @@
 package com.softweb.desktop.controllers.components.user;
 
 import com.softweb.desktop.StageInitializer;
+import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.services.DataService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -77,7 +75,18 @@ public class ApplicationUserCell extends ListCell<Application> {
 
         btnRemove.setOnAction(event -> {
             if(application != null) {
-                DataService.getApplicationRepository().deleteById(application.getId());
+                Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.YES, ButtonType.NO);
+                alert.setTitle("Внимание!");
+                alert.setHeaderText("Вы уверены, что хотите удалить приложение: " + application.getName() + "? \nОтменить действие будет невозможно!");
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.YES) {
+                        DataService.getApplicationRepository().deleteById(application.getId());
+                        Alert removeAlert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
+                        removeAlert.setTitle("Успешно!");
+                        removeAlert.setHeaderText("Приложение удалено!");
+                        removeAlert.show();
+                    }
+                });
                 StageInitializer.navigate("/layout/PageUserApplicationsLayout");
             }
         });

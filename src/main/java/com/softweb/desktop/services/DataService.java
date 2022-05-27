@@ -1,9 +1,9 @@
 package com.softweb.desktop.services;
 
+import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.repositories.ApplicationRepository;
 import com.softweb.desktop.database.repositories.DeveloperRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class DataService {
@@ -23,4 +23,6 @@ public class DataService {
     public static ApplicationRepository getApplicationRepository() {
         return applicationRepository;
     }
+
+
 }

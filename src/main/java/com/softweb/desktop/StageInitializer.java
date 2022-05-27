@@ -1,5 +1,6 @@
 package com.softweb.desktop;
 
+import com.softweb.desktop.controllers.RootController;
 import com.softweb.desktop.database.utils.ConnectionValidator;
 import com.softweb.desktop.services.DataService;
 import javafx.fxml.Initializable;
@@ -19,9 +20,11 @@ import java.io.IOException;
 public class StageInitializer implements ApplicationListener<JavaFXMain.StageReadyEvent> {
 
     private static BorderPane rootElement;
-    private String applicationTitle;
-    private ApplicationContext applicationContext;
+    private static RootController rootController;
 
+    private String applicationTitle;
+
+    private ApplicationContext applicationContext;
     public static DataService dataService;
 
     public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, ApplicationContext applicationContext, DataService dataService) {
@@ -41,6 +44,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             FXMLLoader loader = new FXMLLoader(StageInitializer.class.getResource("/layout/RootLayout.fxml"));
             loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             rootElement = loader.load();
+            rootController = loader.getController();
             showDefaultContent();
 
             Stage stage = event.getStage();
@@ -69,5 +73,9 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     public static void showDefaultContent() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
+    }
+
+    public static RootController getRootController() {
+        return rootController;
     }
 }

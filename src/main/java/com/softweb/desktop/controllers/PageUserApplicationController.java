@@ -63,7 +63,7 @@ public class PageUserApplicationController implements Initializable {
         ObservableList<Application> applicationObservableList = FXCollections.observableArrayList();
         applicationObservableList.addAll(applications);
         listApplications.setItems(applicationObservableList);
-        listApplications.setCellFactory(applicationListView -> new ApplicationDefaultCell());
+        listApplications.setCellFactory(applicationListView -> new ApplicationUserCell());
     }
 
     public void btnFilterClick(ActionEvent actionEvent) {

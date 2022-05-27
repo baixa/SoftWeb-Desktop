@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +25,7 @@ public class OperationSystem {
 
     @OneToMany(mappedBy = "system")
     @ToString.Exclude
-    private List<ApplicationsSystems> applicationsSystems;
+    private Set<ApplicationsSystems> applicationsSystems;
 
     @Override
     public boolean equals(Object o) {

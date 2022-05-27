@@ -1,4 +1,13 @@
 package com.softweb.desktop.controllers;
 
-public class ApplicationEditController {
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ApplicationEditController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

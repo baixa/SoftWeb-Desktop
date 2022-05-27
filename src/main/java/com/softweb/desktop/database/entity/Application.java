@@ -42,7 +42,7 @@ public class Application{
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<ApplicationImage> images = new ArrayList<>();
+    private Set<ApplicationImage> images;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     @ToString.Exclude
