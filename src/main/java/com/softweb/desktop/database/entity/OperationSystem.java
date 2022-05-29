@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "operation_systems")
@@ -23,21 +22,14 @@ public class OperationSystem {
     @Column(name = "Name")
     private String name;
 
-    @OneToMany(mappedBy = "system")
-    @ToString.Exclude
+    @OneToMany(mappedBy = "system", fetch = FetchType.EAGER)
     private Set<ApplicationsSystems> applicationsSystems;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        OperationSystem that = (OperationSystem) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 590684655;
+    public String toString() {
+        return "OperationSystem{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

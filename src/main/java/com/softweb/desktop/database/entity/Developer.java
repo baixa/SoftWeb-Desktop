@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "developers")
@@ -37,21 +36,17 @@ public class Developer {
     @Column(name = "is_Admin")
     private boolean isAdmin;
 
-    @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
-    @ToString.Exclude
-    private Set<Application> applications;
+    @OneToMany(mappedBy = "developer")
+    private List<Application> applications;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Developer developer = (Developer) o;
-
-        return Objects.equals(id, developer.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 1551116209;
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
+                '}';
     }
 }

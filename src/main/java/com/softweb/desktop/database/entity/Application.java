@@ -1,11 +1,9 @@
 package com.softweb.desktop.database.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -41,26 +39,10 @@ public class Application{
     private Developer developer;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
-    @ToString.Exclude
-    private Set<ApplicationImage> images;
+    private List<ApplicationImage> images;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
-    @ToString.Exclude
     private Set<ApplicationsSystems> applicationsSystems;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Application that = (Application) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 85634910;
-    }
 
     @Override
     public String toString() {
@@ -72,19 +54,7 @@ public class Application{
                 ", logoPath='" + logoPath + '\'' +
                 ", lastUpdate=" + lastUpdate +
                 ", license='" + license + '\'' +
-                ", developer=" + developer.getUsername() +
-                ", images=" + images.stream().map(ApplicationImage::getPath).collect(Collectors.joining(",", "{", "}")) +
-                ", applicationsSystems{" + getApplicationSystemString() +
-                "}}";
-    }
-
-    private String getApplicationSystemString() {
-        StringBuilder result = new StringBuilder();
-        applicationsSystems.forEach(applicationSystem -> result.append("{")
-                                                                .append(applicationSystem.getApplication())
-                                                                .append(", ")
-                                                                .append(applicationSystem.getSystem())
-                                                                .append("}"));
-        return result.toString();
+                ", developer=" + developer +
+                '}';
     }
 }

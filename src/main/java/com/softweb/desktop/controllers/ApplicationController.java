@@ -83,7 +83,7 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        hbImages.getChildren().stream().forEach(child -> ((ImageView) child).hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
+        hbImages.getChildren().forEach(child -> child.hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue) {
                 Tooltip imageTip = new Tooltip();
                 imageTip.setPrefHeight(((ImageView) child).getImage().getHeight());
@@ -128,14 +128,14 @@ public class ApplicationController implements Initializable {
         ivThirdImage.setImage(new Image(imageList.get(2).getPath()));
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
-        for (ApplicationsSystems applicationSystem :
-                application.getApplicationsSystems()) {
-            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
-                ivWindows.setVisible(true);
-            }
-            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
-                ivLinux.setVisible(true);
-            }
-        }
+//        for (ApplicationsSystems applicationSystem :
+//                application.getApplicationsSystems()) {
+//            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
+//                ivWindows.setVisible(true);
+//            }
+//            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
+//                ivLinux.setVisible(true);
+//            }
+//        }
     }
 }

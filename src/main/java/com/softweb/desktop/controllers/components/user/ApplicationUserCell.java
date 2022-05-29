@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -55,6 +56,7 @@ public class ApplicationUserCell extends ListCell<Application> {
     }
 
     @Override
+    @Transactional
     protected void updateItem(Application application, boolean b) {
         super.updateItem(application, b);
         setId(null);
