@@ -1,10 +1,8 @@
 package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
-import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.entity.Developer;
-import com.softweb.desktop.database.repositories.ApplicationRepository;
-import com.softweb.desktop.database.repositories.DeveloperRepository;
+import com.softweb.desktop.database.entity.*;
+import com.softweb.desktop.database.repositories.*;
 import com.softweb.desktop.services.DataService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -62,6 +60,23 @@ public class PageApplicationController implements Initializable {
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
 
         renderApplicationList(applications);
+        checkRepositories();
+    }
+
+    private void checkRepositories() {
+        OperationSystemRepository operationSystemRepository = DataService.getOperationSystemRepository();
+        List<OperationSystem> operationSystems = new ArrayList<>();
+        operationSystemRepository.findAll().forEach(operationSystems::add);
+
+        ApplicationImageRepository applicationImageRepository = DataService.getApplicationImageRepository();
+        List<ApplicationImage> applicationImages = new ArrayList<>();
+        applicationImageRepository.findAll().forEach(applicationImages::add);
+
+        ApplicationSystemsRepository applicationSystemsRepository = DataService.getApplicationSystemsRepository();
+        List<ApplicationsSystems> applicationsSystems = new ArrayList<>();
+        applicationSystemsRepository.findAll().forEach(applicationsSystems::add);
+
+        System.out.println(1);
     }
 
     private void renderApplicationList(List<Application> applications) {

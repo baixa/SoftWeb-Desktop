@@ -12,10 +12,4 @@ import java.util.List;
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application,Long> {
     List<Application> findByDeveloper(Developer developer);
-
-    void deleteById(Long id);
-
-    @Modifying
-    @Query("update Application app set app.name = ?2, app.shortDescription = ?3, app.description = ?4 WHERE app.id = ?1")
-    void updateApplication(Long id, String name, String shortDescription, String description);
 }

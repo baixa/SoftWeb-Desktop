@@ -11,7 +11,6 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ApplicationsSystemsKey implements Serializable {
@@ -22,19 +21,23 @@ public class ApplicationsSystemsKey implements Serializable {
     private Long systemId;
 
     @Override
+    public String toString() {
+        return "ApplicationsSystemsKey{" +
+                "applicationId=" + applicationId +
+                ", systemId=" + systemId +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         ApplicationsSystemsKey that = (ApplicationsSystemsKey) o;
-
-        if (!Objects.equals(applicationId, that.applicationId)) return false;
-        return Objects.equals(systemId, that.systemId);
+        return applicationId.equals(that.applicationId) && systemId.equals(that.systemId);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(applicationId);
-        result = 31 * result + (Objects.hashCode(systemId));
-        return result;
+        return Objects.hash(applicationId, systemId);
     }
 }
