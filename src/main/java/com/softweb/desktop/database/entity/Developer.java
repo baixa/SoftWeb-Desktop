@@ -36,8 +36,8 @@ public class Developer {
     @Column(name = "is_Admin")
     private boolean isAdmin;
 
-    @OneToMany(mappedBy = "developer")
-    private List<Application> applications;
+    @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
+    private Set<Application> applications;
 
     @Override
     public String toString() {

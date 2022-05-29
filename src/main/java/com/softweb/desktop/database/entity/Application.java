@@ -39,7 +39,7 @@ public class Application{
     private Developer developer;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
-    private List<ApplicationImage> images;
+    private Set<ApplicationImage> images;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     private Set<ApplicationsSystems> applicationsSystems;
