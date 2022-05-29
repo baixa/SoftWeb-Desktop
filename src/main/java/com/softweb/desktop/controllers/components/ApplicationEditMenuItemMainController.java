@@ -1,6 +1,8 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
+import com.softweb.desktop.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -44,6 +46,9 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         this.application.setName(tbAppName.textProperty().getValue());
         this.application.setShortDescription(tbShortDescription.textProperty().getValue());
         this.application.setDescription(tbDescription.textProperty().getValue());
+
+        DataService.updateApplication(application);
+        StageInitializer.navigate("layout/PageUserApplicationsLayout");
     }
 
     public void refreshContent() {

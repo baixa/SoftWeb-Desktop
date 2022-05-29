@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application,Long> {
     List<Application> findByDeveloper(Developer developer);
+
     void deleteById(Long id);
 
     @Modifying
