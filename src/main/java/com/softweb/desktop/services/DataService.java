@@ -25,7 +25,7 @@ public class DataService {
     }
 
     public static void updateApplication (Application application) {
-        applicationRepository.updateApplication(application.getId(), application.getName(), application.getShortDescription(), application.getDescription());
+        applicationRepository.save(application);
     }
 
 }

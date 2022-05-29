@@ -86,7 +86,7 @@ public class ApplicationUserCell extends ListCell<Application> {
                 alert.setHeaderText("Вы уверены, что хотите удалить приложение: " + application.getName() + "? \nОтменить действие будет невозможно!");
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.YES) {
-                        DataService.getApplicationRepository().deleteById(application.getId());
+                        DataService.getApplicationRepository().delete(application);
                         Alert removeAlert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
                         removeAlert.setTitle("Успешно!");
                         removeAlert.setHeaderText("Приложение удалено!");

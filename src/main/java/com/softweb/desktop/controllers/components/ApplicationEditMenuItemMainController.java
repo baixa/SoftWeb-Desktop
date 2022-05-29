@@ -48,7 +48,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         this.application.setDescription(tbDescription.textProperty().getValue());
 
         DataService.updateApplication(application);
-        StageInitializer.navigate("layout/PageUserApplicationsLayout");
+        StageInitializer.navigate("/layout/PageUserApplicationsLayout");
     }
 
     public void refreshContent() {
