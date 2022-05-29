@@ -60,23 +60,6 @@ public class PageApplicationController implements Initializable {
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
 
         renderApplicationList(applications);
-        checkRepositories();
-    }
-
-    private void checkRepositories() {
-        OperationSystemRepository operationSystemRepository = DataService.getOperationSystemRepository();
-        List<OperationSystem> operationSystems = new ArrayList<>();
-        operationSystemRepository.findAll().forEach(operationSystems::add);
-
-        ApplicationImageRepository applicationImageRepository = DataService.getApplicationImageRepository();
-        List<ApplicationImage> applicationImages = new ArrayList<>();
-        applicationImageRepository.findAll().forEach(applicationImages::add);
-
-        ApplicationSystemsRepository applicationSystemsRepository = DataService.getApplicationSystemsRepository();
-        List<ApplicationsSystems> applicationsSystems = new ArrayList<>();
-        applicationSystemsRepository.findAll().forEach(applicationsSystems::add);
-
-        System.out.println(1);
     }
 
     private void renderApplicationList(List<Application> applications) {
