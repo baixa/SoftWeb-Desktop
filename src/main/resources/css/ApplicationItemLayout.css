@@ -33,3 +33,9 @@
 #rootElement:hover {
     -fx-background-color: #0e842044;
 }
+.inputBorder {
+    -fx-border-color: #075d5b;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: none;
+}

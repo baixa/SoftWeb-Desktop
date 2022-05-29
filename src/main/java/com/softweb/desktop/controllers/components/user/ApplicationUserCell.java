@@ -2,12 +2,14 @@ package com.softweb.desktop.controllers.components.user;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
+import com.softweb.desktop.controllers.ApplicationEditController;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.services.DataService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -71,7 +73,11 @@ public class ApplicationUserCell extends ListCell<Application> {
             this.labelDeveloper.setText(application.getDeveloper().getFullName());
         }
 
-        btnEdit.setOnAction(event -> StageInitializer.navigate("/layout/PageApplicationEdit"));
+        btnEdit.setOnAction(actionEvent -> {
+            Initializable controller = StageInitializer.navigate("/layout/PageApplicationEdit");
+            ((ApplicationEditController) controller).setApplication(application);
+            ((ApplicationEditController) controller).generatePage();
+        });
 
         btnRemove.setOnAction(event -> {
             if(application != null) {
