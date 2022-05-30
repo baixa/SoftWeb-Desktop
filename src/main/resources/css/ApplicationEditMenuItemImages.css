@@ -1,0 +1,25 @@
+.images-container {
+    -fx-border-color: #075d5b;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.add-image-label {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-text-fill: #075d5b;
+}
+
+.drug-and-drop-container {
+    -fx-border-color: #075d5b;
+    -fx-border-width: 2;
+    -fx-border-style: segments(10, 15, 15, 15)  line-cap round ;
+    -fx-background-color: #0e842011;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.drug-and-drop-container:hover {
+    -fx-background-color: #0e842044;
+}
