@@ -38,7 +38,7 @@
                <font>
                   <Font size="14.0" />
                </font></TextField>
-                <TextArea fx:id="tbDescription" prefHeight="80.0" prefWidth="200.0" styleClass="inputBorder" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <TextArea fx:id="tbDescription" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: none;" styleClass="inputBorder" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

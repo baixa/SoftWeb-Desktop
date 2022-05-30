@@ -39,3 +39,10 @@
     -fx-background-radius: 10;
     -fx-background-color: none;
 }
+.text-area {
+    -fx-background-color: none;
+}
+
+.text-area .content {
+    -fx-background-color: none;
+}
