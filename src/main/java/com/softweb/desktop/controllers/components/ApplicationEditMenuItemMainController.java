@@ -26,35 +26,26 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     @FXML
     public ImageView ivLogo;
 
-    private Application application;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public Application getApplication() {
-        return application;
-    }
-
-    public void setApplication(Application application) {
-        this.application = application;
-    }
-
     @Override
     public void save() {
-        this.application.setName(tbAppName.textProperty().getValue());
-        this.application.setShortDescription(tbShortDescription.textProperty().getValue());
-        this.application.setDescription(tbDescription.textProperty().getValue());
+        getApplication().setName(tbAppName.textProperty().getValue());
+        getApplication().setShortDescription(tbShortDescription.textProperty().getValue());
+        getApplication().setDescription(tbDescription.textProperty().getValue());
 
-        DataService.updateApplication(application);
+        DataService.updateApplication(getApplication());
         StageInitializer.navigate("/layout/PageUserApplicationsLayout");
     }
 
+    @Override
     public void refreshContent() {
-        this.tbAppName.textProperty().setValue(application.getName());
-        this.tbShortDescription.textProperty().setValue(application.getShortDescription());
-        this.tbDescription.textProperty().setValue(application.getDescription());
-        this.ivLogo.setImage(new Image(application.getLogoPath()));
+        this.tbAppName.textProperty().setValue(getApplication().getName());
+        this.tbShortDescription.textProperty().setValue(getApplication().getShortDescription());
+        this.tbDescription.textProperty().setValue(getApplication().getDescription());
+        this.ivLogo.setImage(new Image(getApplication().getLogoPath()));
     }
 }

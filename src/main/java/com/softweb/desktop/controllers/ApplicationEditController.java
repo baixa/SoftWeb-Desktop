@@ -45,8 +45,8 @@ public class ApplicationEditController implements Initializable {
     }
 
     public void generatePage() {
-        ((ApplicationEditMenuItemMainController)currentItemController).setApplication(application);
-        ((ApplicationEditMenuItemMainController)currentItemController).refreshContent();
+        ((ApplicationEditMenuItem)currentItemController).setApplication(application);
+        ((ApplicationEditMenuItem)currentItemController).refreshContent();
     }
 
     public void save() {

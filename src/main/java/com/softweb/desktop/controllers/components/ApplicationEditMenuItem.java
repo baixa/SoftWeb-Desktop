@@ -13,5 +13,7 @@ public abstract class ApplicationEditMenuItem {
         this.application = application;
     }
 
+    public abstract void refreshContent();
+
     public abstract void save();
 }

@@ -128,14 +128,14 @@ public class ApplicationController implements Initializable {
         ivThirdImage.setImage(new Image(imageList.get(2).getPath()));
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
-//        for (ApplicationsSystems applicationSystem :
-//                application.getApplicationsSystems()) {
-//            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
-//                ivWindows.setVisible(true);
-//            }
-//            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
-//                ivLinux.setVisible(true);
-//            }
-//        }
+        for (ApplicationsSystems applicationSystem :
+                application.getApplicationsSystems()) {
+            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
+                ivWindows.setVisible(true);
+            }
+            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
+                ivLinux.setVisible(true);
+            }
+        }
     }
 }
