@@ -2,13 +2,11 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.components.ApplicationEditMenuItem;
-import com.softweb.desktop.controllers.components.ApplicationEditMenuItemMainController;
 import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -26,7 +24,7 @@ public class ApplicationEditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemInstaller.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemAdditional.fxml"));
         try {
             Parent loaded = fxmlLoader.load();
             rootElement.setCenter(loaded);
@@ -51,6 +49,6 @@ public class ApplicationEditController implements Initializable {
 
     public void save() {
         if(currentItemController instanceof ApplicationEditMenuItem)
-            ((ApplicationEditMenuItem) currentItemController).save();
+            ((ApplicationEditMenuItem) currentItemController).saveEdits();
     }
 }

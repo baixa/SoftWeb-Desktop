@@ -31,8 +31,9 @@ public class Application{
     @Column(name = "Last_Update")
     private Date lastUpdate;
 
-    @Column(name = "License")
-    private String license;
+    @ManyToOne
+    @JoinColumn(name = "License")
+    private License license;
 
     @ManyToOne
     @JoinColumn(name = "Developer_ID")

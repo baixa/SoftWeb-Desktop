@@ -32,13 +32,12 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     @Override
-    public void save() {
+    public void saveEdits() {
         getApplication().setName(tbAppName.textProperty().getValue());
         getApplication().setShortDescription(tbShortDescription.textProperty().getValue());
         getApplication().setDescription(tbDescription.textProperty().getValue());
 
-        DataService.updateApplication(getApplication());
-        StageInitializer.navigate("/layout/PageUserApplicationsLayout");
+        updateApplication();
     }
 
     @Override

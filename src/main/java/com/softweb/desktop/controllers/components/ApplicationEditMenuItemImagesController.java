@@ -22,7 +22,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     @Override
-    public void save() {
+    public void saveEdits() {
 
     }
 

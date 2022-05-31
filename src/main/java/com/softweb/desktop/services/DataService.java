@@ -12,15 +12,17 @@ public class DataService {
     private static OperationSystemRepository operationSystemRepository;
     private static ApplicationImageRepository applicationImageRepository;
     private static ApplicationSystemsRepository applicationSystemsRepository;
+    private static LicenseRepository licenseRepository;
 
     public DataService(DeveloperRepository developerRepository, ApplicationRepository applicationRepository,
                        OperationSystemRepository operationSystemRepository, ApplicationImageRepository applicationImageRepository,
-                       ApplicationSystemsRepository applicationSystemsRepository) {
+                       ApplicationSystemsRepository applicationSystemsRepository, LicenseRepository licenseRepository) {
         DataService.developerRepository = developerRepository;
         DataService.applicationRepository = applicationRepository;
         DataService.operationSystemRepository = operationSystemRepository;
         DataService.applicationImageRepository = applicationImageRepository;
         DataService.applicationSystemsRepository = applicationSystemsRepository;
+        DataService.licenseRepository = licenseRepository;
     }
 
     public static DeveloperRepository getDeveloperRepository() {
@@ -41,6 +43,10 @@ public class DataService {
 
     public static ApplicationSystemsRepository getApplicationSystemsRepository() {
         return applicationSystemsRepository;
+    }
+
+    public static LicenseRepository getLicenseRepository() {
+        return licenseRepository;
     }
 
     public static void updateApplication (Application application) {

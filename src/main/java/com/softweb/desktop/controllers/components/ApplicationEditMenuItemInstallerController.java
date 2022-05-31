@@ -148,7 +148,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     @Override
-    public void save() {
+    public void saveEdits() {
 
     }
 }

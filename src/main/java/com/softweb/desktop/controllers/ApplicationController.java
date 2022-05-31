@@ -120,7 +120,7 @@ public class ApplicationController implements Initializable {
         this.tbFullDescription.setText(application.getDescription());
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         this.tbDateUpdate.setText(dateFormat.format(application.getLastUpdate()));
-        this.tbLicense.setText(application.getLicense());
+        this.tbLicense.setText(application.getLicense().getCode());
         this.ivLogo.setImage(new Image(application.getLogoPath()));
         List<ApplicationImage> imageList = new ArrayList<>(application.getImages());
         ivFirstImage.setImage(new Image(imageList.get(0).getPath()));
