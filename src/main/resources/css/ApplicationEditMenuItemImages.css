@@ -46,3 +46,18 @@
 .drug-and-drop-container:hover {
     -fx-background-color: #0e842044;
 }
+
+.cbLicense .cell:selected {
+    -fx-text-fill: #075d5b;
+    -fx-background-color: none;
+}
+
+.cbLicense .cell:selected:hover {
+    -fx-text-fill: #075d5b;
+    -fx-background-color: #0e842044;
+}
+
+.cbLicense .list-cell:hover {
+    -fx-background-color: #0e842044;
+    -fx-text-fill: #000;
+}

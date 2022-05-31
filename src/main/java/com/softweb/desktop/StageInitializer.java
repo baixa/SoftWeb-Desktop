@@ -48,8 +48,10 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             showDefaultContent();
 
             Stage stage = event.getStage();
-            stage.setMinWidth(1200);
-            stage.setMinHeight(600);
+            stage.setMinWidth(1300);
+            stage.setMinHeight(700);
+            stage.setWidth(1300);
+            stage.setHeight(700);
             stage.setTitle(applicationTitle);
             Scene scene = new Scene(rootElement);
             stage.setScene(scene);
