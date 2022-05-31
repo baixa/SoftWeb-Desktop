@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -17,14 +19,26 @@ public class ApplicationEditController implements Initializable {
     @FXML
     public BorderPane rootElement;
 
+    @FXML
+    public Label labelMain;
+
+    @FXML
+    public Label labelImages;
+
+    @FXML
+    public Label labelInstaller;
+
+    @FXML
+    public Label labelAdditional;
+
     private Application application;
 
-    private Initializable currentItemController;
+    private ApplicationEditMenuItem currentItemController;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemAdditional.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemMain.fxml"));
         try {
             Parent loaded = fxmlLoader.load();
             rootElement.setCenter(loaded);
@@ -32,6 +46,7 @@ public class ApplicationEditController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public Application getApplication() {
@@ -43,12 +58,55 @@ public class ApplicationEditController implements Initializable {
     }
 
     public void generatePage() {
-        ((ApplicationEditMenuItem)currentItemController).setApplication(application);
-        ((ApplicationEditMenuItem)currentItemController).refreshContent();
+        currentItemController.setApplication(application);
+        currentItemController.refreshContent();
     }
 
     public void save() {
-        if(currentItemController instanceof ApplicationEditMenuItem)
-            ((ApplicationEditMenuItem) currentItemController).saveEdits();
+        currentItemController.saveEdits();
+    }
+
+    public void openMain(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemMain.fxml"));
+        try {
+            Parent loaded = fxmlLoader.load();
+            rootElement.setCenter(loaded);
+            currentItemController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openImages(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemImages.fxml"));
+        try {
+            Parent loaded = fxmlLoader.load();
+            rootElement.setCenter(loaded);
+            currentItemController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openInstaller(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemInstaller.fxml"));
+        try {
+            Parent loaded = fxmlLoader.load();
+            rootElement.setCenter(loaded);
+            currentItemController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openAdditional(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemAdditional.fxml"));
+        try {
+            Parent loaded = fxmlLoader.load();
+            rootElement.setCenter(loaded);
+            currentItemController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

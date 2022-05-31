@@ -23,7 +23,7 @@
       <URL value="@../css/PageApplicationEdit.css" />
     </stylesheets>
    <left>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #075d5b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #fff;" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="400.0" minHeight="400.0" prefHeight="400.0" prefWidth="200.0" style="-fx-border-color: #075d5b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #fff;" BorderPane.alignment="CENTER">
          <top>
             <Label fx:id="tbMenuLabel" text="Меню" textFill="#075d5b" BorderPane.alignment="CENTER">
                <BorderPane.margin>
@@ -35,24 +35,24 @@
             </Label>
          </top>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Основное" textAlignment="CENTER">
+                  <Label fx:id="labelMain" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#openMain" text="Основное" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" top="50.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" text="Изображения" textAlignment="CENTER">
+                  <Label fx:id="labelImages" alignment="CENTER" onMouseClicked="#openImages" text="Изображения" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" text="Установщик" textAlignment="CENTER">
+                  <Label fx:id="labelInstaller" alignment="CENTER" onMouseClicked="#openInstaller" text="Установщик" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Дополнительно" />
+                  <Label fx:id="labelAdditional" onMouseClicked="#openAdditional" text="Дополнительно" />
                </children>
                <BorderPane.margin>
                   <Insets left="5.0" top="5.0" />
