@@ -19,6 +19,8 @@ public class FtpClient {
     private String password;
     private FTPClient ftp;
 
+    public static final String PROJECT_DIRECTORY = "/upload/SoftWeb/src/main/resources/static/";
+
     public FtpClient(String server, int port, String user, String password) {
         this.server = server;
         this.port = port;
@@ -29,6 +31,7 @@ public class FtpClient {
     public void open() throws IOException {
         ftp = new FTPClient();
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
+        ftp.enterLocalPassiveMode();
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {

@@ -54,7 +54,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <AnchorPane maxHeight="200.0" minHeight="150.0" prefHeight="150.0" prefWidth="150.0" styleClass="drug-and-drop-container" GridPane.rowIndex="2">
+            <AnchorPane fx:id="apDragAndDrop" maxHeight="200.0" minHeight="150.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="150.0" prefWidth="150.0" styleClass="drug-and-drop-container" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
                </GridPane.margin>
