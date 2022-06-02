@@ -31,7 +31,6 @@ public class FtpClient {
     public void open() throws IOException {
         ftp = new FTPClient();
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
-        ftp.enterLocalPassiveMode();
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
@@ -41,6 +40,7 @@ public class FtpClient {
         ftp.login(user, password);
 
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
+        ftp.enterLocalPassiveMode();
     }
 
     public void close() throws IOException {
@@ -67,6 +67,4 @@ public class FtpClient {
     public void deleteFile(String path) throws IOException {
         ftp.deleteFile(path);
     }
-
-
 }
