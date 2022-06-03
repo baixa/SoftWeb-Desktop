@@ -19,7 +19,8 @@ public class FtpClient {
     private String password;
     private FTPClient ftp;
 
-    public static final String PROJECT_DIRECTORY = "/upload/SoftWeb/src/main/resources/static/";
+    public static final String PROJECT_DIRECTORY = "/ftp/upload/SoftWeb/src/main/resources/static/";
+    public static final String WEB_DIRECTORY = "http://45.153.230.50:8080/";
 
     public FtpClient(String server, int port, String user, String password) {
         this.server = server;
@@ -62,6 +63,7 @@ public class FtpClient {
 
     public void putFileToPath(InputStream inputStream, String path) throws IOException {
         ftp.storeFile(path, inputStream);
+        ftp.sendSiteCommand("chmod 777 " + path);
     }
 
     public void deleteFile(String path) throws IOException {

@@ -1,6 +1,7 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.database.entity.ApplicationImage;
+import com.softweb.desktop.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -100,8 +101,18 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
                     InputStream inputStream = new FileInputStream(file);
                     String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
                     ftpClient.putFileToPath(inputStream, FtpClient.PROJECT_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
+                    ftpClient.close();
+                    ApplicationImage applicationImage = new ApplicationImage();
+                    applicationImage.setApplication(getApplication());
+                    applicationImage.setPath(FtpClient.WEB_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
+                    DataService.getApplicationImageRepository().save(applicationImage);
+                    refreshContent();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Ошибка");
+                    alert.setHeaderText("Файл недоступен!");
+                    alert.show();
+                    return;
                 }
 
             }
