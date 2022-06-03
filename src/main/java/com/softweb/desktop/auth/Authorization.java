@@ -2,7 +2,7 @@ package com.softweb.desktop.auth;
 
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.repositories.DeveloperRepository;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.algorithms.Encryptor;
 
 public class Authorization {

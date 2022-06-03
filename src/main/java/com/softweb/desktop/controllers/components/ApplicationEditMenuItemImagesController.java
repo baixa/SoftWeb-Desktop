@@ -1,7 +1,7 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.database.entity.ApplicationImage;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,7 +45,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         hbImages.getChildren().removeAll(hbImages.getChildren());
         for (ApplicationImage image :
                 getApplication().getImages()) {
-            Image appImage = new Image(image.getPath());
+            Image appImage = image.getImage();
             ImageView imageView = new ImageView(appImage);
             imageView.setFitWidth(120);
             imageView.setFitHeight(imageView.getFitWidth() * appImage.getHeight() / appImage.getWidth());
@@ -54,7 +54,8 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             imageTip.setMaxHeight(400);
             imageTip.setPrefWidth(imageView.getImage().getWidth());
             imageTip.setMaxWidth(imageTip.getMaxHeight() * imageTip.getPrefWidth() / imageTip.getPrefHeight());
-            imageTip.setStyle("-fx-background-image: url(" + imageView.getImage().getUrl() + ");" +
+            String url = imageView.getImage().getUrl().replace('\\', '/');
+            imageTip.setStyle("-fx-background-image: url(file:///" + url + ");" +
                     "-fx-background-repeat: stretch; " +
                     "-fx-background-size: stretch; ");
 
@@ -100,7 +101,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
                     ftpClient.open();
                     InputStream inputStream = new FileInputStream(file);
                     String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
-                    ftpClient.putFileToPath(inputStream, FtpClient.PROJECT_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
+                    ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
                     ftpClient.close();
                     ApplicationImage applicationImage = new ApplicationImage();
                     applicationImage.setApplication(getApplication());

@@ -2,7 +2,7 @@ package com.softweb.desktop;
 
 import com.softweb.desktop.controllers.RootController;
 import com.softweb.desktop.database.utils.ConnectionValidator;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

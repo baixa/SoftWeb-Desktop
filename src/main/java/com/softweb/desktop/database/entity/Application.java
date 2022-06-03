@@ -1,5 +1,6 @@
 package com.softweb.desktop.database.entity;
 
+import javafx.scene.image.Image;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,9 @@ public class Application{
 
     @Column(name = "Logo_Path")
     private String logoPath;
+
+    @Transient
+    private Image logo;
 
     @Column(name = "Last_Update")
     private Date lastUpdate;

@@ -30,6 +30,9 @@ public class ApplicationsSystems {
     @Column(name = "Version")
     private String version;
 
+    @Column(name = "Size")
+    private int size;
+
     @Override
     public String toString() {
         return "ApplicationsSystems{" +
@@ -37,6 +40,7 @@ public class ApplicationsSystems {
                 ", system=" + system +
                 ", installerPath='" + installerPath + '\'' +
                 ", version='" + version + '\'' +
+                ", size=" + size +
                 '}';
     }
 }

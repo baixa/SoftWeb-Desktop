@@ -1,7 +1,8 @@
-package com.softweb.desktop.services;
+package com.softweb.desktop.database.utils.services;
 
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.repositories.*;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -51,6 +52,12 @@ public class DataService {
 
     public static void updateApplication (Application application) {
         applicationRepository.save(application);
+        DBCache.clear();
+    }
+
+    public static void deleteApplication (Application application) {
+        applicationRepository.delete(application);
+        DBCache.clear();
     }
 
 }

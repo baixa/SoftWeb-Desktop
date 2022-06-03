@@ -9,11 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
@@ -49,29 +46,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         }
         ivWindows.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                if(!windowsSelected) {
-                   ApplicationsSystems applicationsSystems = getApplication().getApplicationsSystems().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
-                   if(applicationsSystems != null)
-                   {
-                       labelWarning.setVisible(false);
-                       try {
-                           double size = getFileSize(new URL(applicationsSystems.getInstallerPath()));
-                           size = (size / 1024) / 1024;
-                           DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-                           tbSize.textProperty().setValue(decimalFormat.format(size) + " Мб");
-                       } catch (IOException e) {
-                           tbSize.textProperty().setValue("Не установлено");
-                       }
-                       tbOS.textProperty().setValue(applicationsSystems.getSystem().getName());
-                       tbCommand.setStyle("-fx-text-fill: #075d5b;");
-                       tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
-                   }
-                   else {
-                       tbSize.textProperty().setValue("Не установлено");
-                       tbOS.textProperty().setValue("Не установлено");
-                       tbCommand.textProperty().setValue("Не установлено");
-                       labelWarning.setVisible(true);
-                   }
-                   windowsSelected = true;
+                   fillWindowsInfo();
                    try {
                        ivWindows.setImage(new Image(String.valueOf(getClass().getResource("/images/windows.png").toURI())));
                        ivLinux.setImage(new Image(String.valueOf(getClass().getResource("/images/linux-gray.png").toURI())));
@@ -86,16 +61,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 ApplicationsSystems applicationsSystems = getApplication().getApplicationsSystems().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Debian")).findFirst().orElse(null);
                 if(applicationsSystems != null)
                 {
-                    labelWarning.setVisible(false);
-                    try {
-                        double size = getFileSize(new URL(applicationsSystems.getInstallerPath()));
-                        size = (size / 1024) / 1024;
-                        DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-                        tbSize.textProperty().setValue(decimalFormat.format(size) + " Мб");
-                    } catch (IOException e) {
-                        tbSize.textProperty().setValue("Не установлено");
-                    }
-                    tbOS.textProperty().setValue(applicationsSystems.getSystem().getName());
+                    fillInstallerInfo(applicationsSystems);
                     tbCommand.setStyle("-fx-text-fill: #66666699;");
                     tbCommand.textProperty().setValue("Не требуется");
 
@@ -161,19 +127,14 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     @Override
     public void refreshContent() {
+        fillWindowsInfo();
+    }
+
+    private void fillWindowsInfo() {
         ApplicationsSystems applicationsSystems = getApplication().getApplicationsSystems().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
         if(applicationsSystems != null)
         {
-            labelWarning.setVisible(false);
-            try {
-                double size = getFileSize(new URL(applicationsSystems.getInstallerPath()));
-                size = (size / 1024) / 1024;
-                DecimalFormat decimalFormat = new DecimalFormat("##0.00");
-                tbSize.textProperty().setValue(decimalFormat.format(size) + " Мб");
-            } catch (IOException e) {
-                tbSize.textProperty().setValue("Не установлено");
-            }
-            tbOS.textProperty().setValue(applicationsSystems.getSystem().getName());
+            fillInstallerInfo(applicationsSystems);
             tbCommand.setStyle("-fx-text-fill: #075d5b;");
             tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
         }
@@ -186,22 +147,13 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         windowsSelected = true;
     }
 
-    private static int getFileSize(URL url) {
-        URLConnection conn = null;
-        try {
-            conn = url.openConnection();
-            if(conn instanceof HttpURLConnection) {
-                ((HttpURLConnection)conn).setRequestMethod("HEAD");
-            }
-            conn.getInputStream();
-            return conn.getContentLength();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if(conn instanceof HttpURLConnection) {
-                ((HttpURLConnection)conn).disconnect();
-            }
-        }
+    private void fillInstallerInfo(ApplicationsSystems applicationsSystems) {
+        labelWarning.setVisible(false);
+        double size = applicationsSystems.getSize();
+        size = (size / 1024) / 1024;
+        DecimalFormat decimalFormat = new DecimalFormat("###0.00");
+        tbSize.textProperty().setValue(decimalFormat.format(size) + " Мб");
+        tbOS.textProperty().setValue(applicationsSystems.getSystem().getName());
     }
 
     @Override

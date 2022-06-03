@@ -46,12 +46,6 @@ public class ApplicationController implements Initializable {
     public HBox hbOperationSystems;
 
     @FXML
-    public ScrollPane spImages;
-
-    @FXML
-    public AnchorPane apImages;
-
-    @FXML
     public HBox hbImages;
 
     @FXML
@@ -83,20 +77,6 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        hbImages.getChildren().forEach(child -> child.hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if(newValue) {
-                Tooltip imageTip = new Tooltip();
-                imageTip.setPrefHeight(((ImageView) child).getImage().getHeight());
-                imageTip.setMaxHeight(400);
-                imageTip.setPrefWidth(((ImageView) child).getImage().getWidth());
-                imageTip.setMaxWidth(imageTip.getMaxHeight() * imageTip.getPrefWidth() / imageTip.getPrefHeight());
-                imageTip.setStyle("-fx-background-image: url(" + ((ImageView) child).getImage().getUrl() + ");" +
-                        "-fx-background-repeat: stretch; " +
-                        "-fx-background-size: stretch; ");
-
-                Tooltip.install(child, imageTip);
-            }
-        })));
         StageInitializer.getRootController().rebuildButtons(true, false);
     }
 
@@ -121,11 +101,11 @@ public class ApplicationController implements Initializable {
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         this.tbDateUpdate.setText(dateFormat.format(application.getLastUpdate()));
         this.tbLicense.setText(application.getLicense().getCode());
-        this.ivLogo.setImage(new Image(application.getLogoPath()));
+        this.ivLogo.setImage(application.getLogo());
         List<ApplicationImage> imageList = new ArrayList<>(application.getImages());
-        ivFirstImage.setImage(new Image(imageList.get(0).getPath()));
-        ivSecondImage.setImage(new Image(imageList.get(1).getPath()));
-        ivThirdImage.setImage(new Image(imageList.get(2).getPath()));
+        ivFirstImage.setImage(imageList.get(0).getImage());
+        ivSecondImage.setImage(imageList.get(1).getImage());
+        ivThirdImage.setImage(imageList.get(2).getImage());
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
         for (ApplicationsSystems applicationSystem :
@@ -137,5 +117,20 @@ public class ApplicationController implements Initializable {
                 ivLinux.setVisible(true);
             }
         }
+        hbImages.getChildren().forEach(child -> child.hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if(newValue) {
+                Tooltip imageTip = new Tooltip();
+                imageTip.setPrefHeight(((ImageView) child).getImage().getHeight());
+                imageTip.setMaxHeight(400);
+                imageTip.setPrefWidth(((ImageView) child).getImage().getWidth());
+                imageTip.setMaxWidth(imageTip.getMaxHeight() * imageTip.getPrefWidth() / imageTip.getPrefHeight());
+                String url = ((ImageView) child).getImage().getUrl().replace('\\', '/');
+                imageTip.setStyle("-fx-background-image: url(file:///" + url + ");" +
+                        "-fx-background-repeat: stretch; " +
+                        "-fx-background-size: stretch; ");
+
+                Tooltip.install(child, imageTip);
+            }
+        })));
     }
 }

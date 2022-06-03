@@ -12,3 +12,7 @@
     -fx-underline: true;
     -fx-cursor: hand;
 }
+
+.menu-items {
+    -fx-text-fill: #000;
+}

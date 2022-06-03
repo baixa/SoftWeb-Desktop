@@ -1,12 +1,8 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.License;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

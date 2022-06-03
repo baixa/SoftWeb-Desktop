@@ -1,13 +1,9 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
@@ -45,6 +41,6 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         this.tbAppName.textProperty().setValue(getApplication().getName());
         this.tbShortDescription.textProperty().setValue(getApplication().getShortDescription());
         this.tbDescription.textProperty().setValue(getApplication().getDescription());
-        this.ivLogo.setImage(new Image(getApplication().getLogoPath()));
+        this.ivLogo.setImage(getApplication().getLogo());
     }
 }
