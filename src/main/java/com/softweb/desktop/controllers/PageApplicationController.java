@@ -51,10 +51,7 @@ public class PageApplicationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.applications = DBCache.getCache().getApplications();
-        developerRepository = DataService.getDeveloperRepository();
-
-        List<Developer> developers = new ArrayList<>();
-        developerRepository.findAll().forEach(developers::add);
+        List<Developer> developers = DBCache.getCache().getDevelopers();
         comboDeveloper.setItems(FXCollections.observableArrayList(developers.stream().map(Developer::getUsername).collect(Collectors.toList())));
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
 

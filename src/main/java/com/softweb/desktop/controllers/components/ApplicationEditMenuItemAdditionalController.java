@@ -1,6 +1,7 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.database.entity.License;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -29,9 +30,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Iterable<License> iterable = DataService.getLicenseRepository().findAll();
-        this.licenses = new ArrayList<>();
-        iterable.forEach(licenses::add);
+        this.licenses = DBCache.getCache().getLicenses();
         cbLicense.setItems(FXCollections.observableList(licenses.stream().map(License::getName).collect(Collectors.toList())));
     }
 
