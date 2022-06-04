@@ -14,7 +14,6 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FtpClient {
@@ -26,9 +25,6 @@ public class FtpClient {
     private FTPClient ftp;
 
     public static final String FTP_DIRECTORY = "/ftp/upload/SoftWeb/src/main/resources/static/";
-    public static final String WEB_DIRECTORY = "http://45.153.230.50:8080/";
-    public static final String RESOURCES_DIRECTORY = StageInitializer.class.getResource("/").getPath();
-    ;
 
     public FtpClient(String server, int port, String user, String password) {
         this.server = server;
@@ -44,31 +40,48 @@ public class FtpClient {
         FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
         try {
             ftpClient.open();
-
             for (Application application : applications) {
-                String logoPath = application.getLogoPath();
-                if (logoPath != null) {
-                    String sourcePath = FtpClient.FTP_DIRECTORY + logoPath;
-                    String fileExt = logoPath.substring(logoPath.lastIndexOf("."));
-                    String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
-                    application.setLogo(new Image(destinationPath));
-                }
-
-                if (application.getImages() != null && application.getImages().size() > 0) {
-                    for (ApplicationImage applicationImage : application.getImages()) {
-                        String path = applicationImage.getPath();
-                        if (path != null) {
-                            String sourcePath = FtpClient.FTP_DIRECTORY + path;
-                            String fileExt = path.substring(path.lastIndexOf("."));
-                            String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
-                            applicationImage.setImage(new Image(destinationPath));
-                        }
-                    }
-                }
+                loadApplicationData(application, ftpClient);
             }
             ftpClient.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void updateApplicationData(Application application) {
+        if(application == null)
+            return;
+
+        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        try {
+            ftpClient.open();
+            loadApplicationData(application, ftpClient);
+            ftpClient.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadApplicationData(Application application, FtpClient ftpClient) throws IOException {
+        String logoPath = application.getLogoPath();
+        if (logoPath != null) {
+            String sourcePath = FtpClient.FTP_DIRECTORY + logoPath;
+            String fileExt = logoPath.substring(logoPath.lastIndexOf("."));
+            String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
+            application.setLogo(new Image(destinationPath));
+        }
+
+        if (application.getImages() != null && application.getImages().size() > 0) {
+            for (ApplicationImage applicationImage : application.getImages()) {
+                String path = applicationImage.getPath();
+                if (path != null) {
+                    String sourcePath = FtpClient.FTP_DIRECTORY + path;
+                    String fileExt = path.substring(path.lastIndexOf("."));
+                    String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
+                    applicationImage.setImage(new Image(destinationPath));
+                }
+            }
         }
     }
 

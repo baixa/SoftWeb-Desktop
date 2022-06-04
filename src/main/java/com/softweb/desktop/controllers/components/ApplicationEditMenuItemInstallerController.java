@@ -1,6 +1,7 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.database.entity.ApplicationsSystems;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -35,6 +36,8 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     private Label tbCommand;
 
     private boolean windowsSelected = false;
+
+    private ApplicationsSystems applicationsSystem;
 
 
     @Override
@@ -158,6 +161,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     @Override
     public void saveEdits() {
-
+        DataService.saveApplicationSystem(applicationsSystem);
+        updateApplication();
     }
 }

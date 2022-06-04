@@ -1,6 +1,9 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.StageInitializer;
+import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.ApplicationImage;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
@@ -30,6 +33,8 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     @FXML
     private HBox hbImages;
 
+    private ApplicationImage applicationImage;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -37,7 +42,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
     @Override
     public void saveEdits() {
-
+        getApplication().getImages().add(applicationImage);
+        DataService.saveApplicationImage(applicationImage);
+        updateApplication();
     }
 
     @Override
@@ -79,7 +86,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         if(files.size() > freePlaces) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ошибка");
-            alert.setHeaderText("Количество фотографий превышает лимит!\nМожно добавить только " + freePlaces + " фото!");
+            alert.setHeaderText("Количество фотографий превышает лимит!\nМожно добавить только " + limit + " фото!");
             alert.show();
             return;
         }
@@ -103,11 +110,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
                     String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
                     ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
                     ftpClient.close();
-                    ApplicationImage applicationImage = new ApplicationImage();
+                    applicationImage = new ApplicationImage();
                     applicationImage.setApplication(getApplication());
-                    applicationImage.setPath(FtpClient.WEB_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
-                    DataService.getApplicationImageRepository().save(applicationImage);
-                    refreshContent();
+                    applicationImage.setPath("images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
+
+                    saveEdits();
                 } catch (IOException e) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Ошибка");

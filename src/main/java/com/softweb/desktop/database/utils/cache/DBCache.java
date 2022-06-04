@@ -27,8 +27,12 @@ public class DBCache {
         cache = this;
     }
 
-    public void loadApplicationsImages() {
+    private void loadApplicationsImages() {
         FtpClient.loadApplicationsImages(applications);
+    }
+
+    private void loadApplicationData(Application application) {
+        FtpClient.updateApplicationData(application);
     }
 
     private void fillData() {
@@ -45,12 +49,20 @@ public class DBCache {
 
     public static DBCache getCache() {
         if(cache == null)
-            cache = new DBCache();
+            initialize();
         return cache;
     }
 
+    private static void initialize() {
+        cache = new DBCache();
+    }
+
     public static void clear() {
-        cache = null;
+        initialize();
+    }
+
+    public static void updateApplication(Application application) {
+        DBCache.getCache().loadApplicationData(application);
     }
 
     public List<Application> getApplications() {
