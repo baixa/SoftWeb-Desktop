@@ -35,6 +35,11 @@ public class DBCache {
         FtpClient.updateApplicationData(application);
     }
 
+    private void loadDevelopers() {
+        this.developers = new ArrayList<>();
+        DataService.getDeveloperRepository().findAll().forEach(developers::add);
+    }
+
     private void fillData() {
         applications = new ArrayList<>();
         developers = new ArrayList<>();
@@ -63,6 +68,10 @@ public class DBCache {
 
     public static void updateApplication(Application application) {
         DBCache.getCache().loadApplicationData(application);
+    }
+
+    public static void updateDevelopers() {
+        DBCache.getCache().loadDevelopers();
     }
 
     public List<Application> getApplications() {

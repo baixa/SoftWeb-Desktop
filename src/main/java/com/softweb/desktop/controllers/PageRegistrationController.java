@@ -2,6 +2,8 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Registration;
+import com.softweb.desktop.database.entity.Developer;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PageRegistrationController  implements Initializable {
@@ -74,16 +77,29 @@ public class PageRegistrationController  implements Initializable {
             return;
         }
 
-        try {
-            String username = tbLogin.textProperty().getValue();
-            String password = tbMaskedPassword.textProperty().getValue();
-            String fullName = tbName.textProperty().getValue();
-            Registration.register(username, fullName, password);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+        String username = tbLogin.textProperty().getValue();
+        String password = tbMaskedPassword.textProperty().getValue();
+        String fullName = tbName.textProperty().getValue();
+
+        List<Developer> developers = DBCache.getCache().getDevelopers();
+        Developer existedDeveloper = developers.stream()
+                .filter(developer -> developer.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+        if(existedDeveloper != null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText("Пользователь с таким логином уже имеется в системе!");
             alert.show();
+        }
+        else {
+            Registration.register(username, fullName, password);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Успешно");
+            alert.setHeaderText("Пользователь " + username + " зарегистрирован!");
+            alert.show();
+
+            StageInitializer.navigate("/layout/PageUserApplicationsLayout");
         }
     }
 }
