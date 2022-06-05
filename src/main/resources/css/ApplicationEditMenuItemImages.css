@@ -1,0 +1,63 @@
+.images-container {
+    -fx-border-color: #075d5b;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.label {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000;
+    -fx-alignment: center;
+    -fx-column-halignment: center;
+    -fx-row-valignment: center;
+}
+
+.green-label {
+    -fx-text-fill: #075d5b;
+}
+
+.orange-label {
+    -fx-text-fill: #e95420;
+}
+
+.add-image-label {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #075d5b;
+}
+
+.installer-label {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #075d5b;
+}
+
+.drug-and-drop-container {
+    -fx-border-color: #075d5b;
+    -fx-border-width: 2;
+    -fx-border-style: segments(10, 15, 15, 15)  line-cap round ;
+    -fx-background-color: #0e842011;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.drug-and-drop-container:hover {
+    -fx-background-color: #0e842044;
+}
+
+.cbLicense .cell:selected {
+    -fx-text-fill: #075d5b;
+    -fx-background-color: none;
+}
+
+.cbLicense .cell:selected:hover {
+    -fx-text-fill: #075d5b;
+    -fx-background-color: #0e842044;
+}
+
+.cbLicense .list-cell:hover {
+    -fx-background-color: #0e842044;
+    -fx-text-fill: #000;
+}

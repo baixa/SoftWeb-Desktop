@@ -52,7 +52,8 @@ public class FtpClientIntegrationTest {
     public void getFilesListFromFtpServer() throws IOException {
         setup();
         Collection<String> files = ftpClient.listFiles("/");
-        assertTrue((files).contains("upload"));
+
+        assertTrue((files).contains("logo.png"));
         teardown();
     }
 
@@ -68,8 +69,8 @@ public class FtpClientIntegrationTest {
 
         setup();
         InputStream inputStream = this.getClass().getResourceAsStream("/images/logo.png");
-        ftpClient.putFileToPath(inputStream, "/upload/logo.png");
-        assertTrue(ftpClient.listFiles("/upload").contains("logo.png"));
+        ftpClient.putFileToPath(inputStream, "/logo.png");
+        assertTrue(ftpClient.listFiles("/").contains("logo.png"));
         teardown();
     }
 
@@ -81,8 +82,8 @@ public class FtpClientIntegrationTest {
     @Test
     public void getFileFromFtpServer() throws IOException {
         setup();
-        ftpClient.downloadFile("/upload/logo.png", "downloaded_logo.png");
-        assertTrue(new File("downloaded_logo.png").exists());
+        ftpClient.downloadFile("/logo.png.png", "logo.png");
+        assertTrue(new File("logo.png").exists());
         teardown();
     }
 
@@ -96,8 +97,8 @@ public class FtpClientIntegrationTest {
             throws IOException {
 
         setup();
-        ftpClient.deleteFile("/upload/logo.png");
-        assertFalse(ftpClient.listFiles("/upload").contains("logo.png"));
+        ftpClient.deleteFile("/logo.png");
+        assertFalse(ftpClient.listFiles("/").contains("logo.png"));
         teardown();
     }
 

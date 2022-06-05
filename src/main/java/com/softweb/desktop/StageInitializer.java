@@ -2,7 +2,7 @@ package com.softweb.desktop;
 
 import com.softweb.desktop.controllers.RootController;
 import com.softweb.desktop.database.utils.ConnectionValidator;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +21,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     private static BorderPane rootElement;
     private static RootController rootController;
+    private static Stage stage;
 
     private String applicationTitle;
 
@@ -47,9 +48,11 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             rootController = loader.getController();
             showDefaultContent();
 
-            Stage stage = event.getStage();
-            stage.setMinWidth(1200);
-            stage.setMinHeight(600);
+            stage = event.getStage();
+            stage.setMinWidth(1300);
+            stage.setMinHeight(700);
+            stage.setWidth(1300);
+            stage.setHeight(700);
             stage.setTitle(applicationTitle);
             Scene scene = new Scene(rootElement);
             stage.setScene(scene);
@@ -73,6 +76,10 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     public static void showDefaultContent() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
+    }
+
+    public static Stage getStage() {
+        return stage;
     }
 
     public static RootController getRootController() {
