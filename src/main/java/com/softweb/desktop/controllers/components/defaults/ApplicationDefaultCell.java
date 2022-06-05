@@ -67,7 +67,7 @@ public class ApplicationDefaultCell extends ListCell<Application> {
             setId("listApplicationCell");
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             setGraphic(rootElement);
-            this.applicationLogo.setImage(new Image(application.getLogoPath()));
+            this.applicationLogo.setImage(application.getLogo());
             this.labelApplicationName.setText(application.getName());
             this.labelShortDescription.setText(application.getShortDescription());
             this.labelDeveloper.setText(application.getDeveloper().getFullName());

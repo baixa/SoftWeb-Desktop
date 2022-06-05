@@ -3,7 +3,8 @@ package com.softweb.desktop.controllers;
 import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
 import com.softweb.desktop.database.entity.*;
 import com.softweb.desktop.database.repositories.*;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.cache.DBCache;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -49,14 +50,9 @@ public class PageApplicationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        developerRepository = DataService.getDeveloperRepository();
-        applicationRepository = DataService.getApplicationRepository();
-        this.applications = new ArrayList<>();
-
-        List<Developer> developers = new ArrayList<>();
-        developerRepository.findAll().forEach(developers::add);
+        this.applications = DBCache.getCache().getApplications();
+        List<Developer> developers = DBCache.getCache().getDevelopers();
         comboDeveloper.setItems(FXCollections.observableArrayList(developers.stream().map(Developer::getUsername).collect(Collectors.toList())));
-        applicationRepository.findAll().forEach(applications::add);
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
 
         renderApplicationList(applications);

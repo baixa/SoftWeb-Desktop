@@ -9,6 +9,10 @@
 }
 
 .menu-items:hover {
-    -fx-text-fill: #0e8420;
     -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.menu-items {
+    -fx-text-fill: #000;
 }

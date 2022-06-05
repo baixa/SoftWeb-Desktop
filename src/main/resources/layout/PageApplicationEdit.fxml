@@ -35,24 +35,24 @@
             </Label>
          </top>
          <center>
-            <VBox alignment="TOP_CENTER" maxHeight="100.0" minHeight="100.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" maxHeight="300.0" minHeight="300.0" prefHeight="300.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
                <children>
-                  <Label fx:id="labelMain" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#openMain" text="Основное" textAlignment="CENTER">
+                  <Label fx:id="labelMain" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#openMain" styleClass="menu-items" text="Основное" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" top="50.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="labelImages" alignment="CENTER" onMouseClicked="#openImages" text="Изображения" textAlignment="CENTER">
+                  <Label fx:id="labelImages" alignment="CENTER" onMouseClicked="#openImages" styleClass="menu-items" text="Изображения" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="labelInstaller" alignment="CENTER" onMouseClicked="#openInstaller" text="Установщик" textAlignment="CENTER">
+                  <Label fx:id="labelInstaller" alignment="CENTER" onMouseClicked="#openInstaller" styleClass="menu-items" text="Установщик" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="labelAdditional" onMouseClicked="#openAdditional" text="Дополнительно" />
+                  <Label fx:id="labelAdditional" onMouseClicked="#openAdditional" styleClass="menu-items" text="Дополнительно" />
                </children>
                <BorderPane.margin>
                   <Insets left="5.0" top="5.0" />

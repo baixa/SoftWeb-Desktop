@@ -1,5 +1,6 @@
 package com.softweb.desktop.database.entity;
 
+import javafx.scene.image.Image;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,9 @@ public class ApplicationImage {
     @Id
     @Column(name = "Path")
     private String path;
+
+    @Transient
+    private Image image;
 
     @ManyToOne
     @JoinColumn(name = "Application_ID", nullable = false)

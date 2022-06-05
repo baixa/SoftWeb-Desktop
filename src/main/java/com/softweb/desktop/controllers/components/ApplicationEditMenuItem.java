@@ -1,8 +1,8 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.services.DataService;
+import com.softweb.desktop.database.utils.cache.DBCache;
+import com.softweb.desktop.database.utils.services.DataService;
 
 import java.util.Date;
 
@@ -19,8 +19,13 @@ public abstract class ApplicationEditMenuItem {
 
     public void updateApplication() {
         this.application.setLastUpdate(new Date());
-        DataService.updateApplication(getApplication());
-        StageInitializer.navigate("/layout/PageUserApplicationsLayout");
+        DataService.saveApplication(getApplication());
+        Application updated = DBCache.getCache().getApplications().stream()
+                .filter(item -> item.getId().equals(getApplication().getId()))
+                .findFirst()
+                .orElse(null);
+        setApplication(updated);
+        refreshContent();
     }
 
     public abstract void refreshContent();

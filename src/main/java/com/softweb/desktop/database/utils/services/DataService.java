@@ -1,7 +1,11 @@
-package com.softweb.desktop.services;
+package com.softweb.desktop.database.utils.services;
 
 import com.softweb.desktop.database.entity.Application;
+import com.softweb.desktop.database.entity.ApplicationImage;
+import com.softweb.desktop.database.entity.ApplicationsSystems;
+import com.softweb.desktop.database.entity.OperationSystem;
 import com.softweb.desktop.database.repositories.*;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,8 +53,24 @@ public class DataService {
         return licenseRepository;
     }
 
-    public static void updateApplication (Application application) {
+    public static void saveApplication(Application application) {
         applicationRepository.save(application);
+        DBCache.updateApplication(application);
     }
 
+    public static void saveApplicationImage(ApplicationImage applicationImage) {
+        applicationImageRepository.save(applicationImage);
+    }
+
+    public static void deleteApplication (Application application) {
+        applicationRepository.delete(application);
+    }
+
+    public static void saveApplicationSystem(ApplicationsSystems applicationsSystem) {
+        applicationSystemsRepository.save(applicationsSystem);
+    }
+
+    public static void saveOperationSystem(OperationSystem operationSystem) {
+        operationSystemRepository.save(operationSystem);
+    }
 }

@@ -1,17 +1,13 @@
 package com.softweb.desktop.controllers.components.user;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.controllers.ApplicationEditController;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.services.DataService;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +65,7 @@ public class ApplicationUserCell extends ListCell<Application> {
             setId("listApplicationCell");
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             setGraphic(rootElement);
-            this.applicationLogo.setImage(new Image(application.getLogoPath()));
+            this.applicationLogo.setImage(application.getLogo());
             this.labelApplicationName.setText(application.getName());
             this.labelShortDescription.setText(application.getShortDescription());
             this.labelDeveloper.setText(application.getDeveloper().getFullName());
@@ -88,7 +84,7 @@ public class ApplicationUserCell extends ListCell<Application> {
                 alert.setHeaderText("Вы уверены, что хотите удалить приложение: " + application.getName() + "? \nОтменить действие будет невозможно!");
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.YES) {
-                        DataService.getApplicationRepository().delete(application);
+                        DataService.deleteApplication(application);
                         Alert removeAlert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
                         removeAlert.setTitle("Успешно!");
                         removeAlert.setHeaderText("Приложение удалено!");
