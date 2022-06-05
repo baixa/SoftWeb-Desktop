@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -21,6 +22,7 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
           <RowConstraints maxHeight="102.0" minHeight="0.0" prefHeight="26.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="152.0" minHeight="1.0" prefHeight="29.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
@@ -32,7 +34,7 @@
                   <Font name="Segoe UI Bold" size="30.0" />
                </font>
             </Label>
-            <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="276.0" GridPane.rowIndex="1">
+            <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="276.0" GridPane.rowIndex="2">
                <children>
                   <Label text="Логин: " AnchorPane.leftAnchor="3.0">
                      <font>
@@ -45,7 +47,7 @@
                   <Insets />
                </GridPane.margin>
             </AnchorPane>
-            <AnchorPane prefHeight="70.0" prefWidth="286.0" GridPane.rowIndex="2">
+            <AnchorPane prefHeight="70.0" prefWidth="286.0" GridPane.rowIndex="3">
                <children>
                   <Label text="Пароль: " AnchorPane.leftAnchor="3.0">
                      <font>
@@ -59,7 +61,7 @@
                   <Insets top="20.0" />
                </GridPane.margin>
             </AnchorPane>
-            <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="339.0" GridPane.rowIndex="3">
+            <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="339.0" GridPane.rowIndex="4">
                <children>
                   <CheckBox fx:id="cbShowPassword" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#cbShowPasswordChecked" text="Показать пароль">
                      <font>
@@ -71,12 +73,26 @@
                   </CheckBox>
                </children>
             </HBox>
-            <AnchorPane maxWidth="380.0" minWidth="80.0" prefWidth="80.0" GridPane.rowIndex="4">
+            <AnchorPane maxWidth="380.0" minWidth="80.0" prefWidth="80.0" GridPane.rowIndex="5">
                <children>
                   <Button fx:id="btnLogin" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnLoginClick" prefWidth="80.0" text="Вход" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
                </children>
                <GridPane.margin>
                   <Insets top="20.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane GridPane.rowIndex="1">
+               <children>
+                  <Label styleClass="label-default" text="Нет аккаунта?" AnchorPane.leftAnchor="3.0" />
+                  <Label fx:id="labelRegistration" text="Создайте!" AnchorPane.leftAnchor="120.0">
+                     <styleClass>
+                        <String fx:value="label-default" />
+                        <String fx:value="label-green" />
+                     </styleClass>
+                  </Label>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="20.0" />
                </GridPane.margin>
             </AnchorPane>
          </children>

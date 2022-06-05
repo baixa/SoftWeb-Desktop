@@ -1,13 +1,9 @@
 package com.softweb.desktop.database.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -21,19 +17,19 @@ public class Developer {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "Username")
     private String username;
 
-    @Column(name = "FullName")
+    @Column(name = "Fullname")
     private String fullName;
 
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
 
-    @Column(name = "is_Admin")
+    @Column(name = "Admin")
     private boolean isAdmin;
 
     @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)

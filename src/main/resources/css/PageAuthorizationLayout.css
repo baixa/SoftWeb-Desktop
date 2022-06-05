@@ -23,3 +23,17 @@
 .button:hover {
     -fx-background-color: #a43916;
 }
+
+.label-default {
+    -fx-font-size: 16;
+    -fx-text-fill: #000;
+}
+
+.label-green {
+    -fx-text-fill: #075d5b;
+    -fx-font-weight: bold;
+}
+
+.label-green:hover {
+    -fx-text-fill: #053e3d;
+}
