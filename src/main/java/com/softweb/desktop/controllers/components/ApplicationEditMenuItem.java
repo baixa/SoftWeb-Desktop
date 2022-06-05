@@ -1,6 +1,5 @@
 package com.softweb.desktop.controllers.components;
 
-import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;

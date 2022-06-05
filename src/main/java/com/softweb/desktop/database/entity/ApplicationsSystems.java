@@ -12,7 +12,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class ApplicationsSystems {
     @EmbeddedId
-    private ApplicationsSystemsKey id;
+    private ApplicationsSystemsKey id = new ApplicationsSystemsKey();
 
     @ManyToOne
     @MapsId("applicationId")

@@ -1,11 +1,10 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.ApplicationImage;
-import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,6 +15,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
@@ -90,8 +90,6 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             alert.show();
             return;
         }
-        
-        List<Image> images = new ArrayList<>();
 
         for (File file : files) {
             if(!fileIsImage(file)) {
@@ -102,37 +100,50 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
                 return;
             }
             else {
-                FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
-                try {
-                    String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf(".") + 1)).orElse("");
-                    ftpClient.open();
-                    InputStream inputStream = new FileInputStream(file);
-                    String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
-                    ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
-                    ftpClient.close();
-                    applicationImage = new ApplicationImage();
-                    applicationImage.setApplication(getApplication());
-                    applicationImage.setPath("images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName.toString());
-
-                    saveEdits();
-                } catch (IOException e) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Ошибка");
-                    alert.setHeaderText("Файл недоступен!");
-                    alert.show();
-                    return;
-                }
-
+                loadFile(file);
             }
-
         }
+    }
 
+    private void loadFile(File file) {
+        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        try {
+            String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf(".") + 1)).orElse("");
+            ftpClient.open();
+            InputStream inputStream = new FileInputStream(file);
+            String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
+            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.close();
+            applicationImage = new ApplicationImage();
+            applicationImage.setApplication(getApplication());
+            applicationImage.setPath("images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
 
+            saveEdits();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Файл недоступен!");
+            alert.show();
+        }
     }
 
     private boolean fileIsImage(File file) {
         String mimetype= new MimetypesFileTypeMap().getContentType(file);
         String type = mimetype.split("/")[0];
         return type.equals("image");
+    }
+
+    public void fileDialogOpen(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"));
+        fileChooser.setTitle("Выбрать изображение");
+        File file = fileChooser.showOpenDialog(StageInitializer.getStage());
+
+        if(file != null) {
+            loadFile(file);
+        }
     }
 }

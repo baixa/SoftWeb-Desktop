@@ -3,6 +3,7 @@ package com.softweb.desktop.database.utils.services;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.ApplicationImage;
 import com.softweb.desktop.database.entity.ApplicationsSystems;
+import com.softweb.desktop.database.entity.OperationSystem;
 import com.softweb.desktop.database.repositories.*;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import org.springframework.stereotype.Component;
@@ -67,5 +68,9 @@ public class DataService {
 
     public static void saveApplicationSystem(ApplicationsSystems applicationsSystem) {
         applicationSystemsRepository.save(applicationsSystem);
+    }
+
+    public static void saveOperationSystem(OperationSystem operationSystem) {
+        operationSystemRepository.save(operationSystem);
     }
 }

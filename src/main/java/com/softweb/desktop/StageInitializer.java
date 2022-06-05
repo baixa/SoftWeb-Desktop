@@ -21,6 +21,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     private static BorderPane rootElement;
     private static RootController rootController;
+    private static Stage stage;
 
     private String applicationTitle;
 
@@ -47,7 +48,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             rootController = loader.getController();
             showDefaultContent();
 
-            Stage stage = event.getStage();
+            stage = event.getStage();
             stage.setMinWidth(1300);
             stage.setMinHeight(700);
             stage.setWidth(1300);
@@ -75,6 +76,10 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     public static void showDefaultContent() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
+    }
+
+    public static Stage getStage() {
+        return stage;
     }
 
     public static RootController getRootController() {

@@ -1,19 +1,35 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.ApplicationsSystems;
+import com.softweb.desktop.database.entity.OperationSystem;
+import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.utils.ftp.FtpClient;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
 
@@ -161,7 +177,87 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     @Override
     public void saveEdits() {
+        getApplication().getApplicationsSystems().add(applicationsSystem);
+        applicationsSystem.getSystem().getApplicationsSystems().add(applicationsSystem);
         DataService.saveApplicationSystem(applicationsSystem);
+        DataService.saveOperationSystem(applicationsSystem.getSystem());
         updateApplication();
+    }
+
+    private boolean fileIsInstaller(File file) {
+        String fileName = file.getName();
+        String fileExt = fileName.substring(fileName.lastIndexOf("."));
+        return fileExt.equals(".exe") || fileExt.equals(".deb");
+    }
+
+    private void loadFile(File file) {
+        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        try {
+            String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
+            ftpClient.open();
+            InputStream inputStream = new FileInputStream(file);
+            String fileName = java.util.UUID.randomUUID().toString() + fileExt;
+            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.close();
+            OperationSystem system;
+            if (fileExt.equals(".deb")) {
+                system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Debian")).findFirst().orElse(null);
+            }
+            else {
+                system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
+            }
+            List<ApplicationsSystems> applicationsSystems = new ArrayList(getApplication().getApplicationsSystems());
+            ApplicationsSystems existedItem = applicationsSystems.stream()
+                    .filter(item -> item.getApplication().getId().equals(getApplication().getId()))
+                    .filter(item -> item.getSystem().getId().equals(system.getId()))
+                    .findFirst()
+                    .orElse(null);
+            if (existedItem == null) {
+                applicationsSystem = new ApplicationsSystems();
+                applicationsSystem.setApplication(getApplication());
+                applicationsSystem.setApplication(getApplication());
+                applicationsSystem.setSize((int) file.length());
+                applicationsSystem.setVersion("1.0.0");
+                applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                applicationsSystem.setSystem(system);
+                saveEdits();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.NO);
+                alert.setTitle("Внимание");
+                alert.setHeaderText("Выбранный установщик заменит текущий! Продолжить?");
+                AtomicBoolean changeExisted = new AtomicBoolean(false);
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.YES) {
+                        changeExisted.set(true);
+                    }
+                });
+                if (changeExisted.get()) {
+                    applicationsSystem = existedItem;
+                    applicationsSystem.setSize((int) file.length());
+                    applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                    applicationsSystem.setSystem(system);
+                    saveEdits();
+                }
+            }
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Файл недоступен!");
+            alert.show();
+        }
+    }
+
+    public void fileDialogOpen(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Debian", "*.deb"),
+                new FileChooser.ExtensionFilter("Windows", "*.exe"));
+        fileChooser.setTitle("Выбрать установщик");
+        File file = fileChooser.showOpenDialog(StageInitializer.getStage());
+
+        if(file != null) {
+            loadFile(file);
+        }
     }
 }
