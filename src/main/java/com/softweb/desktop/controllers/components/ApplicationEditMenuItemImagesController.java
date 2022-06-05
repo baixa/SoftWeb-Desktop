@@ -71,40 +71,6 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
-    public void handleDragOver(DragEvent dragEvent) {
-        if(dragEvent.getDragboard().hasFiles()){
-            dragEvent.acceptTransferModes(TransferMode.ANY);
-        }
-    }
-
-    public void handleDragDropped(DragEvent dragEvent) {
-        List<File> files = dragEvent.getDragboard().getFiles();
-
-        int limit = 3;
-        int freePlaces = limit - getApplication().getImages().size();
-
-        if(files.size() > freePlaces) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Ошибка");
-            alert.setHeaderText("Количество фотографий превышает лимит!\nМожно добавить только " + limit + " фото!");
-            alert.show();
-            return;
-        }
-
-        for (File file : files) {
-            if(!fileIsImage(file)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Ошибка");
-                alert.setHeaderText("Неверный формат! Файл не является изображением");
-                alert.show();
-                return;
-            }
-            else {
-                loadFile(file);
-            }
-        }
-    }
-
     private void loadFile(File file) {
         FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
         try {
