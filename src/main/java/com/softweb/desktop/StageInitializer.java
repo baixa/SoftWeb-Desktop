@@ -6,6 +6,7 @@ import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -54,6 +55,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             stage.setWidth(1300);
             stage.setHeight(700);
             stage.setTitle(applicationTitle);
+            stage.getIcons().add(new Image(StageInitializer.class.getResourceAsStream("/images/logo.png")));
             Scene scene = new Scene(rootElement);
             stage.setScene(scene);
             stage.show();
