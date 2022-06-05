@@ -93,12 +93,6 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
-    private boolean fileIsImage(File file) {
-        String mimetype= new MimetypesFileTypeMap().getContentType(file);
-        String type = mimetype.split("/")[0];
-        return type.equals("image");
-    }
-
     public void fileDialogOpen(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
