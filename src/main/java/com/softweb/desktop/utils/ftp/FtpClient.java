@@ -1,14 +1,14 @@
 package com.softweb.desktop.utils.ftp;
 
-import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.ApplicationImage;
 import javafx.scene.image.Image;
-import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Arrays;
@@ -25,6 +25,9 @@ public class FtpClient {
     private FTPClient ftp;
 
     public static final String FTP_DIRECTORY = "/ftp/upload/SoftWeb/src/main/resources/static/";
+
+    private static final Logger logger = LoggerFactory.getLogger(
+            FtpClient.class);
 
     public FtpClient(String server, int port, String user, String password) {
         this.server = server;
@@ -87,7 +90,7 @@ public class FtpClient {
 
     public void open() throws IOException {
         ftp = new FTPClient();
-        ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
+        logger.info("Connect FTP server");
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
@@ -101,6 +104,7 @@ public class FtpClient {
     }
 
     public void close() throws IOException {
+        logger.info("Disconnect FTP server");
         ftp.disconnect();
     }
 
