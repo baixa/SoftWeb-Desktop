@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -72,7 +73,7 @@ public class FtpClient {
             String sourcePath = FtpClient.FTP_DIRECTORY + logoPath;
             String fileExt = logoPath.substring(logoPath.lastIndexOf("."));
             String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
-            application.setLogo(new Image(destinationPath));
+            application.setLogo(new Image(new URL("file://" + destinationPath).toExternalForm()));
         }
 
         if (application.getImages() != null && application.getImages().size() > 0) {
@@ -82,7 +83,7 @@ public class FtpClient {
                     String sourcePath = FtpClient.FTP_DIRECTORY + path;
                     String fileExt = path.substring(path.lastIndexOf("."));
                     String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
-                    applicationImage.setImage(new Image(destinationPath));
+                    applicationImage.setImage(new Image(new URL("file://" + destinationPath).toExternalForm()));
                 }
             }
         }

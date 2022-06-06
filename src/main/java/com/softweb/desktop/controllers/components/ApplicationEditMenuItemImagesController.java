@@ -62,7 +62,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             imageTip.setPrefWidth(imageView.getImage().getWidth());
             imageTip.setMaxWidth(imageTip.getMaxHeight() * imageTip.getPrefWidth() / imageTip.getPrefHeight());
             String url = imageView.getImage().getUrl().replace('\\', '/');
-            imageTip.setStyle("-fx-background-image: url(file:///" + url + ");" +
+            imageTip.setStyle("-fx-background-image: url(" + url + ");" +
                     "-fx-background-repeat: stretch; " +
                     "-fx-background-size: stretch; ");
 
