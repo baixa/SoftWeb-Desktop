@@ -10,44 +10,47 @@ import java.util.*;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "applications")
+@Table(name = "application")
 @AllArgsConstructor
 public class Application{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "Short_description")
+    @Column(name = "short_description")
     private String shortDescription;
 
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "Logo_Path")
+    @Column(name = "logo_path")
     private String logoPath;
 
     @Transient
     private Image logo;
 
-    @Column(name = "Last_Update")
+    @Column(name = "last_update")
     private Date lastUpdate;
 
+    @Column(name = "downloads")
+    private int downloads;
+
     @ManyToOne
-    @JoinColumn(name = "License")
+    @JoinColumn(name = "license")
     private License license;
 
     @ManyToOne
-    @JoinColumn(name = "Developer_ID")
+    @JoinColumn(name = "developer_id")
     private Developer developer;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     private Set<ApplicationImage> images;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
-    private Set<ApplicationsSystems> applicationsSystems;
+    private Set<Installer> installers;
 
     @Override
     public String toString() {
@@ -58,6 +61,7 @@ public class Application{
                 ", description='" + description + '\'' +
                 ", logoPath='" + logoPath + '\'' +
                 ", lastUpdate=" + lastUpdate +
+                ", downloads=" + downloads +
                 ", license='" + license + '\'' +
                 ", developer=" + developer +
                 '}';

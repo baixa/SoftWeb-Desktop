@@ -5,9 +5,7 @@ import com.softweb.desktop.database.entity.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -19,8 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ApplicationController implements Initializable {
 
@@ -108,8 +104,8 @@ public class ApplicationController implements Initializable {
         ivThirdImage.setImage(imageList.get(2).getImage());
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
-        for (ApplicationsSystems applicationSystem :
-                application.getApplicationsSystems()) {
+        for (Installer applicationSystem :
+                application.getInstallers()) {
             if (applicationSystem.getSystem().getName().equals("Windows 10")) {
                 ivWindows.setVisible(true);
             }

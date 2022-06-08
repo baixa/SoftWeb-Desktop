@@ -16,7 +16,7 @@ public class ConnectionValidator {
     {
         try {
             logger.info("Check database connection");
-            Connection connection = DriverManager.getConnection("jdbc:mariadb://45.153.230.50:3306/softwebdb?user=softwebuser&password=SoftWUser");
+            Connection connection = DriverManager.getConnection("jdbc:mariadb://45.67.35.2:3306/softwebdb?user=softweb_admin&password=SoftWUser");
             if (connection != null && !connection.isClosed() && connection.isValid(5)) {
                 connection.prepareStatement("SELECT 1");
                 logger.info("Database connection success");

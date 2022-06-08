@@ -3,3 +3,5 @@
 
 :: Launch Spring application
 mvn spring-boot:run
+
+pause

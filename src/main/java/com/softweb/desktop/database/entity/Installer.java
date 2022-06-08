@@ -5,32 +5,32 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "applications_systems")
+@Table(name = "installer")
 @AllArgsConstructor
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class ApplicationsSystems {
-    @EmbeddedId
-    private ApplicationsSystemsKey id = new ApplicationsSystemsKey();
+public class Installer {
+
+    @Id
+    @Column(name = "id")
+    private int id;
 
     @ManyToOne
-    @MapsId("applicationId")
     @JoinColumn(name = "application_id")
     private Application application;
 
     @ManyToOne
-    @MapsId("systemId")
     @JoinColumn(name = "system_id")
-    private OperationSystem system;
+    private OperatingSystem system;
 
-    @Column(name = "Installer_Path")
+    @Column(name = "path")
     private String installerPath;
 
-    @Column(name = "Version")
+    @Column(name = "version")
     private String version;
 
-    @Column(name = "Size")
+    @Column(name = "size")
     private int size;
 
     @Override

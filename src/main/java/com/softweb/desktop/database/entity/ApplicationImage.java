@@ -9,12 +9,15 @@ import javax.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "applications_images")
+@Table(name = "application_image")
 @AllArgsConstructor
 public class ApplicationImage {
 
     @Id
-    @Column(name = "Path")
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "path")
     private String path;
 
     @Transient

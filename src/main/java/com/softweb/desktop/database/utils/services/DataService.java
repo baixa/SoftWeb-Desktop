@@ -10,19 +10,19 @@ public class DataService {
 
     private static DeveloperRepository developerRepository;
     private static ApplicationRepository applicationRepository;
-    private static OperationSystemRepository operationSystemRepository;
+    private static OperatingSystemRepository operatingSystemRepository;
     private static ApplicationImageRepository applicationImageRepository;
-    private static ApplicationSystemsRepository applicationSystemsRepository;
+    private static InstallerRepository installerRepository;
     private static LicenseRepository licenseRepository;
 
     public DataService(DeveloperRepository developerRepository, ApplicationRepository applicationRepository,
-                       OperationSystemRepository operationSystemRepository, ApplicationImageRepository applicationImageRepository,
-                       ApplicationSystemsRepository applicationSystemsRepository, LicenseRepository licenseRepository) {
+                       OperatingSystemRepository operatingSystemRepository, ApplicationImageRepository applicationImageRepository,
+                       InstallerRepository installerRepository, LicenseRepository licenseRepository) {
         DataService.developerRepository = developerRepository;
         DataService.applicationRepository = applicationRepository;
-        DataService.operationSystemRepository = operationSystemRepository;
+        DataService.operatingSystemRepository = operatingSystemRepository;
         DataService.applicationImageRepository = applicationImageRepository;
-        DataService.applicationSystemsRepository = applicationSystemsRepository;
+        DataService.installerRepository = installerRepository;
         DataService.licenseRepository = licenseRepository;
     }
 
@@ -34,16 +34,16 @@ public class DataService {
         return applicationRepository;
     }
 
-    public static OperationSystemRepository getOperationSystemRepository() {
-        return operationSystemRepository;
+    public static OperatingSystemRepository getOperationSystemRepository() {
+        return operatingSystemRepository;
     }
 
     public static ApplicationImageRepository getApplicationImageRepository() {
         return applicationImageRepository;
     }
 
-    public static ApplicationSystemsRepository getApplicationSystemsRepository() {
-        return applicationSystemsRepository;
+    public static InstallerRepository getApplicationSystemsRepository() {
+        return installerRepository;
     }
 
     public static LicenseRepository getLicenseRepository() {
@@ -63,12 +63,12 @@ public class DataService {
         applicationRepository.delete(application);
     }
 
-    public static void saveApplicationSystem(ApplicationsSystems applicationsSystem) {
-        applicationSystemsRepository.save(applicationsSystem);
+    public static void saveApplicationSystem(Installer applicationsSystem) {
+        installerRepository.save(applicationsSystem);
     }
 
-    public static void saveOperationSystem(OperationSystem operationSystem) {
-        operationSystemRepository.save(operationSystem);
+    public static void saveOperationSystem(OperatingSystem operatingSystem) {
+        operatingSystemRepository.save(operatingSystem);
     }
 
     public static void saveDeveloper(Developer developer) {

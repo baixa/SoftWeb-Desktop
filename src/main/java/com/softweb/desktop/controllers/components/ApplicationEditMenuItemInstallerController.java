@@ -1,8 +1,8 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.database.entity.ApplicationsSystems;
-import com.softweb.desktop.database.entity.OperationSystem;
+import com.softweb.desktop.database.entity.Installer;
+import com.softweb.desktop.database.entity.OperatingSystem;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
@@ -53,7 +53,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     private boolean windowsSelected = false;
 
-    private ApplicationsSystems applicationsSystem;
+    private Installer applicationsSystem;
 
 
     @Override
@@ -77,10 +77,10 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
         ivLinux.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if(windowsSelected) {
-                ApplicationsSystems applicationsSystems = getApplication().getApplicationsSystems().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Debian")).findFirst().orElse(null);
-                if(applicationsSystems != null)
+                Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Debian")).findFirst().orElse(null);
+                if(installer != null)
                 {
-                    fillInstallerInfo(applicationsSystems);
+                    fillInstallerInfo(installer);
                     tbCommand.setStyle("-fx-text-fill: #66666699;");
                     tbCommand.textProperty().setValue("Не требуется");
 
@@ -150,10 +150,10 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     private void fillWindowsInfo() {
-        ApplicationsSystems applicationsSystems = getApplication().getApplicationsSystems().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
-        if(applicationsSystems != null)
+        Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
+        if(installer != null)
         {
-            fillInstallerInfo(applicationsSystems);
+            fillInstallerInfo(installer);
             tbCommand.setStyle("-fx-text-fill: #075d5b;");
             tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
         }
@@ -166,28 +166,22 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         windowsSelected = true;
     }
 
-    private void fillInstallerInfo(ApplicationsSystems applicationsSystems) {
+    private void fillInstallerInfo(Installer installer) {
         labelWarning.setVisible(false);
-        double size = applicationsSystems.getSize();
+        double size = installer.getSize();
         size = (size / 1024) / 1024;
         DecimalFormat decimalFormat = new DecimalFormat("###0.00");
         tbSize.textProperty().setValue(decimalFormat.format(size) + " Мб");
-        tbOS.textProperty().setValue(applicationsSystems.getSystem().getName());
+        tbOS.textProperty().setValue(installer.getSystem().getName());
     }
 
     @Override
     public void saveEdits() {
-        getApplication().getApplicationsSystems().add(applicationsSystem);
+        getApplication().getInstallers().add(applicationsSystem);
         applicationsSystem.getSystem().getApplicationsSystems().add(applicationsSystem);
         DataService.saveApplicationSystem(applicationsSystem);
         DataService.saveOperationSystem(applicationsSystem.getSystem());
         updateApplication();
-    }
-
-    private boolean fileIsInstaller(File file) {
-        String fileName = file.getName();
-        String fileExt = fileName.substring(fileName.lastIndexOf("."));
-        return fileExt.equals(".exe") || fileExt.equals(".deb");
     }
 
     private void loadFile(File file) {
@@ -199,21 +193,21 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
             String fileName = java.util.UUID.randomUUID().toString() + fileExt;
             ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
-            OperationSystem system;
+            OperatingSystem system;
             if (fileExt.equals(".deb")) {
                 system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Debian")).findFirst().orElse(null);
             }
             else {
                 system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
             }
-            List<ApplicationsSystems> applicationsSystems = new ArrayList(getApplication().getApplicationsSystems());
-            ApplicationsSystems existedItem = applicationsSystems.stream()
+            List<Installer> applicationsSystems = new ArrayList<>(getApplication().getInstallers());
+            Installer existedItem = applicationsSystems.stream()
                     .filter(item -> item.getApplication().getId().equals(getApplication().getId()))
                     .filter(item -> item.getSystem().getId().equals(system.getId()))
                     .findFirst()
                     .orElse(null);
             if (existedItem == null) {
-                applicationsSystem = new ApplicationsSystems();
+                applicationsSystem = new Installer();
                 applicationsSystem.setApplication(getApplication());
                 applicationsSystem.setApplication(getApplication());
                 applicationsSystem.setSize((int) file.length());

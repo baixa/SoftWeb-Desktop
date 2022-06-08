@@ -1,33 +1,30 @@
 package com.softweb.desktop.database.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "operation_systems")
+@Table(name = "operating_system")
 @AllArgsConstructor
-public class OperationSystem {
+public class OperatingSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "system", fetch = FetchType.EAGER)
-    private Set<ApplicationsSystems> applicationsSystems;
+    private Set<Installer> applicationsSystems;
 
     @Override
     public String toString() {
-        return "OperationSystem{" +
+        return "OperatingSystem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

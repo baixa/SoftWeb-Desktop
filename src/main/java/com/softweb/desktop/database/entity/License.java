@@ -19,7 +19,7 @@ public class License {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "license", fetch = FetchType.EAGER)

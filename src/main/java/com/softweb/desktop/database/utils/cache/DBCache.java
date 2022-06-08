@@ -3,7 +3,7 @@ package com.softweb.desktop.database.utils.cache;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.entity.License;
-import com.softweb.desktop.database.entity.OperationSystem;
+import com.softweb.desktop.database.entity.OperatingSystem;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ public class DBCache {
 
     private List<Application> applications;
     private List<Developer> developers;
-    private List<OperationSystem> systems;
+    private List<OperatingSystem> systems;
     private List<License> licenses;
 
     private static DBCache cache;
@@ -86,7 +86,7 @@ public class DBCache {
         return licenses;
     }
 
-    public List<OperationSystem> getSystems() {
+    public List<OperatingSystem> getSystems() {
         return systems;
     }
 }

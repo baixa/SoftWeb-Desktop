@@ -10,26 +10,26 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "developers")
+@Table(name = "developer")
 @AllArgsConstructor
 @Transactional
 public class Developer {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "Fullname")
+    @Column(name = "fullname")
     private String fullName;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "Admin")
+    @Column(name = "is_admin")
     private boolean isAdmin;
 
     @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
@@ -42,7 +42,7 @@ public class Developer {
                 ", username='" + username + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", is_admin=" + isAdmin +
                 '}';
     }
 }
