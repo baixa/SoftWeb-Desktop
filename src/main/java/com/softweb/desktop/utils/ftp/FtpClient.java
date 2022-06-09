@@ -42,56 +42,6 @@ public class FtpClient {
         this.password = password;
     }
 
-    public static void loadApplicationsImages(List<Application> applications) {
-        if (applications == null || applications.size() == 0)
-            return;
-
-        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
-        try {
-            ftpClient.open();
-            for (Application application : applications) {
-                loadApplicationData(application, ftpClient);
-            }
-            ftpClient.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void updateApplicationData(Application application) {
-        if(application == null)
-            return;
-
-        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
-        try {
-            ftpClient.open();
-            loadApplicationData(application, ftpClient);
-            ftpClient.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadApplicationData(Application application, FtpClient ftpClient) throws IOException {
-        String logoPath = application.getLogoPath();
-        if (logoPath != null) {
-            String fileExt = logoPath.substring(logoPath.lastIndexOf("."));
-            String destinationPath = ftpClient.downloadFileAsTemp(logoPath, fileExt);
-            application.setLogo(new Image(new URL("file://" + destinationPath).toExternalForm()));
-        }
-
-        if (application.getImages() != null && application.getImages().size() > 0) {
-            for (ApplicationImage applicationImage : application.getImages()) {
-                String path = applicationImage.getPath();
-                if (path != null) {
-                    String fileExt = path.substring(path.lastIndexOf("."));
-                    String destinationPath = ftpClient.downloadFileAsTemp(path, fileExt);
-                    applicationImage.setImage(new Image(new URL("file://" + destinationPath).toExternalForm()));
-                }
-            }
-        }
-    }
-
     public void open() throws IOException {
         ftp = new FTPClient();
         logger.info("Connect FTP server");

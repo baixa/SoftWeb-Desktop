@@ -39,8 +39,10 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
     @Override
     public void saveEdits() {
-        getApplication().getImages().add(applicationImage);
+        if(getApplication().getImages() == null)
+            getApplication().setImages(new HashSet<>());
         DataService.saveApplicationImage(applicationImage);
+        getApplication().getImages().add(applicationImage);
         updateApplication();
     }
 
@@ -49,6 +51,12 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         hbImages.getChildren().removeAll(hbImages.getChildren());
         for (ApplicationImage image :
                 getApplication().getImages()) {
+            if(image.getPath() == null)
+                continue;
+
+            if(image.getImage() == null)
+                image.setImage(new Image(image.getPath()));
+
             Image appImage = image.getImage();
             ImageView imageView = new ImageView(appImage);
             imageView.setFitWidth(120);

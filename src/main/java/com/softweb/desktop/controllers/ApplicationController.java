@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -60,6 +59,12 @@ public class ApplicationController implements Initializable {
     @FXML
     public ImageView ivLogo;
 
+    @FXML
+    public Label labelWarning;
+
+    @FXML
+    public Label labelSystems;
+
     private Application application;
 
 
@@ -95,24 +100,36 @@ public class ApplicationController implements Initializable {
         this.ivLogo.setImage(application.getLogo());
         List<ApplicationImage> imageList = new ArrayList<>(application.getImages());
         hbImages.getChildren().clear();
-        imageList.forEach(item -> {
-            if(item.getImage() != null) {
-                ImageView imageView = new ImageView(item.getImage());
-                imageView.setFitHeight(200);
-                hbImages.getChildren().add(imageView);
-            }
-        });
+        if(imageList.size() == 0) {
+           labelWarning.setVisible(true);
+        }
+        else {
+            labelWarning.setVisible(false);
+            imageList.forEach(item -> {
+                if(item.getImage() != null) {
+                    ImageView imageView = new ImageView(item.getImage());
+                    imageView.setFitHeight(200);
+                    hbImages.getChildren().add(imageView);
+                }
+            });
+        }
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
-        for (Installer applicationSystem :
-                application.getInstallers()) {
-            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
-                ivWindows.setVisible(true);
-            }
-            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
-                ivLinux.setVisible(true);
+        if(application.getInstallers() == null || application.getInstallers().size() == 0)
+            labelSystems.setVisible(true);
+        else {
+            labelSystems.setVisible(false);
+            for (Installer applicationSystem :
+                    application.getInstallers()) {
+                if (applicationSystem.getSystem().getName().equals("Windows 10")) {
+                    ivWindows.setVisible(true);
+                }
+                else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
+                    ivLinux.setVisible(true);
+                }
             }
         }
+
         hbImages.getChildren().forEach(child -> child.hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue) {
                 Tooltip imageTip = new Tooltip();

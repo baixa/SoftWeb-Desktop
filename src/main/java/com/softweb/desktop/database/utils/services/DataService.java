@@ -52,7 +52,6 @@ public class DataService {
 
     public static void saveApplication(Application application) {
         applicationRepository.save(application);
-        DBCache.updateApplication(application);
     }
 
     public static void saveApplicationImage(ApplicationImage applicationImage) {
