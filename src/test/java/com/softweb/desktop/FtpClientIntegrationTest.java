@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.Collection;
 
 import static org.junit.Assert.assertFalse;
@@ -30,7 +29,7 @@ public class FtpClientIntegrationTest {
      * @throws IOException
      */
     public void setup() throws IOException {
-        ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         ftpClient.open();
     }
 
@@ -51,8 +50,7 @@ public class FtpClientIntegrationTest {
     @Test
     public void getFilesListFromFtpServer() throws IOException {
         setup();
-        Collection<String> files = ftpClient.listFiles("/");
-
+        Collection<String> files = ftpClient.listFiles("/test/image");
         assertTrue((files).contains("logo.png"));
         teardown();
     }
@@ -61,16 +59,14 @@ public class FtpClientIntegrationTest {
      * Test of uploading file to FTP Server
      *
      * @throws IOException
-     * @throws URISyntaxException
      */
     @Test
-    public void dropFileOnFtpServer()
-            throws IOException, URISyntaxException {
+    public void dropFileOnFtpServer() throws IOException {
 
         setup();
         InputStream inputStream = this.getClass().getResourceAsStream("/images/logo.png");
-        ftpClient.putFileToPath(inputStream, "/logo.png");
-        assertTrue(ftpClient.listFiles("/").contains("logo.png"));
+        ftpClient.putFileToPath(inputStream, "/test/image/logo.png");
+        assertTrue(ftpClient.listFiles("/test/image").contains("logo.png"));
         teardown();
     }
 
@@ -82,7 +78,7 @@ public class FtpClientIntegrationTest {
     @Test
     public void getFileFromFtpServer() throws IOException {
         setup();
-        ftpClient.downloadFile("/logo.png.png", "logo.png");
+        ftpClient.downloadFile("/test/image/logo.png", "logo.png");
         assertTrue(new File("logo.png").exists());
         teardown();
     }
@@ -93,12 +89,11 @@ public class FtpClientIntegrationTest {
      * @throws IOException
      */
     @Test
-    public void removeFileFromFtpServer()
-            throws IOException {
+    public void removeFileFromFtpServer() throws IOException {
 
         setup();
-        ftpClient.deleteFile("/logo.png");
-        assertFalse(ftpClient.listFiles("/").contains("logo.png"));
+        ftpClient.deleteFile("/test/image/logo.png");
+        assertFalse(ftpClient.listFiles("/test/image/").contains("logo.png"));
         teardown();
     }
 

@@ -3,6 +3,7 @@ package com.softweb.desktop.utils.ftp;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.ApplicationImage;
 import javafx.scene.image.Image;
+import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -25,7 +26,11 @@ public class FtpClient {
     private String password;
     private FTPClient ftp;
 
-    public static final String FTP_DIRECTORY = "/ftp/upload/SoftWeb/src/main/resources/static/";
+    public static final String IMAGE_PATH = "/images/";
+    public static final String LOGO_PATH = "/logo/";
+    public static final String INSTALLER_PATH = "/installers/";
+
+    public static final String WEB_PATH = "http://45.67.35.2/softweb/resources";
 
     private static final Logger logger = LoggerFactory.getLogger(
             FtpClient.class);
@@ -41,7 +46,7 @@ public class FtpClient {
         if (applications == null || applications.size() == 0)
             return;
 
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         try {
             ftpClient.open();
             for (Application application : applications) {
@@ -57,7 +62,7 @@ public class FtpClient {
         if(application == null)
             return;
 
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         try {
             ftpClient.open();
             loadApplicationData(application, ftpClient);
@@ -70,9 +75,8 @@ public class FtpClient {
     private static void loadApplicationData(Application application, FtpClient ftpClient) throws IOException {
         String logoPath = application.getLogoPath();
         if (logoPath != null) {
-            String sourcePath = FtpClient.FTP_DIRECTORY + logoPath;
             String fileExt = logoPath.substring(logoPath.lastIndexOf("."));
-            String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
+            String destinationPath = ftpClient.downloadFileAsTemp(logoPath, fileExt);
             application.setLogo(new Image(new URL("file://" + destinationPath).toExternalForm()));
         }
 
@@ -80,9 +84,8 @@ public class FtpClient {
             for (ApplicationImage applicationImage : application.getImages()) {
                 String path = applicationImage.getPath();
                 if (path != null) {
-                    String sourcePath = FtpClient.FTP_DIRECTORY + path;
                     String fileExt = path.substring(path.lastIndexOf("."));
-                    String destinationPath = ftpClient.downloadFileAsTemp(sourcePath, fileExt);
+                    String destinationPath = ftpClient.downloadFileAsTemp(path, fileExt);
                     applicationImage.setImage(new Image(new URL("file://" + destinationPath).toExternalForm()));
                 }
             }
@@ -92,6 +95,7 @@ public class FtpClient {
     public void open() throws IOException {
         ftp = new FTPClient();
         logger.info("Connect FTP server");
+        ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
@@ -132,11 +136,42 @@ public class FtpClient {
     }
 
     public void putFileToPath(InputStream inputStream, String path) throws IOException {
+        ftpCreateDirectoryTree(path.substring(0, path.lastIndexOf("/")));
         ftp.storeFile(path, inputStream);
-        ftp.sendSiteCommand("chmod 777 " + path);
     }
 
     public void deleteFile(String path) throws IOException {
         ftp.deleteFile(path);
+    }
+
+    /**
+     * Utility to create an arbitrary directory hierarchy on the remote ftp server
+     *
+     * @param dirTree
+     *
+     * @throws Exception
+     */
+    private void ftpCreateDirectoryTree(String dirTree) throws IOException {
+
+        boolean dirExists = true;
+
+        String[] directories = dirTree.split("/");
+        for (String dir : directories ) {
+            if (!dir.isEmpty() ) {
+                if (dirExists) {
+                    dirExists = ftp.changeWorkingDirectory(dir);
+                }
+            }
+            if (!dirExists) {
+                if (!ftp.makeDirectory(dir)) {
+                    logger.error("Unable to create remote directory '" + dir + "'.  error='" + ftp.getReplyString()+"'");
+                }
+                if (!ftp.changeWorkingDirectory(dir)) {
+                    logger.error("Unable to change into newly created remote directory '" + dir + "'.  error='" + ftp.getReplyString()+"'");
+                }
+            }
+        }
+
+        ftp.changeWorkingDirectory("/");
     }
 }

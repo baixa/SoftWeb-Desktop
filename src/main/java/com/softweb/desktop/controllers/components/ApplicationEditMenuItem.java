@@ -24,7 +24,12 @@ public abstract class ApplicationEditMenuItem {
                 .filter(item -> item.getId().equals(getApplication().getId()))
                 .findFirst()
                 .orElse(null);
-        setApplication(updated);
+        if (updated == null) {
+            DBCache.clear();
+        }
+        else {
+            setApplication(updated);
+        }
         refreshContent();
     }
 

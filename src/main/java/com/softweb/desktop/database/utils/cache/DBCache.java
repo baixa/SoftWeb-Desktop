@@ -6,6 +6,7 @@ import com.softweb.desktop.database.entity.License;
 import com.softweb.desktop.database.entity.OperatingSystem;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
+import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,7 +29,18 @@ public class DBCache {
     }
 
     private void loadApplicationsImages() {
-        FtpClient.loadApplicationsImages(applications);
+        applications.forEach(item -> {
+            if(item.getLogoPath() != null) {
+                item.setLogo(new Image(item.getLogoPath()));
+            }
+            if(item.getImages() != null && item.getImages().size() != 0) {
+                item.getImages().forEach(image -> {
+                    if (image.getPath() != null) {
+                        image.setImage(new Image(image.getPath()));
+                    }
+                });
+            }
+        });
     }
 
     private void loadApplicationData(Application application) {

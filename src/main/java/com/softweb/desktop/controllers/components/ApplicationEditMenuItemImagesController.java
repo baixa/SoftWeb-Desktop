@@ -11,13 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
-import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -72,17 +69,17 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf(".") + 1)).orElse("");
             ftpClient.open();
             InputStream inputStream = new FileInputStream(file);
             String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
-            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.putFileToPath(inputStream, FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
             applicationImage = new ApplicationImage();
             applicationImage.setApplication(getApplication());
-            applicationImage.setPath("images/application_images/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            applicationImage.setPath(FtpClient.WEB_PATH + FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
 
             saveEdits();
         } catch (IOException e) {

@@ -2,7 +2,6 @@ package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.entity.ApplicationImage;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,13 +58,13 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
             ftpClient.open();
             InputStream inputStream = new FileInputStream(file);
             String fileName = java.util.UUID.randomUUID().toString() + fileExt;
-            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "images/application_logo/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.putFileToPath(inputStream, FtpClient.LOGO_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
             Application application = getApplication();
             if (application.getLogoPath() != null) {
@@ -82,7 +81,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
                     return;
                 }
             }
-            application.setLogoPath("images/application_logo/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            application.setLogoPath(FtpClient.WEB_PATH + FtpClient.LOGO_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             saveEdits();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

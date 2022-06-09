@@ -185,13 +185,13 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
             ftpClient.open();
             InputStream inputStream = new FileInputStream(file);
             String fileName = java.util.UUID.randomUUID().toString() + fileExt;
-            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.putFileToPath(inputStream, FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
             OperatingSystem system;
             if (fileExt.equals(".deb")) {
@@ -212,7 +212,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 applicationsSystem.setApplication(getApplication());
                 applicationsSystem.setSize((int) file.length());
                 applicationsSystem.setVersion("1.0.0");
-                applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                applicationsSystem.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
                 applicationsSystem.setSystem(system);
                 saveEdits();
             }
@@ -229,7 +229,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 if (changeExisted.get()) {
                     applicationsSystem = existedItem;
                     applicationsSystem.setSize((int) file.length());
-                    applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                    applicationsSystem.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
                     applicationsSystem.setSystem(system);
                     saveEdits();
                 }

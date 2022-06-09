@@ -38,7 +38,8 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     public void refreshContent() {
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         this.tbDate.setText(dateFormat.format(getApplication().getLastUpdate()));
-        cbLicense.getSelectionModel().select(getApplication().getLicense().getName());
+        if (getApplication().getLicense() != null)
+            cbLicense.getSelectionModel().select(getApplication().getLicense().getName());
     }
 
     @Override
