@@ -109,7 +109,7 @@
          <children>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: none;">
                <children>
-                  <HBox fx:id="hbImages" alignment="CENTER" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="676.0" style="-fx-border-color: none;">
+                  <HBox fx:id="hbImages" alignment="CENTER" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="676.0" spacing="25.0" style="-fx-border-color: none;">
                      <children>
                         <ImageView fx:id="ivFirstImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="appImages">
                            <HBox.margin>

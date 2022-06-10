@@ -25,10 +25,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
@@ -53,7 +50,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     private boolean windowsSelected = false;
 
-    private Installer applicationsSystem;
+    private Installer installer;
 
 
     @Override
@@ -177,10 +174,16 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     @Override
     public void saveEdits() {
-        getApplication().getInstallers().add(applicationsSystem);
-        applicationsSystem.getSystem().getApplicationsSystems().add(applicationsSystem);
-        DataService.saveApplicationSystem(applicationsSystem);
-        DataService.saveOperationSystem(applicationsSystem.getSystem());
+        if(getApplication().getInstallers() == null)
+            getApplication().setInstallers(new HashSet<>());
+
+        if(installer.getSystem().getInstallers() == null)
+            installer.getSystem().setInstallers(new HashSet<>());
+
+        DataService.saveApplicationSystem(installer);
+        DataService.saveOperationSystem(installer.getSystem());
+        getApplication().getInstallers().add(installer);
+        installer.getSystem().getInstallers().add(installer);
         updateApplication();
     }
 
@@ -200,20 +203,19 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
             else {
                 system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
             }
-            List<Installer> applicationsSystems = new ArrayList<>(getApplication().getInstallers());
-            Installer existedItem = applicationsSystems.stream()
+            List<Installer> installers = new ArrayList<>(getApplication().getInstallers());
+            Installer existedItem = installers.stream()
                     .filter(item -> item.getApplication().getId().equals(getApplication().getId()))
                     .filter(item -> item.getSystem().getId().equals(system.getId()))
                     .findFirst()
                     .orElse(null);
             if (existedItem == null) {
-                applicationsSystem = new Installer();
-                applicationsSystem.setApplication(getApplication());
-                applicationsSystem.setApplication(getApplication());
-                applicationsSystem.setSize((int) file.length());
-                applicationsSystem.setVersion("1.0.0");
-                applicationsSystem.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
-                applicationsSystem.setSystem(system);
+                installer = new Installer();
+                installer.setApplication(getApplication());
+                installer.setSize((int) file.length());
+                installer.setVersion("1.0.0");
+                installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                installer.setSystem(system);
                 saveEdits();
             }
             else {
@@ -227,10 +229,10 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                     }
                 });
                 if (changeExisted.get()) {
-                    applicationsSystem = existedItem;
-                    applicationsSystem.setSize((int) file.length());
-                    applicationsSystem.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
-                    applicationsSystem.setSystem(system);
+                    installer = existedItem;
+                    installer.setSize((int) file.length());
+                    installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                    installer.setSystem(system);
                     saveEdits();
                 }
             }

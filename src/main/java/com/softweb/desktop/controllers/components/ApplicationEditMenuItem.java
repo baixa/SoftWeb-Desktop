@@ -20,16 +20,10 @@ public abstract class ApplicationEditMenuItem {
     public void updateApplication() {
         this.application.setLastUpdate(new Date());
         DataService.saveApplication(getApplication());
-        Application updated = DBCache.getCache().getApplications().stream()
+        DBCache.getCache().getApplications().stream()
                 .filter(item -> item.getId().equals(getApplication().getId()))
-                .findFirst()
-                .orElse(null);
-        if (updated == null) {
-            DBCache.clear();
-        }
-        else {
-            setApplication(updated);
-        }
+                .findFirst().ifPresent(this::setApplication);
+        DBCache.clear();
         refreshContent();
     }
 

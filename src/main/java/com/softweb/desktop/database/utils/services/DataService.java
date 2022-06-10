@@ -62,8 +62,8 @@ public class DataService {
         applicationRepository.delete(application);
     }
 
-    public static void saveApplicationSystem(Installer applicationsSystem) {
-        installerRepository.save(applicationsSystem);
+    public static void saveApplicationSystem(Installer installer) {
+        installerRepository.save(installer);
     }
 
     public static void saveOperationSystem(OperatingSystem operatingSystem) {

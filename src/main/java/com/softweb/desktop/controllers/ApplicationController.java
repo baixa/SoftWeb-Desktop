@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -106,9 +107,13 @@ public class ApplicationController implements Initializable {
         else {
             labelWarning.setVisible(false);
             imageList.forEach(item -> {
-                if(item.getImage() != null) {
+                if(item.getPath() != null) {
+                    if(item.getImage() == null)
+                        item.setImage(new Image(item.getPath()));
+
                     ImageView imageView = new ImageView(item.getImage());
-                    imageView.setFitHeight(200);
+                    imageView.setFitWidth(200);
+                    imageView.setFitHeight(imageView.getFitWidth() * imageView.getImage().getHeight() / imageView.getImage().getWidth());
                     hbImages.getChildren().add(imageView);
                 }
             });
@@ -121,10 +126,10 @@ public class ApplicationController implements Initializable {
             labelSystems.setVisible(false);
             for (Installer applicationSystem :
                     application.getInstallers()) {
-                if (applicationSystem.getSystem().getName().equals("Windows 10")) {
+                if (applicationSystem.getSystem().getName().contains("Windows")) {
                     ivWindows.setVisible(true);
                 }
-                else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
+                else if (applicationSystem.getSystem().getName().contains("Debian")) {
                     ivLinux.setVisible(true);
                 }
             }
