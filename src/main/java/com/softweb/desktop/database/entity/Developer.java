@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -32,6 +33,9 @@ public class Developer {
     @Column(name = "is_admin")
     private boolean isAdmin;
 
+    @Column(name = "last_entered")
+    private Date lastEntered;
+
     @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
     private Set<Application> applications;
 
@@ -43,6 +47,7 @@ public class Developer {
                 ", fullName='" + fullName + '\'' +
                 ", password='" + password + '\'' +
                 ", is_admin=" + isAdmin +
+                ", last_entered=" + lastEntered +
                 '}';
     }
 }
