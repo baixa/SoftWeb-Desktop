@@ -107,12 +107,12 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
         if(file != null) {
             loadFile(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setTitle("Результат");
+            alert.setHeaderText("Готово!");
+            alert.show();
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-        alert.setTitle("Результат");
-        alert.setHeaderText("Готово!");
-        alert.show();
     }
 
     public void removeImage(ImageView imageView) {

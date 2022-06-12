@@ -250,11 +250,11 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
         if(file != null) {
             loadFile(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setTitle("Результат");
+            alert.setHeaderText("Готово!");
+            alert.show();
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-        alert.setTitle("Результат");
-        alert.setHeaderText("Готово!");
-        alert.show();
     }
 }
