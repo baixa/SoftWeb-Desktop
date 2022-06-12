@@ -47,6 +47,7 @@
             <children>
                 <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#btnHelpClick" text="Помощь" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="235.0" />
             <Button mnemonicParsing="false" onAction="#addApplication" text="Добавить" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="30.0" />
+            <Button mnemonicParsing="false" onAction="#openDiagramPage" text="Анализ" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="30.0" />
             </children>
         </AnchorPane>
     </bottom>

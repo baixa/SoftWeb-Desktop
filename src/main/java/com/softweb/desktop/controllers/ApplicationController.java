@@ -2,7 +2,6 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -74,8 +73,12 @@ public class ApplicationController implements Initializable {
         StageInitializer.getRootController().rebuildButtons(true, false);
     }
 
-    public void btnInstallClick(ActionEvent event) {
-        System.out.println(1);
+    public void btnInstallClick() {
+        getApplication().download();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Установка");
+        alert.setHeaderText("Установка завершена!");
+        alert.show();
     }
 
     public Application getApplication() {

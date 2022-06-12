@@ -75,6 +75,7 @@ public class ApplicationDefaultCell extends ListCell<Application> {
         }
 
         btnOpen.setOnAction(event -> {
+            this.application.view();
             Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
             if (controller instanceof ApplicationController) {
                 ((ApplicationController) controller).setApplication(application);

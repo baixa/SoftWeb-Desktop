@@ -3,6 +3,7 @@ package com.softweb.desktop.controllers;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.controllers.components.user.ApplicationUserCell;
+import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import javafx.application.Platform;
@@ -46,6 +47,7 @@ public class PageUserApplicationController implements Initializable {
                 .filter(application -> application.getDeveloper().getUsername().equals(Authorization.getCurrentUser().getUsername()))
                 .collect(Collectors.toList());
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
+        NodeLimiters.addTextLimiter(tbSearch, 30);
 
         renderApplicationList(applications);
     }
@@ -84,5 +86,9 @@ public class PageUserApplicationController implements Initializable {
         Initializable controller = StageInitializer.navigate("/layout/PageApplicationEdit");
         ((ApplicationEditController) controller).setApplication(application);
         ((ApplicationEditController) controller).generatePage();
+    }
+
+    public void openDiagramPage() {
+        Initializable controller = StageInitializer.navigate("/layout/PageUserApplicationsDiagram");
     }
 }

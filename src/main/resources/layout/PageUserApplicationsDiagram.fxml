@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="550.0" prefWidth="1050.0" stylesheets="@../css/PageApplicationsLayout.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.softweb.desktop.controllers.PageUserApplicationsDiagram">
+   <center>
+      <BarChart fx:id="barChar" stylesheets="@../css/BarCharStyle.css" BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis label="Приложения" side="BOTTOM">
+               <tickLabelFont>
+                  <Font size="16.0" />
+               </tickLabelFont>
+            </CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Значение" side="LEFT">
+               <tickLabelFont>
+                  <Font size="16.0" />
+               </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+         <BorderPane.margin>
+            <Insets left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin>
+      </BarChart>
+   </center>
+   <bottom>
+      <AnchorPane maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#printDiagram" text="Печать" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="30.0" />
+            <Button mnemonicParsing="false" onAction="#saveDiagram" text="Сохранить" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="230.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

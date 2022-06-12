@@ -2,6 +2,7 @@ package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
+import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
@@ -37,7 +38,9 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        NodeLimiters.addTextLimiter(tbAppName, 30);
+        NodeLimiters.addTextLimiter(tbShortDescription, 50);
+        NodeLimiters.addTextLimiter(tbDescription, 500);
     }
 
     public void saveEdits() {

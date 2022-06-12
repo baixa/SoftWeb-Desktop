@@ -2,7 +2,9 @@ package com.softweb.desktop.auth;
 
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.utils.cache.DBCache;
+import com.softweb.desktop.database.utils.services.DataService;
 
+import java.util.Date;
 import java.util.List;
 
 public class Authorization {
@@ -22,6 +24,8 @@ public class Authorization {
             return false;
         else {
             currentUser = existedDeveloper;
+            currentUser.setLastEntered(new Date());
+            DataService.saveDeveloper(currentUser);
             authorized = true;
             return true;
         }
