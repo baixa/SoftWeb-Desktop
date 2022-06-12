@@ -39,6 +39,9 @@ public class Application{
     @Column(name = "downloads")
     private int downloads;
 
+    @Column(name = "views")
+    private int views;
+
     @ManyToOne
     @JoinColumn(name = "license")
     private License license;
@@ -63,6 +66,7 @@ public class Application{
                 ", logoPath='" + logoPath + '\'' +
                 ", lastUpdate=" + lastUpdate +
                 ", downloads=" + downloads +
+                ", views=" + views +
                 ", license='" + license + '\'' +
                 ", developer=" + developer +
                 '}';
@@ -77,5 +81,8 @@ public class Application{
 
     public void download() {
         downloads += 1;
+    }
+    public void view() {
+        views += 1;
     }
 }

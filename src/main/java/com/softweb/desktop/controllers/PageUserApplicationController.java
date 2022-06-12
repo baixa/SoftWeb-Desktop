@@ -85,4 +85,8 @@ public class PageUserApplicationController implements Initializable {
         ((ApplicationEditController) controller).setApplication(application);
         ((ApplicationEditController) controller).generatePage();
     }
+
+    public void openDiagramPage() {
+        Initializable controller = StageInitializer.navigate("/layout/PageUserApplicationsDiagram");
+    }
 }
