@@ -2,18 +2,15 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.utils.print.PrintUtil;
-import javafx.animation.Animation;
+import com.softweb.desktop.utils.print.OutputUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.util.Duration;
-import org.springframework.data.relational.core.sql.In;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,11 +55,11 @@ public class PageUserApplicationsDiagram implements Initializable {
         tl.play();
     }
 
-    public void printDiagram(ActionEvent event) {
-        PrintUtil.print(barChar);
+    public void printDiagram() {
+        OutputUtils.printChart(barChar);
     }
 
-    public void saveDiagram(ActionEvent event) {
-
+    public void saveDiagram() {
+        OutputUtils.saveChartAsPDF(barChar);
     }
 }
