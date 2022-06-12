@@ -74,4 +74,8 @@ public class Application{
         lastUpdate = new Date();
         developer = Authorization.getCurrentUser();
     }
+
+    public void download() {
+        downloads += 1;
+    }
 }
