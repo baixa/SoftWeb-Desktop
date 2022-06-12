@@ -7,15 +7,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="550.0" prefWidth="1050.0" stylesheets="@../css/PageApplicationsLayout.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.softweb.desktop.controllers.PageUserApplicationsDiagram">
    <center>
       <BarChart fx:id="barChar" stylesheets="@../css/BarCharStyle.css" BorderPane.alignment="CENTER">
         <xAxis>
-          <CategoryAxis label="Приложения" side="BOTTOM" />
+          <CategoryAxis label="Приложения" side="BOTTOM">
+               <tickLabelFont>
+                  <Font size="16.0" />
+               </tickLabelFont>
+            </CategoryAxis>
         </xAxis>
         <yAxis>
-          <NumberAxis label="Значение" side="LEFT" />
+          <NumberAxis label="Значение" side="LEFT">
+               <tickLabelFont>
+                  <Font size="16.0" />
+               </tickLabelFont>
+            </NumberAxis>
         </yAxis>
          <BorderPane.margin>
             <Insets left="30.0" right="30.0" top="30.0" />

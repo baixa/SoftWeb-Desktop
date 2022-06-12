@@ -10,8 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -57,9 +60,21 @@ public class PageUserApplicationsDiagram implements Initializable {
 
     public void printDiagram() {
         OutputUtils.printChart(barChar);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setHeaderText("Документ отправлен на печать!");
+        alert.setTitle("Успешно!");
+        alert.show();
     }
 
     public void saveDiagram() {
-        OutputUtils.saveChartAsPDF(barChar);
+        try {
+            String pathPDF = OutputUtils.saveChartAsPDF(barChar);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setHeaderText("Диаграмма сохранена в документе: " + pathPDF + "!");
+            alert.setTitle("Успешно!");
+            alert.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

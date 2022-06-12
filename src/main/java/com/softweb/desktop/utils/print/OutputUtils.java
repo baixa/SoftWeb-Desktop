@@ -17,10 +17,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 public class OutputUtils {
     public static void printChart(final BarChart<String, Integer> chart) {
@@ -38,48 +35,46 @@ public class OutputUtils {
                 job.endJob();
             }
         }
-
     }
 
-    public static void saveChartAsPDF(final BarChart<String, Integer> chart) {
+    public static String saveChartAsPDF(final BarChart<String, Integer> chart) throws IOException{
 
-        try {
-            File temp = File.createTempFile("SoftWeb-", ".png");
-            temp.deleteOnExit();
-            PDDocument doc = new PDDocument();
-            PDPage page = new PDPage();
+        File temp = File.createTempFile("SoftWeb-", ".png");
+        temp.deleteOnExit();
+        PDDocument doc = new PDDocument();
+        PDPage page = new PDPage();
 
-            WritableImage chartImage = chart.snapshot(null, null);
-            ImageView imageView = new ImageView(chartImage);
-            imageView.setFitWidth(page.getMediaBox().getWidth());
-            imageView.setFitHeight(chartImage.getHeight() * page.getMediaBox().getWidth() / chartImage.getWidth());
+        WritableImage chartImage = chart.snapshot(null, null);
+        ImageView imageView = new ImageView(chartImage);
+        imageView.setFitWidth(page.getMediaBox().getWidth());
+        imageView.setFitHeight(chartImage.getHeight() * page.getMediaBox().getWidth() / chartImage.getWidth());
 
-            WritableImage pdfImage = imageView.snapshot(null, null);
-            ImageIO.write(SwingFXUtils.fromFXImage(pdfImage, null), "png", temp);
+        WritableImage pdfImage = imageView.snapshot(null, null);
+        ImageIO.write(SwingFXUtils.fromFXImage(pdfImage, null), "png", temp);
 
-            PDImageXObject pdimage;
-            PDPageContentStream content;
-            pdimage = PDImageXObject.createFromFile(temp.getPath(),doc);
-            content = new PDPageContentStream(doc, page);
-            String title = "Statistics of " + Authorization.getCurrentUser().getFullName();
-            PDFont font = PDType1Font.HELVETICA_BOLD;
-            int fontSize = 16;
-            int marginTop = 30;
-            float titleWidth = font.getStringWidth(title) / 1000 * fontSize;
-            float titleHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * fontSize;
-            content.beginText();
-            content.setFont(font, fontSize);
-            content.newLineAtOffset((page.getMediaBox().getWidth() - titleWidth) / 2, page.getMediaBox().getHeight() - marginTop - titleHeight);
-            content.drawString(title);
-            content.endText();
-            content.drawImage(pdimage, 0, 400);
-            content.close();
-            doc.addPage(page);
-            String path = System.getProperty("user.home") + "/Downloads/" + "SoftWeb-Chart.pdf";
-            doc.save(path);
-            doc.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PDImageXObject pdimage;
+        PDPageContentStream content;
+        pdimage = PDImageXObject.createFromFile(temp.getPath(),doc);
+        pdimage.setWidth((int) page.getMediaBox().getWidth());
+        pdimage.setHeight((int) (pdimage.getWidth() * chartImage.getHeight() / chartImage.getWidth()));
+        content = new PDPageContentStream(doc, page);
+        String title = "Statistics of applications of user \"" + Authorization.getCurrentUser().getFullName() + "\"";
+        PDFont font = PDType1Font.HELVETICA_BOLD;
+        int fontSize = 16;
+        int marginTop = 30;
+        float titleWidth = font.getStringWidth(title) / 1000 * fontSize;
+        float titleHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * fontSize;
+        content.beginText();
+        content.setFont(font, fontSize);
+        content.newLineAtOffset((page.getMediaBox().getWidth() - titleWidth) / 2, page.getMediaBox().getHeight() - marginTop - titleHeight);
+        content.drawString(title);
+        content.endText();
+        content.drawImage(pdimage, 0, 400);
+        content.close();
+        doc.addPage(page);
+        String path = System.getProperty("user.home") + "\\Downloads\\" + "SoftWeb-" + java.util.UUID.randomUUID().toString() + "-Chart.pdf";
+        doc.save(path);
+        doc.close();
+        return path;
     }
 }
