@@ -1,8 +1,5 @@
 package com.softweb.desktop.utils.ftp;
 
-import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.entity.ApplicationImage;
-import javafx.scene.image.Image;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -10,35 +7,39 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class FtpClient {
 
-    private String server;
-    private int port;
-    private String user;
-    private String password;
-    private FTPClient ftp;
+    private final String server;
+    private final int port;
+    private final String username;
+    private final String password;
+
+    private static FTPClient ftp;
 
     public static final String IMAGE_PATH = "/images/";
     public static final String LOGO_PATH = "/logo/";
     public static final String INSTALLER_PATH = "/installers/";
-
     public static final String WEB_PATH = "http://45.67.35.2/softweb/resources";
 
     private static final Logger logger = LoggerFactory.getLogger(
             FtpClient.class);
 
-    public FtpClient(String server, int port, String user, String password) {
+    public FtpClient(@Value("${connections.ftp.server}") String server,
+                     @Value("${connections.ftp.port}") int port,
+                     @Value("${connections.ftp.username}") String username,
+                     @Value("${connections.ftp.password}") String password) {
         this.server = server;
         this.port = port;
-        this.user = user;
+        this.username = username;
         this.password = password;
     }
 
@@ -52,7 +53,7 @@ public class FtpClient {
             ftp.disconnect();
             throw new IOException("Exception in connecting to FTP Server");
         }
-        ftp.login(user, password);
+        ftp.login(username, password);
 
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
         ftp.enterLocalPassiveMode();

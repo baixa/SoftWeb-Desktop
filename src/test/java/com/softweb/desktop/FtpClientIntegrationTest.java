@@ -29,7 +29,7 @@ public class FtpClientIntegrationTest {
      * @throws IOException
      */
     public void setup() throws IOException {
-        ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
+        ftpClient = new FtpClient("test_url", 21, "user", "password");
         ftpClient.open();
     }
 

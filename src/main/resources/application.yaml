@@ -16,8 +16,8 @@ spring:
 
 connections:
   ftp:
-    url: 45.67.35.2
+    server: "45.67.35.2"
     port: 21
-    username: newftpuser
-    password: ftp
+    username: "softwebftp"
+    password: "SoftWUser"
 

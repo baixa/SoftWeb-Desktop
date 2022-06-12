@@ -1,9 +1,9 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.utils.ftp.FtpClient;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -40,7 +40,6 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
     }
 
-    @Override
     public void saveEdits() {
         getApplication().setName(tbAppName.textProperty().getValue());
         getApplication().setShortDescription(tbShortDescription.textProperty().getValue());
@@ -58,7 +57,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
+        FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
             ftpClient.open();
@@ -91,7 +90,15 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         }
     }
 
-    public void fileDialogOpen(ActionEvent actionEvent) {
+    public void fileDialogOpen() {
+        if(getApplication().getId() == null || getApplication().getId() < 1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
+            alert.setTitle("Внимание");
+            alert.setHeaderText("Задайте имя приложению и сохраните изменения прежде чем добавлять логотип!");
+            alert.show();
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -102,6 +109,21 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
         if(file != null) {
             loadFile(file);
+            ivLogo.setImage(getApplication().getLogo());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setTitle("Результат");
+            alert.setHeaderText("Готово!");
+            alert.show();
         }
+
+    }
+
+    public void save() {
+        saveEdits();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Результат");
+        alert.setHeaderText("Готово!");
+        alert.show();
     }
 }

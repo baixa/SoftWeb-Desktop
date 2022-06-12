@@ -1,16 +1,18 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.ApplicationImage;
 import com.softweb.desktop.database.utils.services.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -35,15 +37,6 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
-
-    @Override
-    public void saveEdits() {
-        if(getApplication().getImages() == null)
-            getApplication().setImages(new HashSet<>());
-        DataService.saveApplicationImage(applicationImage);
-        getApplication().getImages().add(applicationImage);
-        updateApplication();
     }
 
     @Override
@@ -72,12 +65,14 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
                     "-fx-background-size: stretch; ");
 
             Tooltip.install(imageView, imageTip);
+            imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> removeImage(imageView));
+
             hbImages.getChildren().add(imageView);
         }
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
+        FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf(".") + 1)).orElse("");
             ftpClient.open();
@@ -89,16 +84,19 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             applicationImage.setApplication(getApplication());
             applicationImage.setPath(FtpClient.WEB_PATH + FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
 
-            saveEdits();
+
+            if(getApplication().getImages() == null)
+                getApplication().setImages(new HashSet<>());
+            addApplicationImage(applicationImage);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ошибка");
-            alert.setHeaderText("Файл недоступен!");
+            alert.setHeaderText("Попытка передачи файла не удалась!\nПроверьте интернет-соединение и попробуйте еще раз!");
             alert.show();
         }
     }
 
-    public void fileDialogOpen(ActionEvent actionEvent) {
+    public void fileDialogOpen() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -110,5 +108,33 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         if(file != null) {
             loadFile(file);
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Результат");
+        alert.setHeaderText("Готово!");
+        alert.show();
+    }
+
+    public void removeImage(ImageView imageView) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Вы уверены, что хотите удалить изображение?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Внимание!");
+        alert.showAndWait().ifPresent(response -> {
+            Image image = imageView.getImage();
+            String path = image.getUrl();
+            ApplicationImage removableImage  = getApplication()
+                    .getImages()
+                    .stream()
+                    .filter(item -> item.getPath().equals(path))
+                    .findFirst()
+                    .orElse(null);
+            if(removableImage != null) {
+                removeApplicationImage(removableImage);
+                Alert infoAlert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+                infoAlert.setTitle("Результат");
+                infoAlert.setHeaderText("Готово!");
+                infoAlert.show();
+            }
+        });
+
     }
 }

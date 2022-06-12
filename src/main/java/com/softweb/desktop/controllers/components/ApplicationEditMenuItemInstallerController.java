@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Installer;
 import com.softweb.desktop.database.entity.OperatingSystem;
@@ -172,7 +173,6 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         tbOS.textProperty().setValue(installer.getSystem().getName());
     }
 
-    @Override
     public void saveEdits() {
         if(getApplication().getInstallers() == null)
             getApplication().setInstallers(new HashSet<>());
@@ -188,7 +188,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.67.35.2",21, "softwebftp", "SoftWUser");
+        FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
             ftpClient.open();
@@ -222,19 +222,15 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.NO);
                 alert.setTitle("Внимание");
                 alert.setHeaderText("Выбранный установщик заменит текущий! Продолжить?");
-                AtomicBoolean changeExisted = new AtomicBoolean(false);
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.YES) {
-                        changeExisted.set(true);
+                        installer = existedItem;
+                        installer.setSize((int) file.length());
+                        installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                        installer.setSystem(system);
+                        saveEdits();
                     }
                 });
-                if (changeExisted.get()) {
-                    installer = existedItem;
-                    installer.setSize((int) file.length());
-                    installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
-                    installer.setSystem(system);
-                    saveEdits();
-                }
             }
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -255,5 +251,10 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         if(file != null) {
             loadFile(file);
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Результат");
+        alert.setHeaderText("Готово!");
+        alert.show();
     }
 }

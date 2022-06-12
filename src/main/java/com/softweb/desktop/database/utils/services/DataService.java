@@ -58,10 +58,6 @@ public class DataService {
         applicationImageRepository.save(applicationImage);
     }
 
-    public static void deleteApplication (Application application) {
-        applicationRepository.delete(application);
-    }
-
     public static void saveApplicationSystem(Installer installer) {
         installerRepository.save(installer);
     }
@@ -73,5 +69,13 @@ public class DataService {
     public static void saveDeveloper(Developer developer) {
         developerRepository.save(developer);
         DBCache.updateDevelopers();
+    }
+
+    public static void deleteApplication (Application application) {
+        applicationRepository.delete(application);
+    }
+
+    public static void deleteApplicationImage (ApplicationImage applicationImage) {
+        applicationImageRepository.delete(applicationImage);
     }
 }

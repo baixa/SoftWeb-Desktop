@@ -66,34 +66,23 @@ public class ApplicationEditController implements Initializable {
         currentItemController.refreshContent();
     }
 
-    public void save() {
-        currentItemController.saveEdits();
-    }
-
-    public void openMain(MouseEvent mouseEvent) {
+    public void openMain() {
         if (currentItemController instanceof ApplicationEditMenuItemMainController)
             return;
 
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemMain.fxml"));
-        try {
-            Parent loaded = fxmlLoader.load();
-            rootElement.setCenter(loaded);
-            currentItemController = fxmlLoader.getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        generatePage();
-
-        currentMenuItem.setStyle("-fx-text-fill: #000;");
-        currentMenuItem = labelMain;
-        currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
+        generateCenterContent(fxmlLoader, labelMain);
     }
 
-    public void openImages(MouseEvent mouseEvent) {
+    public void openImages() {
         if (currentItemController instanceof ApplicationEditMenuItemImagesController)
             return;
 
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemImages.fxml"));
+        generateCenterContent(fxmlLoader, labelImages);
+    }
+
+    private void generateCenterContent(FXMLLoader fxmlLoader, Label labelImages) {
         try {
             Parent loaded = fxmlLoader.load();
             rootElement.setCenter(loaded);
@@ -108,41 +97,19 @@ public class ApplicationEditController implements Initializable {
         currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
     }
 
-    public void openInstaller(MouseEvent mouseEvent) {
+    public void openInstaller() {
         if (currentItemController instanceof ApplicationEditMenuItemInstallerController)
             return;
 
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemInstaller.fxml"));
-        try {
-            Parent loaded = fxmlLoader.load();
-            rootElement.setCenter(loaded);
-            currentItemController = fxmlLoader.getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        generatePage();
-
-        currentMenuItem.setStyle("-fx-text-fill: #000;");
-        currentMenuItem = labelInstaller;
-        currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
+        generateCenterContent(fxmlLoader, labelInstaller);
     }
 
-    public void openAdditional(MouseEvent mouseEvent) {
+    public void openAdditional() {
         if (currentItemController instanceof ApplicationEditMenuItemAdditionalController)
             return;
 
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemAdditional.fxml"));
-        try {
-            Parent loaded = fxmlLoader.load();
-            rootElement.setCenter(loaded);
-            currentItemController = fxmlLoader.getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        generatePage();
-
-        currentMenuItem.setStyle("-fx-text-fill: #000;");
-        currentMenuItem = labelAdditional;
-        currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
+        generateCenterContent(fxmlLoader, labelAdditional);
     }
 }
