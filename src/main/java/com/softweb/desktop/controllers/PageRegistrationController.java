@@ -2,6 +2,7 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Registration;
+import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import javafx.event.ActionEvent;
@@ -45,6 +46,12 @@ public class PageRegistrationController  implements Initializable {
         tbUnmaskedPasswordConfirm.setVisible(false);
         labelLogin.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> StageInitializer.navigate("/layout/PageAuthorizationLayout"));
         synchronizePassword();
+        NodeLimiters.addTextLimiter(tbLogin, 30);
+        NodeLimiters.addTextLimiter(tbName, 100);
+        NodeLimiters.addTextLimiter(tbMaskedPassword, 30);
+        NodeLimiters.addTextLimiter(tbUnmaskedPassword, 30);
+        NodeLimiters.addTextLimiter(tbMaskedPasswordConfirm, 30);
+        NodeLimiters.addTextLimiter(tbUnmaskedPasswordConfirm, 30);
     }
 
     public void cbShowPasswordChecked() {

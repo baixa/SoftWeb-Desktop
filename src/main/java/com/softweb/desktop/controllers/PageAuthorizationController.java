@@ -2,6 +2,7 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
+import com.softweb.desktop.controllers.utils.NodeLimiters;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,6 +37,10 @@ public class PageAuthorizationController implements Initializable {
         tbUnmaskedPassword.setVisible(false);
         labelRegistration.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> StageInitializer.navigate("/layout/PageRegistrationLayout"));
         synchronizePassword();
+
+        NodeLimiters.addTextLimiter(tbLogin, 30);
+        NodeLimiters.addTextLimiter(tbMaskedPassword, 30);
+        NodeLimiters.addTextLimiter(tbUnmaskedPassword, 30);
     }
 
     public void cbShowPasswordChecked() {
