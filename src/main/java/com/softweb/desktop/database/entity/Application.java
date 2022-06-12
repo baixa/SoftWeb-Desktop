@@ -1,5 +1,6 @@
 package com.softweb.desktop.database.entity;
 
+import com.softweb.desktop.auth.Authorization;
 import javafx.scene.image.Image;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 public class Application{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -65,5 +66,12 @@ public class Application{
                 ", license='" + license + '\'' +
                 ", developer=" + developer +
                 '}';
+    }
+
+    public void fillStarterInformation() {
+        images = new HashSet<>();
+        installers = new HashSet<>();
+        lastUpdate = new Date();
+        developer = Authorization.getCurrentUser();
     }
 }

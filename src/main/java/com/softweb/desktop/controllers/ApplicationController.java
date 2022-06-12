@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -45,15 +46,6 @@ public class ApplicationController implements Initializable {
     public HBox hbImages;
 
     @FXML
-    public ImageView ivFirstImage;
-
-    @FXML
-    public ImageView ivSecondImage;
-
-    @FXML
-    public ImageView ivThirdImage;
-
-    @FXML
     public Label tbShortDescription;
 
     @FXML
@@ -67,6 +59,12 @@ public class ApplicationController implements Initializable {
 
     @FXML
     public ImageView ivLogo;
+
+    @FXML
+    public Label labelWarning;
+
+    @FXML
+    public Label labelSystems;
 
     private Application application;
 
@@ -96,23 +94,47 @@ public class ApplicationController implements Initializable {
         this.tbFullDescription.setText(application.getDescription());
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         this.tbDateUpdate.setText(dateFormat.format(application.getLastUpdate()));
-        this.tbLicense.setText(application.getLicense().getCode());
+        if(application.getLicense() != null)
+            this.tbLicense.setText(application.getLicense().getCode());
+        else
+            this.tbLicense.setText("Отсутствует");
         this.ivLogo.setImage(application.getLogo());
         List<ApplicationImage> imageList = new ArrayList<>(application.getImages());
-        ivFirstImage.setImage(imageList.get(0).getImage());
-        ivSecondImage.setImage(imageList.get(1).getImage());
-        ivThirdImage.setImage(imageList.get(2).getImage());
+        hbImages.getChildren().clear();
+        if(imageList.size() == 0) {
+           labelWarning.setVisible(true);
+        }
+        else {
+            labelWarning.setVisible(false);
+            imageList.forEach(item -> {
+                if(item.getPath() != null) {
+                    if(item.getImage() == null)
+                        item.setImage(new Image(item.getPath()));
+
+                    ImageView imageView = new ImageView(item.getImage());
+                    imageView.setFitWidth(200);
+                    imageView.setFitHeight(imageView.getFitWidth() * imageView.getImage().getHeight() / imageView.getImage().getWidth());
+                    hbImages.getChildren().add(imageView);
+                }
+            });
+        }
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
-        for (Installer applicationSystem :
-                application.getInstallers()) {
-            if (applicationSystem.getSystem().getName().equals("Windows 10")) {
-                ivWindows.setVisible(true);
-            }
-            else if (applicationSystem.getSystem().getName().equals("Debian/Ubuntu")) {
-                ivLinux.setVisible(true);
+        if(application.getInstallers() == null || application.getInstallers().size() == 0)
+            labelSystems.setVisible(true);
+        else {
+            labelSystems.setVisible(false);
+            for (Installer applicationSystem :
+                    application.getInstallers()) {
+                if (applicationSystem.getSystem().getName().contains("Windows")) {
+                    ivWindows.setVisible(true);
+                }
+                else if (applicationSystem.getSystem().getName().contains("Debian")) {
+                    ivLinux.setVisible(true);
+                }
             }
         }
+
         hbImages.getChildren().forEach(child -> child.hoverProperty().addListener(((observableValue, oldValue, newValue) -> {
             if(newValue) {
                 Tooltip imageTip = new Tooltip();

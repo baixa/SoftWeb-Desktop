@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ApplicationImage {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "path")

@@ -74,13 +74,10 @@ public class ApplicationDefaultCell extends ListCell<Application> {
             this.application = application;
         }
 
-        btnOpen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
-                if (controller instanceof ApplicationController) {
-                    ((ApplicationController) controller).setApplication(application);
-                }
+        btnOpen.setOnAction(event -> {
+            Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
+            if (controller instanceof ApplicationController) {
+                ((ApplicationController) controller).setApplication(application);
             }
         });
     }

@@ -1,23 +1,24 @@
 {
   "properties": [
     {
-      "name": "connections.ftp.url",
+      "name": "connections.ftp.server",
       "type": "java.lang.String",
-      "description": "Description for connections.ftp.url."
+      "description": "URL of ftp connection."
     },
     {
       "name": "connections.ftp.port",
-      "type": "java.lang.String",
-      "description": "Description for connections.ftp.port."
+      "type": "java.lang.Integer",
+      "description": "Port of ftp connection."
     },
     {
       "name": "connections.ftp.username",
       "type": "java.lang.String",
-      "description": "Description for connections.ftp.username."
+      "description": "Username of ftp connection."
     },
     {
       "name": "connections.ftp.password",
       "type": "java.lang.String",
-      "description": "Description for connections.ftp.password."
+      "description": "Password of ftp connection."
     }
-  ] }
+  ]
+}

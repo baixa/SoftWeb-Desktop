@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
 public class JavaFXMain extends Application {
-    private ConfigurableApplicationContext applicationContext;
+    private static ConfigurableApplicationContext applicationContext;
 
     @Override
     public void start(Stage stage) {
@@ -34,5 +34,9 @@ public class JavaFXMain extends Application {
         public Stage getStage() {
             return ((Stage) getSource());
         }
+    }
+
+    public static ConfigurableApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 }

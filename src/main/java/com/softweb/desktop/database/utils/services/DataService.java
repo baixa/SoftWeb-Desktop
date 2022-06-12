@@ -52,19 +52,14 @@ public class DataService {
 
     public static void saveApplication(Application application) {
         applicationRepository.save(application);
-        DBCache.updateApplication(application);
     }
 
     public static void saveApplicationImage(ApplicationImage applicationImage) {
         applicationImageRepository.save(applicationImage);
     }
 
-    public static void deleteApplication (Application application) {
-        applicationRepository.delete(application);
-    }
-
-    public static void saveApplicationSystem(Installer applicationsSystem) {
-        installerRepository.save(applicationsSystem);
+    public static void saveApplicationSystem(Installer installer) {
+        installerRepository.save(installer);
     }
 
     public static void saveOperationSystem(OperatingSystem operatingSystem) {
@@ -74,5 +69,13 @@ public class DataService {
     public static void saveDeveloper(Developer developer) {
         developerRepository.save(developer);
         DBCache.updateDevelopers();
+    }
+
+    public static void deleteApplication (Application application) {
+        applicationRepository.delete(application);
+    }
+
+    public static void deleteApplicationImage (ApplicationImage applicationImage) {
+        applicationImageRepository.delete(applicationImage);
     }
 }

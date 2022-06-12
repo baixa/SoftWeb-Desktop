@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
@@ -38,10 +40,10 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     public void refreshContent() {
         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         this.tbDate.setText(dateFormat.format(getApplication().getLastUpdate()));
-        cbLicense.getSelectionModel().select(getApplication().getLicense().getName());
+        if (getApplication().getLicense() != null)
+            cbLicense.getSelectionModel().select(getApplication().getLicense().getName());
     }
 
-    @Override
     public void saveEdits() {
         if(cbLicense.getValue() != null)
             getApplication().setLicense(licenses.stream().filter(license -> license.getName().equals(this.cbLicense.getValue())).findFirst().orElse(null));
@@ -50,5 +52,21 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
 
     public void btnRemove(ActionEvent actionEvent) {
 
+    }
+
+    public void changeLicense() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Смена лицензии");
+        alert.setHeaderText("Вы уверены, что хотите поменять лицензию?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                saveEdits();
+            }
+        });
+
+        alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Результат");
+        alert.setHeaderText("Готово!");
+        alert.show();
     }
 }

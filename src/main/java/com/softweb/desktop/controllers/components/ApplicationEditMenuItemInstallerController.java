@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers.components;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Installer;
 import com.softweb.desktop.database.entity.OperatingSystem;
@@ -25,10 +26,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
@@ -53,7 +51,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     private boolean windowsSelected = false;
 
-    private Installer applicationsSystem;
+    private Installer installer;
 
 
     @Override
@@ -175,23 +173,28 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         tbOS.textProperty().setValue(installer.getSystem().getName());
     }
 
-    @Override
     public void saveEdits() {
-        getApplication().getInstallers().add(applicationsSystem);
-        applicationsSystem.getSystem().getApplicationsSystems().add(applicationsSystem);
-        DataService.saveApplicationSystem(applicationsSystem);
-        DataService.saveOperationSystem(applicationsSystem.getSystem());
+        if(getApplication().getInstallers() == null)
+            getApplication().setInstallers(new HashSet<>());
+
+        if(installer.getSystem().getInstallers() == null)
+            installer.getSystem().setInstallers(new HashSet<>());
+
+        DataService.saveApplicationSystem(installer);
+        DataService.saveOperationSystem(installer.getSystem());
+        getApplication().getInstallers().add(installer);
+        installer.getSystem().getInstallers().add(installer);
         updateApplication();
     }
 
     private void loadFile(File file) {
-        FtpClient ftpClient = new FtpClient("45.153.230.50",21, "newftpuser", "ftp");
+        FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
             String fileExt = Optional.of(file.getName()).filter(f -> f.contains(".")).map(f -> f.substring(file.getName().lastIndexOf("."))).orElse("");
             ftpClient.open();
             InputStream inputStream = new FileInputStream(file);
             String fileName = java.util.UUID.randomUUID().toString() + fileExt;
-            ftpClient.putFileToPath(inputStream, FtpClient.FTP_DIRECTORY + "application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+            ftpClient.putFileToPath(inputStream, FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
             OperatingSystem system;
             if (fileExt.equals(".deb")) {
@@ -200,39 +203,34 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
             else {
                 system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
             }
-            List<Installer> applicationsSystems = new ArrayList<>(getApplication().getInstallers());
-            Installer existedItem = applicationsSystems.stream()
+            List<Installer> installers = new ArrayList<>(getApplication().getInstallers());
+            Installer existedItem = installers.stream()
                     .filter(item -> item.getApplication().getId().equals(getApplication().getId()))
                     .filter(item -> item.getSystem().getId().equals(system.getId()))
                     .findFirst()
                     .orElse(null);
             if (existedItem == null) {
-                applicationsSystem = new Installer();
-                applicationsSystem.setApplication(getApplication());
-                applicationsSystem.setApplication(getApplication());
-                applicationsSystem.setSize((int) file.length());
-                applicationsSystem.setVersion("1.0.0");
-                applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
-                applicationsSystem.setSystem(system);
+                installer = new Installer();
+                installer.setApplication(getApplication());
+                installer.setSize((int) file.length());
+                installer.setVersion("1.0.0");
+                installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                installer.setSystem(system);
                 saveEdits();
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.NO);
                 alert.setTitle("Внимание");
                 alert.setHeaderText("Выбранный установщик заменит текущий! Продолжить?");
-                AtomicBoolean changeExisted = new AtomicBoolean(false);
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.YES) {
-                        changeExisted.set(true);
+                        installer = existedItem;
+                        installer.setSize((int) file.length());
+                        installer.setInstallerPath(FtpClient.WEB_PATH + FtpClient.INSTALLER_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
+                        installer.setSystem(system);
+                        saveEdits();
                     }
                 });
-                if (changeExisted.get()) {
-                    applicationsSystem = existedItem;
-                    applicationsSystem.setSize((int) file.length());
-                    applicationsSystem.setInstallerPath("application_installers/" + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
-                    applicationsSystem.setSystem(system);
-                    saveEdits();
-                }
             }
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -252,6 +250,11 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
         if(file != null) {
             loadFile(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setTitle("Результат");
+            alert.setHeaderText("Готово!");
+            alert.show();
         }
+
     }
 }

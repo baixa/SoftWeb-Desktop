@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Installer {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

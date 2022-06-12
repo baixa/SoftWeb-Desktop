@@ -13,14 +13,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class OperatingSystem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "system", fetch = FetchType.EAGER)
-    private Set<Installer> applicationsSystems;
+    private Set<Installer> installers;
 
     @Override
     public String toString() {

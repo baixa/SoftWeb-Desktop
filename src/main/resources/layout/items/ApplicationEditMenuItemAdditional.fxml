@@ -27,7 +27,7 @@
             </rowConstraints>
          <children>
             <Label stylesheets="@../../css/ApplicationEditMenuItemImages.css" text="Лицензия" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <ComboBox fx:id="cbLicense" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ComboBox fx:id="cbLicense" onAction="#changeLicense" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
