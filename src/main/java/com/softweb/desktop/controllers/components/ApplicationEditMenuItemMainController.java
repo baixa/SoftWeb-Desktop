@@ -97,7 +97,8 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         if(getApplication().getId() == null || getApplication().getId() < 1) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
             alert.setTitle("Внимание");
-            alert.setHeaderText("Задайте имя приложению и сохраните изменения прежде чем добавлять логотип!");
+            alert.setHeaderText("Необходимо название!");
+            alert.setContentText("Задайте имя приложению и сохраните изменения прежде чем задать логотип!");
             alert.show();
             return;
         }
