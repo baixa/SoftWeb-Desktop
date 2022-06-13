@@ -2,6 +2,7 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.*;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -75,6 +76,7 @@ public class ApplicationController implements Initializable {
 
     public void btnInstallClick() {
         getApplication().download();
+        DataService.saveApplication(getApplication());
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
         alert.setTitle("Установка");
         alert.setHeaderText("Установка завершена!");

@@ -5,6 +5,8 @@ import com.softweb.desktop.database.repositories.*;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 public class DataService {
 
@@ -75,10 +77,22 @@ public class DataService {
     }
 
     public static void deleteApplication (Application application) {
+        Set<ApplicationImage> images = application.getImages();
+        application.setImages(null);
+        applicationImageRepository.deleteAll(images);
+        Set<Installer> installers = application.getInstallers();
+        application.setInstallers(null);
+        installers.forEach(installer -> dbCache.getSystems().forEach(system -> system.getInstallers().remove(installer)));
+        installerRepository.deleteAll(installers);
         applicationRepository.delete(application);
+        dbCache.clear();
     }
 
     public static void deleteApplicationImage (ApplicationImage applicationImage) {
         applicationImageRepository.delete(applicationImage);
+    }
+
+    public static void deleteInstaller (Installer installer) {
+        installerRepository.delete(installer);
     }
 }
