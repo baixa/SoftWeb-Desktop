@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>desktop</name>
     <description>Desktop application for software store &quot;SoftWeb&quot;</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>

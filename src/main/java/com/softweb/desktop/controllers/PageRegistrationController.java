@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Registration;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
@@ -39,6 +40,8 @@ public class PageRegistrationController  implements Initializable {
 
     @FXML
     private CheckBox cbShowPassword;
+
+    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,7 +91,7 @@ public class PageRegistrationController  implements Initializable {
         String password = tbMaskedPassword.textProperty().getValue();
         String fullName = tbName.textProperty().getValue();
 
-        List<Developer> developers = DBCache.getCache().getDevelopers();
+        List<Developer> developers = dbCache.getDevelopers();
         Developer existedDeveloper = developers.stream()
                 .filter(developer -> developer.getUsername().equals(username))
                 .findFirst()

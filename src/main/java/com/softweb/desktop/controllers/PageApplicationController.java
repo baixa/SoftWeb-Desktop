@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.*;
@@ -49,10 +50,12 @@ public class PageApplicationController implements Initializable {
 
     private List<Application> applications;
 
+    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.applications = DBCache.getCache().getApplications();
-        List<Developer> developers = DBCache.getCache().getDevelopers();
+        this.applications = dbCache.getApplications();
+        List<Developer> developers = dbCache.getDevelopers();
         comboDeveloper.setItems(FXCollections.observableArrayList(developers.stream().map(Developer::getUsername).collect(Collectors.toList())));
         listApplications.getSelectionModel().selectedIndexProperty().addListener((ChangeListener) (observableValue, o, t1) -> Platform.runLater(() -> listApplications.getSelectionModel().select(-1)));
         NodeLimiters.addTextLimiter(tbSearch, 30);

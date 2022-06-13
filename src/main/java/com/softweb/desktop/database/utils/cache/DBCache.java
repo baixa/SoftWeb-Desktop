@@ -5,7 +5,6 @@ import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.entity.License;
 import com.softweb.desktop.database.entity.OperatingSystem;
 import com.softweb.desktop.database.utils.services.DataService;
-import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +18,6 @@ public class DBCache {
     private List<Developer> developers;
     private List<OperatingSystem> systems;
     private List<License> licenses;
-
-    private static DBCache cache;
-
-    private DBCache() {
-        fillData();
-        loadApplicationsImages();
-        cache = this;
-    }
 
     private void loadApplicationsImages() {
         applications.forEach(item -> {
@@ -60,37 +51,40 @@ public class DBCache {
         DataService.getLicenseRepository().findAll().forEach(licenses::add);
     }
 
-    public static DBCache getCache() {
-        if(cache == null)
-            initialize();
-        return cache;
+    private void initialize() {
+        fillData();
+        loadApplicationsImages();
     }
 
-    private static void initialize() {
-        cache = new DBCache();
-    }
-
-    public static void clear() {
+    public void clear() {
         initialize();
     }
 
-    public static void updateDevelopers() {
-        DBCache.getCache().loadDevelopers();
+    public void updateDevelopers() {
+        loadDevelopers();
     }
 
     public List<Application> getApplications() {
+        if(applications == null)
+            initialize();
         return applications;
     }
 
     public List<Developer> getDevelopers() {
+        if(developers == null)
+            initialize();
         return developers;
     }
 
     public List<License> getLicenses() {
+        if(licenses == null)
+            initialize();
         return licenses;
     }
 
     public List<OperatingSystem> getSystems() {
+        if(systems == null)
+            initialize();
         return systems;
     }
 }
