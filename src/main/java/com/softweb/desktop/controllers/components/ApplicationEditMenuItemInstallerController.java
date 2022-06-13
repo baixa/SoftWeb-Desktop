@@ -53,6 +53,8 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     private Installer installer;
 
+    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -198,10 +200,10 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
             ftpClient.close();
             OperatingSystem system;
             if (fileExt.equals(".deb")) {
-                system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Debian")).findFirst().orElse(null);
+                system = dbCache.getSystems().stream().filter(item -> item.getName().contains("Debian")).findFirst().orElse(null);
             }
             else {
-                system = DBCache.getCache().getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
+                system = dbCache.getSystems().stream().filter(item -> item.getName().contains("Windows")).findFirst().orElse(null);
             }
             List<Installer> installers = new ArrayList<>(getApplication().getInstallers());
             Installer existedItem = installers.stream()

@@ -1,6 +1,7 @@
 spring:
   main:
     web-application-type: none
+    allow-bean-definition-overriding: true
   application:
     ui:
       title: "SoftWeb"

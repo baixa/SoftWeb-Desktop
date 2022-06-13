@@ -1,8 +1,10 @@
 package com.softweb.desktop.auth;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.utils.ftp.FtpClient;
 
 import java.util.Date;
 import java.util.List;
@@ -12,12 +14,14 @@ public class Authorization {
     private static Developer currentUser;
     private static boolean authorized = false;
 
+    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+
 
     public static boolean authorize(String username, String password) {
         if(authorized)
             return false;
 
-        List<Developer> developers = DBCache.getCache().getDevelopers();
+        List<Developer> developers = dbCache.getDevelopers();
         Developer existedDeveloper = developers.stream().filter(developer -> developer.getUsername().equals(username)).findFirst().orElse(null);
 
         if (existedDeveloper == null || !existedDeveloper.getPassword().equals(password))

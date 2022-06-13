@@ -1,5 +1,6 @@
 package com.softweb.desktop.controllers;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.controllers.components.user.ApplicationUserCell;
@@ -40,9 +41,11 @@ public class PageUserApplicationController implements Initializable {
 
     private List<Application> applications;
 
+    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.applications = DBCache.getCache().getApplications();
+        this.applications = dbCache.getApplications();
         this.applications = applications.stream()
                 .filter(application -> application.getDeveloper().getUsername().equals(Authorization.getCurrentUser().getUsername()))
                 .collect(Collectors.toList());

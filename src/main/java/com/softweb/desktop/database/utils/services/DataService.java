@@ -14,16 +14,19 @@ public class DataService {
     private static ApplicationImageRepository applicationImageRepository;
     private static InstallerRepository installerRepository;
     private static LicenseRepository licenseRepository;
+    private static DBCache dbCache;
 
     public DataService(DeveloperRepository developerRepository, ApplicationRepository applicationRepository,
                        OperatingSystemRepository operatingSystemRepository, ApplicationImageRepository applicationImageRepository,
-                       InstallerRepository installerRepository, LicenseRepository licenseRepository) {
+                       InstallerRepository installerRepository, LicenseRepository licenseRepository,
+                       DBCache dbCache) {
         DataService.developerRepository = developerRepository;
         DataService.applicationRepository = applicationRepository;
         DataService.operatingSystemRepository = operatingSystemRepository;
         DataService.applicationImageRepository = applicationImageRepository;
         DataService.installerRepository = installerRepository;
         DataService.licenseRepository = licenseRepository;
+        DataService.dbCache = dbCache;
     }
 
     public static DeveloperRepository getDeveloperRepository() {
@@ -68,7 +71,7 @@ public class DataService {
 
     public static void saveDeveloper(Developer developer) {
         developerRepository.save(developer);
-        DBCache.updateDevelopers();
+        dbCache.updateDevelopers();
     }
 
     public static void deleteApplication (Application application) {
