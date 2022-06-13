@@ -3,6 +3,7 @@ package com.softweb.desktop.controllers.components.defaults;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.ApplicationController;
 import com.softweb.desktop.database.entity.Application;
+import com.softweb.desktop.database.utils.services.DataService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,9 +77,10 @@ public class ApplicationDefaultCell extends ListCell<Application> {
 
         btnOpen.setOnAction(event -> {
             this.application.view();
+            DataService.saveApplication(this.application);
             Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
             if (controller instanceof ApplicationController) {
-                ((ApplicationController) controller).setApplication(application);
+                ((ApplicationController) controller).setApplication(this.application);
             }
         });
     }

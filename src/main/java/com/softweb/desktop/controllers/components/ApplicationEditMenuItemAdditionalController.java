@@ -1,6 +1,7 @@
 package com.softweb.desktop.controllers.components;
 
 import com.softweb.desktop.JavaFXMain;
+import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.License;
 import com.softweb.desktop.database.utils.cache.DBCache;
 import com.softweb.desktop.database.utils.services.DataService;
@@ -54,7 +55,8 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     }
 
     public void btnRemove(ActionEvent actionEvent) {
-
+        DataService.deleteApplication(getApplication());
+        StageInitializer.navigate("/layout/PageUserApplicationsLayout");
     }
 
     public void changeLicense() {

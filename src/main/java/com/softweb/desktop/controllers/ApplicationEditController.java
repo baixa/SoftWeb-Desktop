@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -78,6 +80,8 @@ public class ApplicationEditController implements Initializable {
         if (currentItemController instanceof ApplicationEditMenuItemImagesController)
             return;
 
+        if (checkingApplicationSaving()) return;
+
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemImages.fxml"));
         generateCenterContent(fxmlLoader, labelImages);
     }
@@ -101,6 +105,8 @@ public class ApplicationEditController implements Initializable {
         if (currentItemController instanceof ApplicationEditMenuItemInstallerController)
             return;
 
+        if (checkingApplicationSaving()) return;
+
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemInstaller.fxml"));
         generateCenterContent(fxmlLoader, labelInstaller);
     }
@@ -109,7 +115,21 @@ public class ApplicationEditController implements Initializable {
         if (currentItemController instanceof ApplicationEditMenuItemAdditionalController)
             return;
 
+        if (checkingApplicationSaving()) return;
+
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemAdditional.fxml"));
         generateCenterContent(fxmlLoader, labelAdditional);
+    }
+
+    private boolean checkingApplicationSaving() {
+        if(getApplication().getId() == null || getApplication().getId() < 1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
+            alert.setTitle("Внимание");
+            alert.setHeaderText("Необходимо название!");
+            alert.setContentText("Задайте имя приложению и сохраните изменения прежде чем перейти к этому этапу!");
+            alert.show();
+            return true;
+        }
+        return false;
     }
 }

@@ -46,7 +46,6 @@ public class FtpClient {
     public void open() throws IOException {
         ftp = new FTPClient();
         logger.info("Connect FTP server");
-        ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         ftp.connect(server, port);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
