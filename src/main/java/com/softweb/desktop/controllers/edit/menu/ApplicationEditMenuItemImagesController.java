@@ -13,7 +13,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
@@ -24,21 +23,34 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller, that allows to manipulate with images of application.
+ *
+ * @author Maksimchuk I.
+ * @version 1.0
+ */
 public class ApplicationEditMenuItemImagesController extends ApplicationEditMenuItem implements Initializable {
 
-    @FXML
-    public AnchorPane apDragAndDrop;
-
+    /**
+     * FXML node that contains list of application's images
+     */
     @FXML
     private HBox hbImages;
 
-    private ApplicationImage applicationImage;
-
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     *
+     * @param url URL used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle Resource bundle used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Update content on page
+     */
     @Override
     public void refreshContent() {
         hbImages.getChildren().removeAll(hbImages.getChildren());
@@ -71,6 +83,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
+
+    /**
+     * Method loads file on server via FTP and save application image in database
+     * @param file Uploaded file
+     */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
@@ -80,7 +97,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
             ftpClient.putFileToPath(inputStream, FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
-            applicationImage = new ApplicationImage();
+            ApplicationImage applicationImage = new ApplicationImage();
             applicationImage.setApplication(getApplication());
             applicationImage.setPath(FtpClient.WEB_PATH + FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
 
@@ -96,7 +113,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
-    public void fileDialogOpen() {
+    /**
+     * Method open file dialog to choose image.
+     * It allows only PNG, JPG and JPEG formats.
+     */
+    public void openFileDialog() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -115,6 +136,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
     }
 
+    /**
+     * Method perform application removing after confirming the deletion
+     *
+     * @param imageView Removable image
+     */
     public void removeImage(ImageView imageView) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Вы уверены, что хотите удалить изображение?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Внимание!");
@@ -138,11 +164,17 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
     }
 
-    public void addApplicationImage(ApplicationImage updatableImage) {
+
+    /**
+     * Method add application image to database
+     *
+     * @param addableImage Addable image
+     */
+    public void addApplicationImage(ApplicationImage addableImage) {
         this.application.setLastUpdate(new Date());
-        getApplication().getImages().add(updatableImage);
+        getApplication().getImages().add(addableImage);
         DataService.saveApplication(getApplication());
-        DataService.saveApplicationImage(updatableImage);
+        DataService.saveApplicationImage(addableImage);
         dbCache.getApplications().stream()
                 .filter(item -> item.getId().equals(getApplication().getId()))
                 .findFirst().ifPresent(this::setApplication);
@@ -150,6 +182,12 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         refreshContent();
     }
 
+
+    /**
+     * Method remove application image from database
+     *
+     * @param removableImage Removable image
+     */
     public void removeApplicationImage(ApplicationImage removableImage) {
         this.application.setLastUpdate(new Date());
         getApplication().getImages().remove(removableImage);

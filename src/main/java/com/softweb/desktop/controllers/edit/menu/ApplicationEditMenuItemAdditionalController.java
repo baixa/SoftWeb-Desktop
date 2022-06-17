@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Controller, which contains that allows to change additional information about the application.
+ * Controller, that allows to change additional information about the application.
  *
  * In addition to editing the license,
  * it contains information about the last editing of the application and the possibility of
