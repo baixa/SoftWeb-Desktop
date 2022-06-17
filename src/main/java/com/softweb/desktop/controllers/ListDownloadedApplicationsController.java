@@ -1,7 +1,7 @@
 package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.JavaFXMain;
-import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
+import com.softweb.desktop.controllers.components.cell.ApplicationDefaultCell;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.*;
 import com.softweb.desktop.database.utils.cache.DBCache;

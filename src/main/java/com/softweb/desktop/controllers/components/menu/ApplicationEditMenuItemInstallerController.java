@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -27,7 +27,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
 
@@ -65,7 +64,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         }
         ivWindows.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                if(!windowsSelected) {
-                   fillWindowsInfo();
+                   fillContent();
                    try {
                        ivWindows.setImage(new Image(String.valueOf(getClass().getResource("/images/windows.png").toURI())));
                        ivLinux.setImage(new Image(String.valueOf(getClass().getResource("/images/linux-gray.png").toURI())));
@@ -80,7 +79,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Debian")).findFirst().orElse(null);
                 if(installer != null)
                 {
-                    fillInstallerInfo(installer);
+                    fillInstallerData(installer);
                     tbCommand.setStyle("-fx-text-fill: #66666699;");
                     tbCommand.textProperty().setValue("Не требуется");
 
@@ -146,14 +145,14 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
 
     @Override
     public void refreshContent() {
-        fillWindowsInfo();
+        fillContent();
     }
 
-    private void fillWindowsInfo() {
+    private void fillContent() {
         Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
         if(installer != null)
         {
-            fillInstallerInfo(installer);
+            fillInstallerData(installer);
             tbCommand.setStyle("-fx-text-fill: #075d5b;");
             tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
         }
@@ -166,7 +165,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         windowsSelected = true;
     }
 
-    private void fillInstallerInfo(Installer installer) {
+    private void fillInstallerData(Installer installer) {
         labelWarning.setVisible(false);
         double size = installer.getSize();
         size = (size / 1024) / 1024;

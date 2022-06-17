@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;

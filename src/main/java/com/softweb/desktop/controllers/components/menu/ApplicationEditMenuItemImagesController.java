@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -136,5 +136,28 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             }
         });
 
+    }
+
+    public void addApplicationImage(ApplicationImage updatableImage) {
+        this.application.setLastUpdate(new Date());
+        getApplication().getImages().add(updatableImage);
+        DataService.saveApplication(getApplication());
+        DataService.saveApplicationImage(updatableImage);
+        dbCache.getApplications().stream()
+                .filter(item -> item.getId().equals(getApplication().getId()))
+                .findFirst().ifPresent(this::setApplication);
+        dbCache.clear();
+        refreshContent();
+    }
+
+    public void removeApplicationImage(ApplicationImage removableImage) {
+        this.application.setLastUpdate(new Date());
+        getApplication().getImages().remove(removableImage);
+        DataService.deleteApplicationImage(removableImage);
+        dbCache.getApplications().stream()
+                .filter(item -> item.getId().equals(getApplication().getId()))
+                .findFirst().ifPresent(this::setApplication);
+        dbCache.clear();
+        refreshContent();
     }
 }

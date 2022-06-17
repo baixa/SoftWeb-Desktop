@@ -1,7 +1,7 @@
 package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.controllers.components.*;
+import com.softweb.desktop.controllers.components.menu.*;
 import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;

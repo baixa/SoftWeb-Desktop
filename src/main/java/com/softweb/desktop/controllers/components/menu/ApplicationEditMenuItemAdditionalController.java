@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;

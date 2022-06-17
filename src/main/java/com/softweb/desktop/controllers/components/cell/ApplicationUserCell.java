@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components.user;
+package com.softweb.desktop.controllers.components.cell;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.ApplicationEditController;
