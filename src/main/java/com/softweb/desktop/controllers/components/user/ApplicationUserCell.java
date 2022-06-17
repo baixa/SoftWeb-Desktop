@@ -2,33 +2,25 @@ package com.softweb.desktop.controllers.components.user;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.ApplicationEditController;
+import com.softweb.desktop.controllers.components.cell.AbstractApplicationCell;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.services.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
-public class ApplicationUserCell extends ListCell<Application> {
-    @FXML
-    private ImageView applicationLogo;
-
-    @FXML
-    private Label labelApplicationName;
-
-    @FXML
-    private Label labelShortDescription;
-
-    @FXML
-    private Label labelDeveloper;
-
-    @FXML
-    private GridPane rootElement;
+/**
+ * ApplicationDefaultCell class is controller of application cells, that are visible
+ * on user applications list page (ListDownloadedApplicationsController).
+ *
+ * @author Maksimchuk I.
+ * @version 1.0
+ */
+public class ApplicationUserCell extends AbstractApplicationCell {
 
     @FXML
     private Button btnEdit;
@@ -53,23 +45,11 @@ public class ApplicationUserCell extends ListCell<Application> {
 
     @Override
     @Transactional
-    protected void updateItem(Application application, boolean b) {
-        super.updateItem(application, b);
+    protected void updateItem(Application application, boolean isEmpty) {
+        super.updateItem(application, isEmpty);
         setId(null);
 
-        if(b || application == null) {
-            setText(null);
-            setGraphic(null);
-        }
-        else {
-            setId("listApplicationCell");
-            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            setGraphic(rootElement);
-            this.applicationLogo.setImage(application.getLogo());
-            this.labelApplicationName.setText(application.getName());
-            this.labelShortDescription.setText(application.getShortDescription());
-            this.labelDeveloper.setText(application.getDeveloper().getFullName());
-        }
+        fillCellContent(application, isEmpty);
 
         btnEdit.setOnAction(actionEvent -> {
             Initializable controller = StageInitializer.navigate("/layout/PageApplicationEdit");
