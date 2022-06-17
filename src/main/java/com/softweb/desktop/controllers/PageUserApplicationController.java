@@ -4,6 +4,7 @@ import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
 import com.softweb.desktop.controllers.components.cell.ApplicationUserCell;
+import com.softweb.desktop.controllers.edit.ApplicationEditController;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.cache.DBCache;

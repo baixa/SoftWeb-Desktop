@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefWidth="840.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.softweb.desktop.controllers.components.menu.ApplicationEditMenuItemAdditionalController">
+<AnchorPane prefWidth="840.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.softweb.desktop.controllers.edit.menu.ApplicationEditMenuItemAdditionalController">
     <children>
         <GridPane alignment="CENTER" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
             <columnConstraints>
@@ -38,7 +38,7 @@
             </ComboBox>
             <Label text="Последнее обновление" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="tbDate" styleClass="green-label" text="&lt;Дата&gt;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#btnRemove" text="Удалить" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#removeApplication" text="Удалить" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
         </GridPane>
     </children>

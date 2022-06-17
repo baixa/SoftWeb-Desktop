@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components.menu;
+package com.softweb.desktop.controllers.edit.menu;
 
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.cache.DBCache;

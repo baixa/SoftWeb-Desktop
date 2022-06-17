@@ -1,7 +1,7 @@
-package com.softweb.desktop.controllers;
+package com.softweb.desktop.controllers.edit;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.controllers.components.menu.*;
+import com.softweb.desktop.controllers.edit.menu.*;
 import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
