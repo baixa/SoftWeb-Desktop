@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * ApplicationDefaultCell class is controller of application cells, that are visible
- * on main page with applications list (ListDownloadedApplicationsController).
+ * on main page with applications list.
  *
  * @author Maksimchuk I.
  * @version 1.0
@@ -29,18 +29,15 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
     @FXML
     private Button btnOpen;
 
-
     /**
-     * Initialize new empty cell with default data
+     * Initialize new empty application cell
      */
     public ApplicationDefaultCell() {
-        loadFXML();
+        super();
     }
 
-    /**
-     * Load layout of cell
-     */
-    private void loadFXML(){
+    @Override
+    protected void loadFXML(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/DefaultApplicationItemLayout.fxml"));
             loader.setController(this);

@@ -15,24 +15,36 @@ import java.io.IOException;
 
 /**
  * ApplicationDefaultCell class is controller of application cells, that are visible
- * on user applications list page (ListDownloadedApplicationsController).
+ * on user applications list page.
  *
  * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationUserCell extends AbstractApplicationCell {
 
+    /**
+     * FXML button open application edit page
+     *
+     * @see ApplicationEditController
+     */
     @FXML
     private Button btnEdit;
 
+    /**
+     * FXML button remove application
+     */
     @FXML
     private Button btnRemove;
 
+    /**
+     * Initialize new empty user's application cell
+     */
     public ApplicationUserCell() {
-        loadFXML();
+        super();
     }
 
-    private void loadFXML(){
+    @Override
+    protected void loadFXML(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/UserApplicationItemLayout.fxml"));
             loader.setController(this);
@@ -43,6 +55,12 @@ public class ApplicationUserCell extends AbstractApplicationCell {
         }
     }
 
+    /**
+     * Method rebuild cell to set custom design
+     *
+     * @param application Referenced application
+     * @param isEmpty Indicates that cell is empty
+     */
     @Override
     @Transactional
     protected void updateItem(Application application, boolean isEmpty) {

@@ -74,4 +74,16 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
             this.application = application;
         }
     }
+
+    /**
+     * Initialize new empty cell with default data
+     */
+    public AbstractApplicationCell() {
+        loadFXML();
+    }
+
+    /**
+     * Load layout of cell
+     */
+    protected abstract void loadFXML();
 }
