@@ -21,6 +21,9 @@ public class Application{
     @Column(name = "name")
     private String name;
 
+    /**
+     * Contains data of application short description (title)
+     */
     @Column(name = "short_description")
     private String shortDescription;
 

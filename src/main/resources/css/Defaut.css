@@ -1,0 +1,76 @@
+.background-green-light {
+    -fx-background-color: #0e8420;
+}
+
+.background-green-dark {
+    -fx-background-color: #075d5b;
+}
+
+.background-orange {
+    -fx-background-color: #e95420;
+}
+
+.button {
+    -fx-background-color: #e95420;
+    -fx-min-width: 175px;
+    -fx-max-width: 175px;
+    -fx-max-height: 25;
+    -fx-background-radius: 10;
+    -fx-text-fill: #fff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 18;
+}
+
+.button:hover {
+    -fx-background-color: #a43916;
+}
+
+.label-default {
+    -fx-font-size: 16;
+    -fx-text-fill: #000;
+}
+
+.label-green {
+    -fx-text-fill: #075d5b;
+    -fx-font-weight: bold;
+}
+
+.label-green:hover {
+    -fx-text-fill: #053e3d;
+}
+
+.filter-btns {
+    -fx-background-color: #e95420;
+    -fx-min-width: 120;
+    -fx-max-height: 25;
+    -fx-background-radius: 10;
+    -fx-text-fill: #fff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 18;
+}
+
+#listApplications {
+    -fx-background-radius: 10;
+}
+
+#comboDeveloper, #tbSearch {
+    -fx-background-radius: 6;
+    -fx-background-color: white;
+    -fx-border-color: #075d5b;
+    -fx-border-radius: 6;
+    -fx-font-size: 18;
+}
+
+#listApplications .list-cell, #comboDeveloper .list-cell {
+    -fx-alignment: center;
+}
+
+#listApplications, #listApplications .list-cell {
+    -fx-background-color: none;
+    -fx-border-color: none;
+}
+
+#comboDeveloper .list-cell:hover {
+    -fx-background-color: #0e842044;
+    -fx-text-fill: #000;
+}

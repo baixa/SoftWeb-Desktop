@@ -42,7 +42,7 @@ public class RootController implements Initializable {
 
     public void btnBackClick(ActionEvent event) {
         rebuildButtons(false, false);
-        Authorization.unauthorize();
+        Authorization.signOut();
         showDefaultContent();
     }
 

@@ -4,9 +4,7 @@ import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.controllers.components.defaults.ApplicationDefaultCell;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.*;
-import com.softweb.desktop.database.repositories.*;
 import com.softweb.desktop.database.utils.cache.DBCache;
-import com.softweb.desktop.database.utils.services.DataService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -20,15 +18,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class PageApplicationController implements Initializable {
-
-    private static ApplicationRepository applicationRepository;
-    private static DeveloperRepository developerRepository;
+public class ListDownloadedApplicationsController implements Initializable {
 
     @FXML
     public Button btnFilter;

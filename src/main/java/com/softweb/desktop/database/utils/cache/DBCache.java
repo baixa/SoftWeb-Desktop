@@ -1,5 +1,6 @@
 package com.softweb.desktop.database.utils.cache;
 
+import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.entity.Developer;
 import com.softweb.desktop.database.entity.License;
@@ -86,5 +87,9 @@ public class DBCache {
         if(systems == null)
             initialize();
         return systems;
+    }
+
+    public static DBCache getCache() {
+        return JavaFXMain.getApplicationContext().getBean(DBCache.class);
     }
 }
