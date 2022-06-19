@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository interface of Application class to perform CRUD operations
+ */
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application,Long> {
     List<Application> findByDeveloper(Developer developer);
