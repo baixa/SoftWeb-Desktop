@@ -2,7 +2,7 @@ package com.softweb.desktop;
 
 import com.softweb.desktop.controllers.RootController;
 import com.softweb.desktop.database.utils.ConnectionValidator;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,37 +17,78 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Класс инициализирует окно программы
+ */
 @Component
 public class StageInitializer implements ApplicationListener<JavaFXMain.StageReadyEvent> {
 
+    /**
+     * FXML узел, содержащий корневой элемент разметки
+     */
+    @lombok.Getter
     private static BorderPane rootElement;
+
+    /**
+     * Контроллер корневого элемента
+     */
+    @lombok.Getter
     private static RootController rootController;
+
+    /**
+     * Контроллер центральной панели
+     */
+    @lombok.Getter
+    @lombok.Setter
+    private static Initializable centerPanelController;
+
+    /**
+     * Окно программы
+     */
+    @lombok.Getter
     private static Stage stage;
 
-    private String applicationTitle;
+    /**
+     * Наименование программы
+     */
+    private final String applicationTitle;
 
-    private ApplicationContext applicationContext;
+    /**
+     * Контекст Spring программы
+     */
+    private final ApplicationContext applicationContext;
+
+    /**
+     * Сервис для взаимодействия с репозиториями сущностей
+     */
     public static DataService dataService;
 
-    public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, ApplicationContext applicationContext, DataService dataService) {
+    /**
+     * Инициализирует объект класса, устанавливает заголовок окну программы и заполняет поля контекста.
+     * @param applicationTitle Название приложения
+     * @param dbUrl URL базы данных
+     * @param applicationContext Контекст приложения
+     * @param dataService Сервис для взаимодействия с репозиториями сущностей
+     */
+    public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, @Value("${spring.datasource.full-url}") String dbUrl, ApplicationContext applicationContext, DataService dataService) {
         this.applicationTitle = applicationTitle;
         this.applicationContext = applicationContext;
         StageInitializer.dataService = dataService;
-        ConnectionValidator.isConnectionValid();
+        ConnectionValidator.checkConnectionStatus(dbUrl);
     }
 
-    public static BorderPane getRootElement() {
-        return rootElement;
-    }
-
+    /**
+     * Загрузить корневую разметку при загрузке приложения
+     * @param event Событие загрузки приложения
+     */
     @Override
     public void onApplicationEvent(JavaFXMain.StageReadyEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(StageInitializer.class.getResource("/layout/RootLayout.fxml"));
-            loader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
+            loader.setControllerFactory(applicationContext::getBean);
             rootElement = loader.load();
             rootController = loader.getController();
-            showDefaultContent();
+            showMainPage();
 
             stage = event.getStage();
             stage.setMinWidth(1300);
@@ -64,6 +105,11 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
         }
     }
 
+    /**
+     * Загрузить страницу
+     * @param path URL разметки
+     * @return Контроллер страницы
+     */
     public static Initializable navigate(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource(path + ".fxml"));
         try {
@@ -73,18 +119,16 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             e.printStackTrace();
         }
 
-        return fxmlLoader.getController();
+        Initializable centerController = fxmlLoader.getController();
+        setCenterPanelController(centerController);
+
+        return centerController;
     }
 
-    public static void showDefaultContent() {
+    /**
+     * Отобразить начальную страницу
+     */
+    public static void showMainPage() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
-    }
-
-    public static Stage getStage() {
-        return stage;
-    }
-
-    public static RootController getRootController() {
-        return rootController;
     }
 }

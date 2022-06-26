@@ -2,7 +2,7 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.*;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,63 +19,124 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Класс-контроллер для страницы приложений, содержащую всю информацию об устанавливаемом приложении.
+ */
 public class ApplicationController implements Initializable {
 
+    /**
+     * FXML кнопка установки приложения.
+     */
     @FXML
     public Button btnInstall;
 
+    /**
+     * FXML узел, содержащий название приложения.
+     */
     @FXML
     public Label tbAppName;
 
+    /**
+     * FXML узел, содержащий имя разработчика приложения.
+     */
     @FXML
     public Label tbDeveloper;
 
+    /**
+     * FXML узел, содержащий дополнительную информацию о приложении.
+     */
     @FXML
     public AnchorPane details;
 
+    /**
+     * FXML узел, содержащий дату последнего обновления приложения.
+     */
     @FXML
     public Label tbDateUpdate;
 
+    /**
+     * FXML узел, содержащий название лицензии.
+     */
     @FXML
     public Label tbLicense;
 
+    /**
+     * FXML узел, содержащий список доступных операционных систем.
+     */
     @FXML
     public HBox hbOperationSystems;
 
+    /**
+     * FXML узел, содержащий список изображений приложения.
+     */
     @FXML
     public HBox hbImages;
 
+    /**
+     * FXML узел, содержащий заголовок приложения.
+     */
     @FXML
     public Label tbShortDescription;
 
+    /**
+     * FXML узел, содержащий описание приложения.
+     */
     @FXML
     public Text tbFullDescription;
 
+    /**
+     * FXML узел, содержащий изображения логотипа Windows.
+     */
     @FXML
     public ImageView ivWindows;
 
+    /**
+     * FXML узел, содержащий изображение логотипа Linux.
+     */
     @FXML
     public ImageView ivLinux;
 
+    /**
+     * FXML узел, содержащий изображение логотипа приложения.
+     */
     @FXML
     public ImageView ivLogo;
 
+    /**
+     * FXML узел, содержащий надпись-предупреждение.
+     */
     @FXML
     public Label labelWarning;
 
+    /**
+     * FXML узел, содержащий информацию о том, что отсутствуют поддерживаемые системы.
+     */
     @FXML
-    public Label labelSystems;
+    public Label labelSystemsIsAbsent;
 
+    /**
+     * Связанное приложение
+     */
     private Application application;
 
 
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         StageInitializer.getRootController().rebuildButtons(true, false);
+
     }
 
+    /**
+     * Метод выполняет эмуляцию установки приложения
+     */
     public void btnInstallClick() {
-        getApplication().download();
+        getApplication().increaseDownloadsCounter();
         DataService.saveApplication(getApplication());
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
         alert.setTitle("Установка");
@@ -83,15 +144,26 @@ public class ApplicationController implements Initializable {
         alert.show();
     }
 
+    /**
+     * Получить связанное приложение
+     * @return Связанное приложение
+     */
     public Application getApplication() {
         return application;
     }
 
+    /**
+     * Установить связанное приложение
+     * @param application Связанное приложение
+     */
     public void setApplication(Application application) {
         this.application = application;
         refreshInfo();
     }
 
+    /**
+     * Обновление информации на странице.
+     */
     private void refreshInfo() {
         this.tbAppName.setText(application.getName());
         this.tbDeveloper.setText(application.getDeveloper().getFullName());
@@ -126,9 +198,9 @@ public class ApplicationController implements Initializable {
 
         hbOperationSystems.getChildren().forEach(child -> child.setVisible(false));
         if(application.getInstallers() == null || application.getInstallers().size() == 0)
-            labelSystems.setVisible(true);
+            labelSystemsIsAbsent.setVisible(true);
         else {
-            labelSystems.setVisible(false);
+            labelSystemsIsAbsent.setVisible(false);
             for (Installer applicationSystem :
                     application.getInstallers()) {
                 if (applicationSystem.getSystem().getName().contains("Windows")) {
@@ -155,5 +227,6 @@ public class ApplicationController implements Initializable {
                 Tooltip.install(child, imageTip);
             }
         })));
+        btnInstall.setDisable(labelSystemsIsAbsent.isVisible());
     }
 }

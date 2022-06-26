@@ -10,6 +10,7 @@ spring:
     username: softweb_admin
     password: SoftWUser
     driver-class-name: org.mariadb.jdbc.Driver
+    full-url: "jdbc:mariadb://45.67.35.2:3306/softwebdb?user=softweb_admin&password=SoftWUser"
   jpa:
     hibernate:
       naming:

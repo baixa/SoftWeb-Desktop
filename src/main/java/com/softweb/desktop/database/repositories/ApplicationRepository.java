@@ -9,7 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Репозиторий класса Application для выполнения CRUD операций
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application,Long> {
-    List<Application> findByDeveloper(Developer developer);
 }

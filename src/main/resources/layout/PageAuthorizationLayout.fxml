@@ -75,7 +75,7 @@
             </HBox>
             <AnchorPane maxWidth="380.0" minWidth="80.0" prefWidth="80.0" GridPane.rowIndex="5">
                <children>
-                  <Button fx:id="btnLogin" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnLoginClick" prefWidth="80.0" text="Вход" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
+                  <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnLoginClick" prefWidth="80.0" text="Вход" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />
                </children>
                <GridPane.margin>
                   <Insets top="20.0" />

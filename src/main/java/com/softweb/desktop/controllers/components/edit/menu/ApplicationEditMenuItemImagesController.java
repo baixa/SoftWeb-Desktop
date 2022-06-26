@@ -1,9 +1,9 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.edit.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.ApplicationImage;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +13,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
@@ -24,21 +23,34 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Контроллер, позволяющий взаимодействовать с изображениями приложения.
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 public class ApplicationEditMenuItemImagesController extends ApplicationEditMenuItem implements Initializable {
 
-    @FXML
-    public AnchorPane apDragAndDrop;
-
+    /**
+     * FXML узел, содержащий список изображений приложения.
+     */
     @FXML
     private HBox hbImages;
 
-    private ApplicationImage applicationImage;
-
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Обновление информации на странице.
+     */
     @Override
     public void refreshContent() {
         hbImages.getChildren().removeAll(hbImages.getChildren());
@@ -71,6 +83,12 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
+
+    /**
+     * Метод загружает файлы на сервер через FTP и сохраняет данные об изображении в БД
+     *
+     * @param file Загружаемый файл
+     */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
@@ -80,7 +98,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             String fileName = java.util.UUID.randomUUID().toString() + "." + fileExt;
             ftpClient.putFileToPath(inputStream, FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
             ftpClient.close();
-            applicationImage = new ApplicationImage();
+            ApplicationImage applicationImage = new ApplicationImage();
             applicationImage.setApplication(getApplication());
             applicationImage.setPath(FtpClient.WEB_PATH + FtpClient.IMAGE_PATH + getApplication().getDeveloper().getUsername() + "/" + getApplication().getName() + "/" + fileName);
 
@@ -96,7 +114,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
         }
     }
 
-    public void fileDialogOpen() {
+    /**
+     * Метод открывает диалоговое окно выбора изображения.
+     * Поддерживаемые форматы: PNG, JPEG, JPG.
+     */
+    public void openFileDialog() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -115,6 +137,11 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
     }
 
+    /**
+     * Метод удаляет изображение, выбранное пользователем после его подтверждения.
+     *
+     * @param imageView Удаляемое изображение.
+     */
     public void removeImage(ImageView imageView) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Вы уверены, что хотите удалить изображение?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Внимание!");
@@ -136,5 +163,40 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
             }
         });
 
+    }
+
+
+    /**
+     * Метод добавляет изображение в систему.
+     *
+     * @param addableImage Добавляемое изображение
+     */
+    public void addApplicationImage(ApplicationImage addableImage) {
+        this.application.setLastUpdate(new Date());
+        getApplication().getImages().add(addableImage);
+        DataService.saveApplication(getApplication());
+        DataService.saveApplicationImage(addableImage);
+        dbCache.getApplications().stream()
+                .filter(item -> item.getId().equals(getApplication().getId()))
+                .findFirst().ifPresent(this::setApplication);
+        dbCache.clear();
+        refreshContent();
+    }
+
+
+    /**
+     * Метод удаляет выбранный объект ApplicationImage из БД.
+     *
+     * @param removableImage Удаляемый объект.
+     */
+    public void removeApplicationImage(ApplicationImage removableImage) {
+        this.application.setLastUpdate(new Date());
+        getApplication().getImages().remove(removableImage);
+        DataService.deleteApplicationImage(removableImage);
+        dbCache.getApplications().stream()
+                .filter(item -> item.getId().equals(getApplication().getId()))
+                .findFirst().ifPresent(this::setApplication);
+        dbCache.clear();
+        refreshContent();
     }
 }

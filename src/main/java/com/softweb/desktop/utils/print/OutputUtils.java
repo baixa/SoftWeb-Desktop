@@ -19,8 +19,15 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Класс выполняет операции по выводу информации и сохранению ее во внешнем окружении
+ */
 public class OutputUtils {
-    public static void printChart(final BarChart<String, Integer> chart) {
+    /**
+     * Отправить диаграмму на печать принтеру, установленному по-умолчанию
+     * @param chart Печатаемая диаграмма
+     */
+    public static void printChart(final BarChart<String, Number> chart) {
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
 
@@ -37,7 +44,13 @@ public class OutputUtils {
         }
     }
 
-    public static String saveChartAsPDF(final BarChart<String, Integer> chart) throws IOException{
+    /**
+     * Сохранить диаграмму как PDF документ
+     * @param chart Сохраняемая диаграмма
+     * @return URL сохраненного документа PDF
+     * @throws IOException Ошибка при создании PDF документа
+     */
+    public static String saveChartAsPDF(final BarChart<String, Number> chart) throws IOException{
 
         File temp = File.createTempFile("SoftWeb-", ".png");
         temp.deleteOnExit();

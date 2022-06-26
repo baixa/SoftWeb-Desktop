@@ -6,8 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Репозиторий класса Developer для выполнения CRUD операций
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 @Repository
 public interface DeveloperRepository extends CrudRepository<Developer, Long> {
-    Developer findDeveloperByUsername(String username);
-    List<Developer> findByUsername(String username);
 }

@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.edit.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -23,34 +23,64 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Контроллер, позволяющий менять Основную информацию о приложении.
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 public class ApplicationEditMenuItemMainController extends ApplicationEditMenuItem implements Initializable{
+    /**
+     * FXML узел, содержащий название приложения
+     */
     @FXML
     public TextField tbAppName;
 
+    /**
+     * FXML узел, содержащий заголовок приложения
+     */
     @FXML
     public TextField tbShortDescription;
 
+    /**
+     * FXML узел, содержащий описание приложения
+     */
     @FXML
     public TextArea tbDescription;
 
+    /**
+     * FXML узел, содержащий изображение логотипа приложения
+     */
     @FXML
     public ImageView ivLogo;
 
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         NodeLimiters.addTextLimiter(tbAppName, 30);
         NodeLimiters.addTextLimiter(tbShortDescription, 50);
-        NodeLimiters.addTextLimiter(tbDescription, 500);
+        NodeLimiters.addTextLimiter(tbDescription, 1500);
     }
 
+    /**
+     * Метод сохраняет изменения приложения в БД.
+     */
     public void saveEdits() {
         getApplication().setName(tbAppName.textProperty().getValue());
         getApplication().setShortDescription(tbShortDescription.textProperty().getValue());
         getApplication().setDescription(tbDescription.textProperty().getValue());
-
         updateApplication();
+        refreshContent();
     }
 
+    /**
+     * Обновление информации на странице.
+     */
     @Override
     public void refreshContent() {
         this.tbAppName.textProperty().setValue(getApplication().getName());
@@ -59,6 +89,10 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         this.ivLogo.setImage(getApplication().getLogo());
     }
 
+    /**
+     * Метод загружает выбранный файл на FTP сервер.
+     * @param file Выбранный файл
+     */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
@@ -93,6 +127,10 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         }
     }
 
+    /**
+     * Метод открывает диалоговое окно выбора изображения.
+     * Поддерживаемые форматы: PNG, JPEG, JPG.
+     */
     public void fileDialogOpen() {
         if(getApplication().getId() == null || getApplication().getId() < 1) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
@@ -113,7 +151,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
         if(file != null) {
             loadFile(file);
-            ivLogo.setImage(getApplication().getLogo());
+            saveEdits();
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
             alert.setTitle("Результат");
             alert.setHeaderText("Готово!");
@@ -122,6 +160,9 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
     }
 
+    /**
+     * Сохранение изменений приложения.
+     */
     public void save() {
         saveEdits();
 

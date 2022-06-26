@@ -35,7 +35,7 @@
       <AnchorPane maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#printDiagram" text="Печать" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="30.0" />
-            <Button mnemonicParsing="false" onAction="#saveDiagram" text="Сохранить" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="230.0" />
+            <Button mnemonicParsing="false" onAction="#saveDiagramAsPDF" text="Сохранить" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="230.0" />
          </children>
       </AnchorPane>
    </bottom>

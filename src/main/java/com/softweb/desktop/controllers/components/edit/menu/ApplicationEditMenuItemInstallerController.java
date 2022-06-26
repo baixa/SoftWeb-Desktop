@@ -1,13 +1,12 @@
-package com.softweb.desktop.controllers.components;
+package com.softweb.desktop.controllers.components.edit.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.Installer;
 import com.softweb.desktop.database.entity.OperatingSystem;
-import com.softweb.desktop.database.utils.cache.DBCache;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DBCache;
+import com.softweb.desktop.database.utils.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -27,35 +26,74 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Контроллер, позволяющий взаимодействовать с установщиками приложения.
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
 
+    /**
+     * FXML узел, содержащий надпись о том, что установщик для данной системы отсутствует
+     */
     @FXML
     private Label labelWarning;
 
+    /**
+     * FXML узел, содержащий изображение логотипа ОС Windows
+     */
     @FXML
     private ImageView ivWindows;
 
+    /**
+     * FXML узел, содержащий изображение логотипа ОС Linux
+     */
     @FXML
     private ImageView ivLinux;
 
+    /**
+     * FXML узел, содержащий информацию о размере загрузчика.
+     */
     @FXML
     private Label tbSize;
 
+    /**
+     * FXML узел, содержащий надпись о текущей ОС.
+     */
     @FXML
     private Label tbOS;
 
+    /**
+     * FXML узел, содержащий надпись о команде установки файла загрузчика.
+     */
     @FXML
     private Label tbCommand;
 
+    /**
+     * Индикатор, что выбранная ОС - Windows.
+     */
     private boolean windowsSelected = false;
 
+    /**
+     * Связанный установщик приложения.
+     */
     private Installer installer;
 
-    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+    /**
+     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     *
+     * @see DBCache
+     */
+    private static final DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
-
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -65,7 +103,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         }
         ivWindows.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
                if(!windowsSelected) {
-                   fillWindowsInfo();
+                   fillContent();
                    try {
                        ivWindows.setImage(new Image(String.valueOf(getClass().getResource("/images/windows.png").toURI())));
                        ivLinux.setImage(new Image(String.valueOf(getClass().getResource("/images/linux-gray.png").toURI())));
@@ -80,9 +118,9 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Debian")).findFirst().orElse(null);
                 if(installer != null)
                 {
-                    fillInstallerInfo(installer);
+                    fillInstallerData(installer);
                     tbCommand.setStyle("-fx-text-fill: #66666699;");
-                    tbCommand.textProperty().setValue("Не требуется");
+                    tbCommand.textProperty().setValue("Функция в разработке");
 
                 }
                 else {
@@ -144,18 +182,24 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         ivLinux.setCursor(Cursor.HAND);
     }
 
+    /**
+     * Обновление информации на странице.
+     */
     @Override
     public void refreshContent() {
-        fillWindowsInfo();
+        fillContent();
     }
 
-    private void fillWindowsInfo() {
+    /**
+     * Метод заполняет информацию на странице
+     */
+    private void fillContent() {
         Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
         if(installer != null)
         {
-            fillInstallerInfo(installer);
-            tbCommand.setStyle("-fx-text-fill: #075d5b;");
-            tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
+            fillInstallerData(installer);
+            tbCommand.setStyle("-fx-text-fill: #66666699;");
+            tbCommand.textProperty().setValue("Функция в разработке");
         }
         else {
             tbSize.textProperty().setValue("Не установлено");
@@ -166,7 +210,11 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         windowsSelected = true;
     }
 
-    private void fillInstallerInfo(Installer installer) {
+    /**
+     * Метод заполняет информацию об установщице на странице.
+     * @param installer Связанный установщик
+     */
+    private void fillInstallerData(Installer installer) {
         labelWarning.setVisible(false);
         double size = installer.getSize();
         size = (size / 1024) / 1024;
@@ -175,6 +223,9 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         tbOS.textProperty().setValue(installer.getSystem().getName());
     }
 
+    /**
+     * Метод сохраняет изменения приложения в БД.
+     */
     public void saveEdits() {
         if(getApplication().getInstallers() == null)
             getApplication().setInstallers(new HashSet<>());
@@ -182,13 +233,17 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         if(installer.getSystem().getInstallers() == null)
             installer.getSystem().setInstallers(new HashSet<>());
 
-        DataService.saveApplicationSystem(installer);
+        DataService.saveInstaller(installer);
         DataService.saveOperationSystem(installer.getSystem());
         getApplication().getInstallers().add(installer);
         installer.getSystem().getInstallers().add(installer);
         updateApplication();
     }
 
+    /**
+     * Метод загружает выбранный файл на FTP сервер.
+     * @param file Выбранный файл
+     */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
         try {
@@ -242,7 +297,11 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         }
     }
 
-    public void fileDialogOpen(ActionEvent actionEvent) {
+    /**
+     * Метод открывает диалоговое окно выбора установщика для дальнейшей загрузки
+     * в систему. Поддерживаемые форматы: EXE, DEB.
+     */
+    public void fileDialogOpen() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Debian", "*.deb"),
