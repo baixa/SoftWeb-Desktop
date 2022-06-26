@@ -12,7 +12,7 @@ import javax.persistence.*;
  * Also Application class has field, which are referenced with other entity class
  * (referenced application and supported OS).
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 @Entity

@@ -10,7 +10,7 @@ import javax.persistence.*;
  *
  * It has generated id, image and referenced application
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 @Getter

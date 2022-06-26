@@ -16,29 +16,65 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Главный контроллер, позволяющий менять информацию о приложении.
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 public class ApplicationEditController implements Initializable {
+
+    /**
+     * FXML узел, содержащий корневой элемент разметки
+     */
     @FXML
     public BorderPane rootElement;
 
+    /**
+     * FXML узел, содержащий название главной страницы редактирования
+     */
     @FXML
     public Label labelMain;
 
+    /**
+     * FXML узел, содержащий название страницы редактирования изображений
+     */
     @FXML
     public Label labelImages;
 
+    /**
+     * FXML узел, содержащий название страницы редактирования установщика
+     */
     @FXML
     public Label labelInstaller;
 
+    /**
+     * FXML узел, содержащий название страницы редактирования дополнительной информации
+     */
     @FXML
     public Label labelAdditional;
 
+    /**
+     * FXML узел, содержащий название текущей страницы редактирования
+     */
     private Label currentMenuItem;
 
+    /**
+     * Связанное приложение
+     */
     private Application application;
 
+    /**
+     * Текущая страница редактирования.
+     */
     private ApplicationEditMenuItem currentItemController;
 
-
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource("/layout/items/ApplicationEditMenuItemMain.fxml"));
@@ -54,19 +90,33 @@ public class ApplicationEditController implements Initializable {
         currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
     }
 
+    /**
+     * Получить связанное приложение
+     * @return Связанное приложение
+     */
     public Application getApplication() {
         return application;
     }
 
+    /**
+     * Установить связанное приложение
+     * @param application Связанное приложение
+     */
     public void setApplication(Application application) {
         this.application = application;
     }
 
+    /**
+     * Отобразить текущую страницу.
+     */
     public void generatePage() {
         currentItemController.setApplication(application);
         currentItemController.refreshContent();
     }
 
+    /**
+     * Открыть страницу с главной информацией.
+     */
     public void openMain() {
         if (currentItemController instanceof ApplicationEditMenuItemMainController)
             return;
@@ -75,6 +125,9 @@ public class ApplicationEditController implements Initializable {
         generateCenterContent(fxmlLoader, labelMain);
     }
 
+    /**
+     * Открыть страницу с изображениями.
+     */
     public void openImages() {
         if (currentItemController instanceof ApplicationEditMenuItemImagesController)
             return;
@@ -85,6 +138,9 @@ public class ApplicationEditController implements Initializable {
         generateCenterContent(fxmlLoader, labelImages);
     }
 
+    /**
+     * Сгенерировать страницу редактирования.
+     */
     private void generateCenterContent(FXMLLoader fxmlLoader, Label labelImages) {
         try {
             Parent loaded = fxmlLoader.load();
@@ -100,6 +156,9 @@ public class ApplicationEditController implements Initializable {
         currentMenuItem.setStyle("-fx-text-fill: #0e8420;");
     }
 
+    /**
+     * Открыть страницу с установщиками.
+     */
     public void openInstaller() {
         if (currentItemController instanceof ApplicationEditMenuItemInstallerController)
             return;
@@ -110,6 +169,9 @@ public class ApplicationEditController implements Initializable {
         generateCenterContent(fxmlLoader, labelInstaller);
     }
 
+    /**
+     * Открыть страницу с дополнительной информацией.
+     */
     public void openAdditional() {
         if (currentItemController instanceof ApplicationEditMenuItemAdditionalController)
             return;
@@ -120,6 +182,10 @@ public class ApplicationEditController implements Initializable {
         generateCenterContent(fxmlLoader, labelAdditional);
     }
 
+    /**
+     * Проверяет возможность сохранения изменений приложения
+     * @return ИНдикатор, разрешения на сохранение изменений
+     */
     private boolean checkingApplicationSaving() {
         if(getApplication().getId() == null || getApplication().getId() < 1) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);

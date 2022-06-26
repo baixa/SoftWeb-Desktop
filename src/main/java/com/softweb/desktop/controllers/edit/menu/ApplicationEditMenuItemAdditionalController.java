@@ -2,8 +2,8 @@ package com.softweb.desktop.controllers.edit.menu;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.License;
-import com.softweb.desktop.database.utils.cache.DBCache;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DBCache;
+import com.softweb.desktop.database.utils.DataService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,36 +20,35 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Controller, that allows to change additional information about the application.
+ * Контроллер, позволяющий менять дополнительную информацию о приложении.
  *
- * In addition to editing the license,
- * it contains information about the last editing of the application and the possibility of
- * deleting the application from the system
+ * В дополнение к редактированию лицензии, контроллер содержит информацию
+ * о дате последнего редактирования приложения и позволяет удалить приложение из системы.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class ApplicationEditMenuItemAdditionalController extends ApplicationEditMenuItem implements Initializable {
 
     /**
-     * FXML node that contains list of licenses' names
+     * FXML узел, содержащий список доступных лицензий.
      */
     @FXML
     private ComboBox<String> cbLicense;
 
     /**
-     * FXML node that shows application's last update date
+     * FXML узел, содержащий дату последнего редактирования приложения.
      */
     @FXML
     private Label tbDate;
 
     /**
-     * Full list of licenses
+     * Список доступных лицензий в системе.
      */
     private List<License> licenses;
 
     /**
-     * Database cache designed to perform CRUD operations
+     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
      *
      * @see DBCache
      */
@@ -57,10 +56,10 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
 
 
     /**
-     * Called to initialize a controller after its root element has been completely processed.
+     * Метод предназначен для инициализации контроллера.
      *
-     * @param url URL used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resourceBundle Resource bundle used to localize the root object, or null if the root object was not localized.
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,7 +68,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     }
 
     /**
-     * Update content on page
+     * Обновление информации на странице.
      */
     @Override
     public void refreshContent() {
@@ -80,7 +79,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     }
 
     /**
-     * Method save edits in database
+     * Метод сохраняет изменения приложения в БД.
      */
     public void saveEdits() {
         if(cbLicense.getValue() != null)
@@ -89,7 +88,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     }
 
     /**
-     * Method remove referenced application
+     * Метод удаляет связанное приложение.
      */
     public void removeApplication() {
         DataService.deleteApplication(getApplication());
@@ -98,7 +97,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
 
 
     /**
-     * Method perform application's license changing
+     * Метод выполняет смену лицензии приложения.
      */
     public void changeLicense() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.YES, ButtonType.NO);

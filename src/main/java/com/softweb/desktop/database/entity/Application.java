@@ -17,7 +17,7 @@ import java.util.*;
  * Also Application class has field, which are referenced with other entity class
  * (developer and lists - application images, installers).
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 @Getter

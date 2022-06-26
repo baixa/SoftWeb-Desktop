@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * Repository interface of Application class to perform CRUD operations
+ *
+ * @author Максимчук И.
+ * @version 1.0
  */
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application,Long> {

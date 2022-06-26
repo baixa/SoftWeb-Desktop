@@ -3,7 +3,7 @@ package com.softweb.desktop.controllers.components.cell;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.edit.ApplicationEditController;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,16 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 
 /**
- * ApplicationDefaultCell class is controller of application cells, that are visible
- * on user applications list page.
+ * Класс контроллер ячеек приложения, которые отображаются в списке приложений
+ * в панели администратора (разработчика) этого приложения.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class ApplicationUserCell extends AbstractApplicationCell {
 
     /**
-     * FXML button open application edit page
+     * FXML кнопка, открывающая струницу редактирования приложения.
      *
      * @see ApplicationEditController
      */
@@ -30,13 +30,13 @@ public class ApplicationUserCell extends AbstractApplicationCell {
     private Button btnEdit;
 
     /**
-     * FXML button remove application
+     * FXML кнопка, удаляющая приложение.
      */
     @FXML
     private Button btnRemove;
 
     /**
-     * Initialize new empty user's application cell
+     * Инициализирует новую пустую ячейку.
      */
     public ApplicationUserCell() {
         super();
@@ -55,10 +55,10 @@ public class ApplicationUserCell extends AbstractApplicationCell {
     }
 
     /**
-     * Method rebuild cell to set custom design
+     * Метод изменяет дизайн ячейки на свой.
      *
-     * @param application Referenced application
-     * @param isEmpty Indicates that cell is empty
+     * @param application Связанное приложение
+     * @param isEmpty Индикатор, что ячейка пустая
      */
     @Override
     @Transactional

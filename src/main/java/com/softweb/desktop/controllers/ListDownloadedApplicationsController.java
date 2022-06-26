@@ -4,7 +4,7 @@ import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.controllers.components.cell.ApplicationDefaultCell;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.*;
-import com.softweb.desktop.database.utils.cache.DBCache;
+import com.softweb.desktop.database.utils.DBCache;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;

@@ -5,7 +5,7 @@ import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Registration;
 import com.softweb.desktop.controllers.utils.NodeLimiters;
 import com.softweb.desktop.database.entity.Developer;
-import com.softweb.desktop.database.utils.cache.DBCache;
+import com.softweb.desktop.database.utils.DBCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

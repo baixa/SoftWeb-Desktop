@@ -1,37 +1,37 @@
 package com.softweb.desktop.auth;
 
 import com.softweb.desktop.database.entity.Developer;
-import com.softweb.desktop.database.utils.cache.DBCache;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DBCache;
+import com.softweb.desktop.database.utils.DataService;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * Authorization class contains methods and fields of user
- * authorization mechanism in the system.
+ * Класс содержит методы и поля для реализации механизма
+ * авторизации с системе.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class Authorization {
 
     /**
-     * Field current user contains reference to the object of
-     * the current user authorized in the system
+     * Поле содержит ссылку на объект класса Developer и соответствует
+     * текущему авторизованному пользователю.
      *
      * @see Developer
      */
     private static Developer currentUser;
 
     /**
-     * Field authorized is indicator of user authorization status
+     * Поле-индикатор, соответсвующий состоянию авторизации в системе.
      */
     private static boolean authorized = false;
 
 
     /**
-     * Database cache designed to perform CRUD operations
+     * Кэш базы данных, предназначенный для вполнений CRUD операций.
      *
      * @see DBCache
      */
@@ -39,18 +39,16 @@ public class Authorization {
 
 
     /**
-     * Method perform authorization with username and password.
+     * Метод выполняет авторизацию в системе, согласно переданному логину и паролю.
      *
-     * If system contains authorized user than method return false.
-     * otherwise, the entered data is checked for compliance with
-     * the data already in the database.
+     * Если в системе уже авторизовался пользователь, тогда метод вернет значение false.
+     * В ином случае, введенные данные проверяются на соответствие данным, содержащихся в БД.
      *
-     * If the entered data is correct, the system updates
-     * the user's login history and returns true
+     * Если введенные данные верны, система обновляет историю входа пользователя и возвращает true.
      *
      * @param username Логин пользователя
      * @param password Пароль пользователя
-     * @return boolean value of authorization status
+     * @return статус авторизации
      *
      * @see Developer
      */
@@ -73,7 +71,7 @@ public class Authorization {
     }
 
     /**
-     * Method perform current authorized user sign out
+     * Метод выполняет выход пользователя из системы
      */
     public static void signOut() {
         currentUser = null;
@@ -81,19 +79,18 @@ public class Authorization {
     }
 
     /**
-     * Get status of authorization
+     * Получить статус авторизации
      *
-     * @return value of authorization status
+     * @return значение статуса авторизации
      */
     public static boolean isAuthorized() {
         return authorized;
     }
 
     /**
-     * Get reference to current authorized user if user is logged in.
-     * Otherwise returns null
+     * Получить ссылку на текущего авторизованного в системе пользователя
      *
-     * @return Authorized user
+     * @return Авторизованный пользователь
      */
     public static Developer getCurrentUser() {
         return currentUser;

@@ -3,7 +3,7 @@ package com.softweb.desktop.controllers.edit.menu;
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.database.entity.ApplicationImage;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import com.softweb.desktop.utils.ftp.FtpClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,24 +24,24 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Controller, that allows to manipulate with images of application.
+ * Контроллер, позволяющий взаимодействовать с изображениями приложения.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class ApplicationEditMenuItemImagesController extends ApplicationEditMenuItem implements Initializable {
 
     /**
-     * FXML node that contains list of application's images
+     * FXML узел, содержащий список изображений приложения.
      */
     @FXML
     private HBox hbImages;
 
     /**
-     * Called to initialize a controller after its root element has been completely processed.
+     * Метод предназначен для инициализации контроллера.
      *
-     * @param url URL used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resourceBundle Resource bundle used to localize the root object, or null if the root object was not localized.
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +49,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Update content on page
+     * Обновление информации на странице.
      */
     @Override
     public void refreshContent() {
@@ -85,8 +85,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Method loads file on server via FTP and save application image in database
-     * @param file Uploaded file
+     * Метод загружает файлы на сервер через FTP и сохраняет данные об изображении в БД
+     *
+     * @param file Загружаемый файл
      */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
@@ -114,8 +115,8 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Method open file dialog to choose image.
-     * It allows only PNG, JPG and JPEG formats.
+     * Метод открывает диалоговое окно выбора изображения.
+     * Поддерживаемые форматы: PNG, JPEG, JPG.
      */
     public void openFileDialog() {
         FileChooser fileChooser = new FileChooser();
@@ -137,9 +138,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Method perform application removing after confirming the deletion
+     * Метод удаляет изображение, выбранное пользователем после его подтверждения.
      *
-     * @param imageView Removable image
+     * @param imageView Удаляемое изображение.
      */
     public void removeImage(ImageView imageView) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Вы уверены, что хотите удалить изображение?", ButtonType.YES, ButtonType.NO);
@@ -166,9 +167,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Method add application image to database
+     * Метод добавляет изображение в систему.
      *
-     * @param addableImage Addable image
+     * @param addableImage Добавляемое изображение
      */
     public void addApplicationImage(ApplicationImage addableImage) {
         this.application.setLastUpdate(new Date());
@@ -184,9 +185,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Method remove application image from database
+     * Метод удаляет выбранный объект ApplicationImage из БД.
      *
-     * @param removableImage Removable image
+     * @param removableImage Удаляемый объект.
      */
     public void removeApplicationImage(ApplicationImage removableImage) {
         this.application.setLastUpdate(new Date());

@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * Repository interface of Developer class to perform CRUD operations
+ *
+ * @author Максимчук И.
+ * @version 1.0
  */
 @Repository
 public interface DeveloperRepository extends CrudRepository<Developer, Long> {

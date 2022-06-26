@@ -1,20 +1,48 @@
-package com.softweb.desktop.database.utils.services;
+package com.softweb.desktop.database.utils;
 
 import com.softweb.desktop.database.entity.*;
 import com.softweb.desktop.database.repositories.*;
-import com.softweb.desktop.database.utils.cache.DBCache;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+/**
+ * DataService contains tools to manipulate with entity-repositories.
+ *
+ * @author Максимчук И.
+ * @version 1.0
+ */
 @Component
 public class DataService {
 
+    /**
+     * Repository interface of Developer class to perform CRUD operations
+     */
     private static DeveloperRepository developerRepository;
+
+    /**
+     * Repository interface of Application class to perform CRUD operations
+     */
     private static ApplicationRepository applicationRepository;
+
+    /**
+     * Repository interface of Application Image class to perform CRUD operations
+     */
     private static OperatingSystemRepository operatingSystemRepository;
+
+    /**
+     * Repository interface of Application Image class to perform CRUD operations
+     */
     private static ApplicationImageRepository applicationImageRepository;
+
+    /**
+     * Repository interface of Application Image class to perform CRUD operations
+     */
     private static InstallerRepository installerRepository;
+
+    /**
+     * Repository interface of Application Image class to perform CRUD operations
+     */
     private static LicenseRepository licenseRepository;
     private static DBCache dbCache;
 

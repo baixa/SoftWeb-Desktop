@@ -1,28 +1,30 @@
 package com.softweb.desktop.auth;
 
 import com.softweb.desktop.database.entity.Developer;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 
 import java.util.Date;
 
 /**
- * Registration class contains methods and fields of user
- * registration mechanism in the system.
+ * Класс регистрации содержит методы и поля для реализации
+ * механизма регистрации пользователей в системе
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class Registration {
 
     /**
-     * Method perform registration with username, full name and password.
+     * Метод выполняет регистрацию пользователя согласно
+     * преданному логину, имени и паролю.
      *
-     * It creates new object of Developer class and fill data of this object
-     * After saving new Developer in DB, method calls Authorization.authorize method
+     * Метод создает объект класса Developer на основе переданных данных и
+     * затем сохраняет его в базе данных. После создания пользователя система
+     * авторизует его.
      *
-     * @param username User name (Login)
-     * @param fullName Full user name
-     * @param password User password
+     * @param username Логин пользователя
+     * @param fullName Имя пользователя
+     * @param password Пароль пользователя
      *
      * @see Developer
      * @see Authorization#authorize(String, String)

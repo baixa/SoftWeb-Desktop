@@ -15,7 +15,7 @@ import java.util.Set;
  * Also Application class has field, which are referenced with other entity class
  * (published applications).
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 @Getter

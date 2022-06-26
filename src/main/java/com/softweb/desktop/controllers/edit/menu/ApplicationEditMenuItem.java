@@ -1,26 +1,26 @@
 package com.softweb.desktop.controllers.edit.menu;
 
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.utils.cache.DBCache;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DBCache;
+import com.softweb.desktop.database.utils.DataService;
 
 import java.util.Date;
 
 
 /**
- * Abstract class of Application Editing Items.
+ * Абстрактный класс страницы-элемента редактирования приложения.
  *
- * It contains reference to editable application and cache to save edits.
- * Also it has some methods to manipulate with application.
+ * Класс содержит ссылку на редактируемое приложение и кэш, для сохранения изменений.
+ * Также он содержит методы для взаимодействия с приложением.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Related application.
+     * Связанное приложение
      *
      * @see Application
      */
@@ -29,7 +29,7 @@ public abstract class ApplicationEditMenuItem {
     protected Application application;
 
     /**
-     * Database cache to save edits
+     * Кэш базы данных для сохранения изменений
      *
      * @see DBCache
      */
@@ -37,9 +37,9 @@ public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Method update application to save edits.
-     * Also it change application's field of last update on current date.
-     * After saving it calls clearing of cache and update content on page.
+     * Метод обновляет приложение и сохраняет изменения.
+     * Также он обновляет дату обновления приложения на текущую и
+     * после сохранения вызывает обновление кеша и обновляет контент на странице.
      *
      * @see DBCache#clear()
      * @see this#refreshContent()
@@ -56,7 +56,7 @@ public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Method refresh content on EditMenuItem page.
+     * Метод обновляет информацию на странице.
      */
     public abstract void refreshContent();
 }

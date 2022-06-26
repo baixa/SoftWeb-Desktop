@@ -13,7 +13,7 @@ import java.util.Set;
  * Also Application class has field, which are referenced with other entity class
  * (installers, that supports installation on this OS).
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 @Getter

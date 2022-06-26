@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Repository interface of Installer class to perform CRUD operations
+ *
+ * @author Максимчук И.
+ * @version 1.0
  */
 @Repository
 public interface InstallerRepository extends CrudRepository<Installer, Integer> {

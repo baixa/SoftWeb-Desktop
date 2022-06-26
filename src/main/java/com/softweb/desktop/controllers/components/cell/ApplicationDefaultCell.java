@@ -2,9 +2,8 @@ package com.softweb.desktop.controllers.components.cell;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.controllers.ApplicationController;
-import com.softweb.desktop.controllers.components.cell.AbstractApplicationCell;
 import com.softweb.desktop.database.entity.Application;
-import com.softweb.desktop.database.utils.services.DataService;
+import com.softweb.desktop.database.utils.DataService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,16 +12,16 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 /**
- * ApplicationDefaultCell class is controller of application cells, that are visible
- * on main page with applications list.
+ * Класс-контроллер ячеек приложений, которые отображаются в каталоге
+ * для загрузки приложений.
  *
- * @author Maksimchuk I.
+ * @author Максимчук И.
  * @version 1.0
  */
 public class ApplicationDefaultCell extends AbstractApplicationCell {
 
     /**
-     * FXML button open application page
+     * FXML кнопка, открывающая страницу приложения
      *
      * @see ApplicationController
      */
@@ -30,7 +29,7 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
     private Button btnOpen;
 
     /**
-     * Initialize new empty application cell
+     * Инициализирует новую пустую ячейку.
      */
     public ApplicationDefaultCell() {
         super();
@@ -50,10 +49,10 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
 
 
     /**
-     * Method rebuild cell to set custom design
+     * Метод изменяет дизайн ячейки на свой.
      *
-     * @param application Referenced application
-     * @param isEmpty Indicates that cell is empty
+     * @param application Связанное приложение
+     * @param isEmpty Индикатор, что ячейка пустая
      */
     @Override
     protected void updateItem(Application application, boolean isEmpty) {

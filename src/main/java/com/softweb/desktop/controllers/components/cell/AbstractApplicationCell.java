@@ -10,11 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 /**
- * Abstract class of application cell that contains fields of FXML layout of cells and methods to fill them content
+ * Абстрактный класс элментов списка приложений, содержащий поля разметки элементов FXML.
+ *
+ * @author Максимчук И.
+ * @version 1.0
  */
 public abstract class AbstractApplicationCell extends ListCell<Application> {
     /**
-     * FXML node that shows application logo image
+     * FXML узел, содержащий изоброжение логотипа приложения.
      *
      * @see Application#getLogo()
      */
@@ -22,7 +25,7 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
     protected ImageView applicationLogo;
 
     /**
-     * FXML node that shows application name
+     * FXML узел, содержащий название приложения.
      *
      * @see Application#getName()
      */
@@ -30,7 +33,7 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
     protected Label labelApplicationName;
 
     /**
-     * FXML node that shows application short description
+     * FXML узел, содержащий заголовок приложения.
      *
      * @see Application#getShortDescription()
      */
@@ -38,7 +41,7 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
     protected Label labelShortDescription;
 
     /**
-     * FXML node that shows application developer username
+     * FXML узел, содержащий имя разработчика приложения.
      *
      * @see Developer#getUsername()
      */
@@ -46,18 +49,24 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
     protected Label labelDeveloper;
 
     /**
-     * FXML node that contains root element of FXML layout
+     * FXML узел, содержащий корневой элемент разметки.
      */
     @FXML
     protected GridPane rootElement;
 
     /**
-     * Field associates current cell with a specific application
+     * Ссылка на объект Application, связанный с этой ячейкой.
      *
      * @see Application
      */
     protected Application application;
 
+    /**
+     * Метод заполняет ячейку информацией из связанного с ним объекта Application.
+     *
+     * @param application Связанное приложение
+     * @param isEmpty Индикатор, что ячейка пустая
+     */
     protected void fillCellContent(Application application, boolean isEmpty) {
         if(isEmpty || application == null) {
             setText(null);
@@ -76,14 +85,14 @@ public abstract class AbstractApplicationCell extends ListCell<Application> {
     }
 
     /**
-     * Initialize new empty cell with default data
+     * Инициализирует новую пустую ячейку.
      */
     public AbstractApplicationCell() {
         loadFXML();
     }
 
     /**
-     * Load layout of cell
+     * Загружает разметку ячейки.
      */
     protected abstract void loadFXML();
 }
