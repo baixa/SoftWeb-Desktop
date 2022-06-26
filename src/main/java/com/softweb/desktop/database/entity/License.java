@@ -9,12 +9,9 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Entity class Licenses contains data of application's licenses.
+ * Класс-сущность, содержащий информацию о поддерживаемых лицензиях приложений.
  *
- * It has short code of license (identifier) and it name.
- *
- * Also Application class has field, which are referenced with other entity class
- * (applications, that are used this license).
+ * Класс содержит код лицензии (индентификатор) и название лицензии.
  *
  * @author Максимчук И.
  * @version 1.0
@@ -28,20 +25,20 @@ import java.util.Set;
 public class License {
 
     /**
-     * Short code of license, that identifies license
+     * Код лицензии (индентификатор)
      */
     @Id
     @Column(name = "code")
     private String code;
 
     /**
-     * Full name of license
+     * Полное название лицензии
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * List of applications, that are used this license
+     * Список приложений, использующих данную лицензию
      */
     @OneToMany(mappedBy = "license", fetch = FetchType.EAGER)
     private Set<Application> applications;

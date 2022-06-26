@@ -91,7 +91,7 @@
                      </image>
                   </ImageView>
                </children></HBox>
-            <Label fx:id="labelSystems" styleClass="green-label" stylesheets="@../css/ApplicationEditMenuItemImages.css" text="Отсутствует" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="150.0" />
+            <Label fx:id="labelSystemsIsAbsent" styleClass="green-label" stylesheets="@../css/ApplicationEditMenuItemImages.css" text="Отсутствует" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="150.0" />
          </children>
          <BorderPane.margin>
             <Insets right="20.0" top="20.0" />

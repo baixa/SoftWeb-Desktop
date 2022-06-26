@@ -15,39 +15,59 @@ import java.util.ResourceBundle;
 
 import static com.softweb.desktop.StageInitializer.showDefaultContent;
 
+/**
+ * Класс-контроллер, содержащий окно программы
+ */
 @Component
 public class RootController implements Initializable {
 
+    /**
+     * FXML кнопка, открывающая окно входа
+     */
     @FXML
     private Button btnLogin;
 
+    /**
+     * FXML кнопка, перемещающая последовательно назад по страницам
+     */
     @FXML
     private Button btnBack;
 
 
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnBack.setVisible(false);
         rebuildButtons(false, false);
     }
 
-    public void btnLoginClick(ActionEvent event) {
+    /**
+     * Метод открывает страницу входа в аккаунт разработчика
+     */
+    public void btnLoginClick() {
         rebuildButtons(true, true);
-        showAuthorizationForm();
-    }
-
-    private void showAuthorizationForm() {
         StageInitializer.navigate("/layout/PageAuthorizationLayout");
     }
 
-    public void btnBackClick(ActionEvent event) {
+    /**
+     * Метод выполняет постраничный переход назад.
+     */
+    public void btnBackClick() {
         rebuildButtons(false, false);
         Authorization.signOut();
         showDefaultContent();
     }
 
-
-
+    /**
+     * Метод управляет видимостью и положением кнопок "Войти" и "Назад" в зависимости от возможности перехода и наличии уже имеющейся авторизации
+     * @param canGoBack Индикатор возможности перехода назад
+     * @param isAuthorized Индикатор уже имеющейся авторизации в системе
+     */
     public void rebuildButtons(boolean canGoBack, boolean isAuthorized) {
         btnBack.setVisible(canGoBack);
         btnLogin.setVisible(!isAuthorized);
@@ -58,8 +78,5 @@ public class RootController implements Initializable {
         else {
             VBox.setMargin(btnLogin, new Insets(0,0,45,0));
         }
-
     }
-
-
 }

@@ -3,7 +3,16 @@ package com.softweb.desktop.controllers.utils;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+/**
+ * Класс управляет ограничениями на ввод для элементов UI разметки
+ */
 public class NodeLimiters {
+
+    /**
+     * Метод добавляет ограничение длины для текстового поля
+     * @param textField Ограничеваемое поле
+     * @param maxLength Максимальная длина
+     */
     public static void addTextLimiter(final TextField textField, final int maxLength) {
         if(textField.getText() == null)
             return;
@@ -19,6 +28,10 @@ public class NodeLimiters {
         });
     }
 
+    /** Метод добавляет ограничение длины для текстового поля
+     * @param textArea Ограничеваемое поле
+     * @param maxLength Максимальная длина
+     */
     public static void addTextLimiter(final TextArea textArea, final int maxLength) {
 
         textArea.textProperty().addListener((ov, oldValue, newValue) -> {

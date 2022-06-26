@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface of Application Image class to perform CRUD operations
+ * Репозиторий класса Application Image для выполнения CRUD операций
  *
  * @author Максимчук И.
  * @version 1.0

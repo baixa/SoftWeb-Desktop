@@ -16,33 +16,72 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Класс-контроллер, отображающий страницу регистрации
+ */
 public class PageRegistrationController  implements Initializable {
+
+    /**
+     * FXML узел, содержащий логин пользователя.
+     */
     @FXML
     private TextField tbLogin;
 
+    /**
+     * FXML узел, содержащий имя пользователя.
+     */
     @FXML
     private TextField tbName;
 
+    /**
+     * FXML узел, содержащий скрытый пароль пользователя.
+     */
     @FXML
     private PasswordField tbMaskedPassword;
 
+    /**
+     * FXML узел, содержащий текстовую версию пароля (нескрытую).
+     */
     @FXML
     private TextField tbUnmaskedPassword;
 
+    /**
+     * FXML узел, содержащий скрытый подтвержденный пароль.
+     */
     @FXML
     private PasswordField tbMaskedPasswordConfirm;
 
+    /**
+     * FXML узел, содержащий текстовую версию подтвержденного пароля (нескрытую).
+     */
     @FXML
     private TextField tbUnmaskedPasswordConfirm;
 
+    /**
+     * FXML узел, содержащий ссылку на страницу входа.
+     */
     @FXML
     private Label labelLogin;
 
+    /**
+     * FXML узел, содержащий чекбокс "Повторить пароль".
+     */
     @FXML
     private CheckBox cbShowPassword;
 
-    private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
+    /**
+     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     *
+     * @see DBCache
+     */
+    private static final DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tbUnmaskedPassword.setVisible(false);
@@ -57,6 +96,9 @@ public class PageRegistrationController  implements Initializable {
         NodeLimiters.addTextLimiter(tbUnmaskedPasswordConfirm, 30);
     }
 
+    /**
+     * Метод отображает пароль, если включен флажок "Показать пароль", в ином случае скрывает пароль
+     */
     public void cbShowPasswordChecked() {
         if (cbShowPassword.isSelected()) {
             tbUnmaskedPassword.setVisible(true);
@@ -73,12 +115,18 @@ public class PageRegistrationController  implements Initializable {
 
     }
 
+    /**
+     * Метод связывает поля пароля для работы функции "Показать пароль"
+     */
     private void synchronizePassword() {
         tbMaskedPassword.textProperty().bindBidirectional(tbUnmaskedPassword.textProperty());
         tbMaskedPasswordConfirm.textProperty().bindBidirectional(tbUnmaskedPasswordConfirm.textProperty());
     }
 
-    public void btnRegisterClick(ActionEvent event) {
+    /**
+     * Метод выполняет регистрацию пользователя на основе введенных данных.
+     */
+    public void btnRegisterClick() {
         if(!tbMaskedPassword.textProperty().getValue().equals(tbMaskedPasswordConfirm.textProperty().getValue())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ошибка");

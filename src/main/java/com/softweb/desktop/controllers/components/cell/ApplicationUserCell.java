@@ -1,7 +1,7 @@
 package com.softweb.desktop.controllers.components.cell;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.controllers.edit.ApplicationEditController;
+import com.softweb.desktop.controllers.components.edit.ApplicationEditController;
 import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.database.utils.DataService;
 import javafx.fxml.FXML;

@@ -5,7 +5,6 @@ import com.softweb.desktop.database.entity.Application;
 import com.softweb.desktop.utils.print.OutputUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -18,11 +17,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Класс-контроллер, содержащий страницу с диаграммами популярности приложений авторизованного пользователя
+ */
 public class PageUserApplicationsDiagram implements Initializable {
 
+    /**
+     * FXML узел, содержащий график популярности приложений
+     */
     @FXML
     public BarChart<String, Integer> barChar;
 
+    /**
+     * Метод предназначен для инициализации контроллера.
+     *
+     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
+     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         XYChart.Series<String, Integer> downloadsSeries = new XYChart.Series<>();
@@ -58,6 +69,9 @@ public class PageUserApplicationsDiagram implements Initializable {
         tl.play();
     }
 
+    /**
+     * Метод отправляет диаграмму на печать
+     */
     public void printDiagram() {
         OutputUtils.printChart(barChar);
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
@@ -66,7 +80,10 @@ public class PageUserApplicationsDiagram implements Initializable {
         alert.show();
     }
 
-    public void saveDiagram() {
+    /**
+     * Метод сохраняет диаграмму как PDF документ
+     */
+    public void saveDiagramAsPDF() {
         try {
             String pathPDF = OutputUtils.saveChartAsPDF(barChar);
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);

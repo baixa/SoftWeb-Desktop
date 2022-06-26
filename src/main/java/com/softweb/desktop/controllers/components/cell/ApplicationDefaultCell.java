@@ -62,7 +62,7 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
         fillCellContent(application, isEmpty);
 
         btnOpen.setOnAction(event -> {
-            this.application.view();
+            this.application.increaseViewsCounter();
             DataService.saveApplication(this.application);
             Initializable controller = StageInitializer.navigate("/layout/PageApplicationLayout");
             if (controller instanceof ApplicationController) {

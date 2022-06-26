@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.edit.menu;
+package com.softweb.desktop.controllers.components.edit.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -64,7 +64,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     public void initialize(URL url, ResourceBundle resourceBundle) {
         NodeLimiters.addTextLimiter(tbAppName, 30);
         NodeLimiters.addTextLimiter(tbShortDescription, 50);
-        NodeLimiters.addTextLimiter(tbDescription, 500);
+        NodeLimiters.addTextLimiter(tbDescription, 1500);
     }
 
     /**

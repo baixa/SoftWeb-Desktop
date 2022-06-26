@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DBCache perform "caching" data to increase the speed of data processing
- * of the database without resorting to constant access to it.
- *
- * It has lists of entity-classes, which are fulled, when cache are initialized.
+ * Кэш выполняет операции по «кэшированию» данных для увеличения скорости обработки
+ * данных базы данных, не прибегая к постоянному доступу к ней.
  *
  * @author Максимчук И.
  * @version 1.0
@@ -24,28 +22,27 @@ import java.util.List;
 public class DBCache {
 
     /**
-     * Full list of applications, that are getting from database.
+     * Список приложений
      */
     private List<Application> applications;
 
     /**
-     * Full list of developers, that are getting from database.
+     * Список разработчиков
      */
     private List<Developer> developers;
 
     /**
-     * Full list of operating systems, that are getting from database.
+     * Список операционных систем
      */
     private List<OperatingSystem> systems;
 
     /**
-     * Full list of licenses, that are getting from database.
+     * Список лицензий
      */
     private List<License> licenses;
 
     /**
-     * Method loads images in application, that is get image path and create
-     * object of Image in entity-class.
+     * Загрузить изображение приложения на основе его URL и сохранить его в объекте класса Application Image
      */
     private void loadApplicationsImages() {
         applications.forEach(item -> {
@@ -63,15 +60,7 @@ public class DBCache {
     }
 
     /**
-     * Method full list of developers by data from DB
-     */
-    private void loadDevelopers() {
-        this.developers = new ArrayList<>();
-        DataService.getDeveloperRepository().findAll().forEach(developers::add);
-    }
-
-    /**
-     * Method initialize lists and filled it by data from DB
+     * Инициализировать списки и заполнить их данными из базы данных
      */
     private void fillData() {
         applications = new ArrayList<>();
@@ -81,12 +70,12 @@ public class DBCache {
 
         DataService.getApplicationRepository().findAll().forEach(applications::add);
         DataService.getDeveloperRepository().findAll().forEach(developers::add);
-        DataService.getOperationSystemRepository().findAll().forEach(systems::add);
+        DataService.getOperatingSystemRepository().findAll().forEach(systems::add);
         DataService.getLicenseRepository().findAll().forEach(licenses::add);
     }
 
     /**
-     * Method initialize cache and get fresh data from DB
+     * Инициализировать кэш и заполнить его текущими данными из БД
      */
     private void initialize() {
         fillData();
@@ -94,23 +83,24 @@ public class DBCache {
     }
 
     /**
-     * Method clearing cache and fill it fresh data from DB
+     * Очистить кэш
      */
     public void clear() {
         initialize();
     }
 
     /**
-     * Method refresh list of developers
+     * Загрузить полный список разработчиков из БД
      */
-    public void updateDevelopers() {
-        loadDevelopers();
+    public void loadListOfDevelopers() {
+        this.developers = new ArrayList<>();
+        DataService.getDeveloperRepository().findAll().forEach(developers::add);
     }
 
     /**
-     * Getting full list of applications
+     * Получить список приложений
      *
-     * @return list of applications
+     * @return Список приложений
      */
     public List<Application> getApplications() {
         if(applications == null)
@@ -119,9 +109,9 @@ public class DBCache {
     }
 
     /**
-     * Getting full list of developers
+     * Получить список разработчиков
      *
-     * @return list of developers
+     * @return Список разработчиков
      */
     public List<Developer> getDevelopers() {
         if(developers == null)
@@ -130,9 +120,9 @@ public class DBCache {
     }
 
     /**
-     * Getting full list of licenses
+     * Получить список лицензий
      *
-     * @return list of licenses
+     * @return Список лицензий
      */
     public List<License> getLicenses() {
         if(licenses == null)
@@ -141,9 +131,9 @@ public class DBCache {
     }
 
     /**
-     * Getting full list of operating system
+     * Получить список операционных систем
      *
-     * @return list of systems
+     * @return Список ОС
      */
     public List<OperatingSystem> getSystems() {
         if(systems == null)
@@ -152,9 +142,9 @@ public class DBCache {
     }
 
     /**
-     * Getting bean of DBCache class
+     * Получить объект класса DBCache
      *
-     * @return cache
+     * @return DBCache
      */
     public static DBCache getCache() {
         return JavaFXMain.getApplicationContext().getBean(DBCache.class);

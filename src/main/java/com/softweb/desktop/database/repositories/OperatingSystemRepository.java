@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface of Operating System class to perform CRUD operations
+ * Репозиторий класса Operating System для выполнения CRUD операций
  *
  * @author Максимчук И.
  * @version 1.0

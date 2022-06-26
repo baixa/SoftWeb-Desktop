@@ -1,7 +1,7 @@
-package com.softweb.desktop.controllers.edit;
+package com.softweb.desktop.controllers.components.edit;
 
 import com.softweb.desktop.StageInitializer;
-import com.softweb.desktop.controllers.edit.menu.*;
+import com.softweb.desktop.controllers.components.edit.menu.*;
 import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -184,7 +184,7 @@ public class ApplicationEditController implements Initializable {
 
     /**
      * Проверяет возможность сохранения изменений приложения
-     * @return ИНдикатор, разрешения на сохранение изменений
+     * @return Индикатор, разрешения на сохранение изменений
      */
     private boolean checkingApplicationSaving() {
         if(getApplication().getId() == null || getApplication().getId() < 1) {

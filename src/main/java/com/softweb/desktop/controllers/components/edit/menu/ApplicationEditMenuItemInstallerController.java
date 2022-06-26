@@ -1,4 +1,4 @@
-package com.softweb.desktop.controllers.edit.menu;
+package com.softweb.desktop.controllers.components.edit.menu;
 
 import com.softweb.desktop.JavaFXMain;
 import com.softweb.desktop.StageInitializer;
@@ -120,7 +120,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
                 {
                     fillInstallerData(installer);
                     tbCommand.setStyle("-fx-text-fill: #66666699;");
-                    tbCommand.textProperty().setValue("Не требуется");
+                    tbCommand.textProperty().setValue("Функция в разработке");
 
                 }
                 else {
@@ -198,8 +198,8 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         if(installer != null)
         {
             fillInstallerData(installer);
-            tbCommand.setStyle("-fx-text-fill: #075d5b;");
-            tbCommand.textProperty().setValue("$installerName \\SILENTMODE");
+            tbCommand.setStyle("-fx-text-fill: #66666699;");
+            tbCommand.textProperty().setValue("Функция в разработке");
         }
         else {
             tbSize.textProperty().setValue("Не установлено");
@@ -233,7 +233,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
         if(installer.getSystem().getInstallers() == null)
             installer.getSystem().setInstallers(new HashSet<>());
 
-        DataService.saveApplicationSystem(installer);
+        DataService.saveInstaller(installer);
         DataService.saveOperationSystem(installer.getSystem());
         getApplication().getInstallers().add(installer);
         installer.getSystem().getInstallers().add(installer);

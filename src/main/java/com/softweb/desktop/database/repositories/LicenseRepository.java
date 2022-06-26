@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface of License class to perform CRUD operations
+ * Репозиторий класса License для выполнения CRUD операций
  *
  * @author Максимчук И.
  * @version 1.0
