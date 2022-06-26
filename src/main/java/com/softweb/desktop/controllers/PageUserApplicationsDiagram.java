@@ -26,7 +26,7 @@ public class PageUserApplicationsDiagram implements Initializable {
      * FXML узел, содержащий график популярности приложений
      */
     @FXML
-    public BarChart<String, Integer> barChar;
+    public BarChart<String, Number> barChar;
 
     /**
      * Метод предназначен для инициализации контроллера.
@@ -36,9 +36,9 @@ public class PageUserApplicationsDiagram implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        XYChart.Series<String, Integer> downloadsSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> downloadsSeries = new XYChart.Series<>();
         downloadsSeries.setName("Загрузки");
-        XYChart.Series<String, Integer> viewsSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> viewsSeries = new XYChart.Series<>();
         viewsSeries.setName("Просмотры");
         Authorization.getCurrentUser().getApplications().forEach(item -> {
             downloadsSeries.getData().add(new XYChart.Data<>(item.getName(), 100));
@@ -51,8 +51,8 @@ public class PageUserApplicationsDiagram implements Initializable {
         tl.getKeyFrames().add(
                 new KeyFrame(Duration.millis(700),
                         actionEvent -> {
-                            for (XYChart.Series<String, Integer> series : barChar.getData()) {
-                                for (XYChart.Data<String, Integer> data : series.getData()) {
+                            for (XYChart.Series<String, Number> series : barChar.getData()) {
+                                for (XYChart.Data<String, Number> data : series.getData()) {
                                     Application application = Authorization.getCurrentUser().getApplications().stream().filter(item -> item.getName().equals(data.getXValue())).findFirst().orElse(null);
                                     if(application == null)
                                         return;

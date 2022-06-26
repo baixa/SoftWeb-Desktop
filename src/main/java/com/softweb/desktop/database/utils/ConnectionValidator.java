@@ -21,8 +21,9 @@ public class ConnectionValidator {
     /**
      * Метод проверяет соединение к базе данных на основе переданного URL соединения и фиксирующий состояние в логгере
      * @param dbUrl URL базы данных
+     * @return Состояние соединения
      */
-    public static void checkConnectionStatus(String dbUrl)
+    public static boolean checkConnectionStatus(String dbUrl)
     {
         try {
             logger.info("Check database connection");
@@ -30,6 +31,7 @@ public class ConnectionValidator {
             if (connection != null && !connection.isClosed() && connection.isValid(5)) {
                 connection.prepareStatement("SELECT 1");
                 logger.info("Database connection success");
+                return true;
             }
             else {
                 logger.error("Database connection refused");
@@ -38,5 +40,6 @@ public class ConnectionValidator {
         catch (SQLException e) {
             logger.error("Database connection error: ", e);
         }
+        return false;
     }
 }

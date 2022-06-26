@@ -2,7 +2,8 @@ package com.softweb.desktop.controllers;
 
 import com.softweb.desktop.StageInitializer;
 import com.softweb.desktop.auth.Authorization;
-import javafx.event.ActionEvent;
+import com.softweb.desktop.controllers.components.edit.ApplicationEditController;
+import com.softweb.desktop.database.entity.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.softweb.desktop.StageInitializer.showDefaultContent;
+import static com.softweb.desktop.StageInitializer.showMainPage;
 
 /**
  * Класс-контроллер, содержащий окно программы
@@ -58,9 +59,17 @@ public class RootController implements Initializable {
      * Метод выполняет постраничный переход назад.
      */
     public void btnBackClick() {
-        rebuildButtons(false, false);
-        Authorization.signOut();
-        showDefaultContent();
+        Initializable centerPanelController = StageInitializer.getCenterPanelController();
+
+        if(centerPanelController instanceof ApplicationEditController || centerPanelController instanceof PageUserApplicationsDiagram) {
+            rebuildButtons(true, true);
+            StageInitializer.navigate("/layout/PageUserApplicationsLayout");
+        }
+        else {
+            rebuildButtons(false, false);
+            Authorization.signOut();
+            showMainPage();
+        }
     }
 
     /**

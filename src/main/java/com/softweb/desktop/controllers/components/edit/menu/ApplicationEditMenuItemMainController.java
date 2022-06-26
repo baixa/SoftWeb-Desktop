@@ -74,8 +74,8 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
         getApplication().setName(tbAppName.textProperty().getValue());
         getApplication().setShortDescription(tbShortDescription.textProperty().getValue());
         getApplication().setDescription(tbDescription.textProperty().getValue());
-
         updateApplication();
+        refreshContent();
     }
 
     /**
@@ -151,7 +151,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
 
         if(file != null) {
             loadFile(file);
-            ivLogo.setImage(getApplication().getLogo());
+            saveEdits();
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
             alert.setTitle("Результат");
             alert.setHeaderText("Готово!");

@@ -36,6 +36,13 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
     private static RootController rootController;
 
     /**
+     * Контроллер центральной панели
+     */
+    @lombok.Getter
+    @lombok.Setter
+    private static Initializable centerPanelController;
+
+    /**
      * Окно программы
      */
     @lombok.Getter
@@ -81,7 +88,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             loader.setControllerFactory(applicationContext::getBean);
             rootElement = loader.load();
             rootController = loader.getController();
-            showDefaultContent();
+            showMainPage();
 
             stage = event.getStage();
             stage.setMinWidth(1300);
@@ -112,13 +119,16 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
             e.printStackTrace();
         }
 
-        return fxmlLoader.getController();
+        Initializable centerController = fxmlLoader.getController();
+        setCenterPanelController(centerController);
+
+        return centerController;
     }
 
     /**
      * Отобразить начальную страницу
      */
-    public static void showDefaultContent() {
+    public static void showMainPage() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");
     }
 }
