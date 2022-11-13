@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Репозиторий класса Developer для выполнения CRUD операций
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Repository

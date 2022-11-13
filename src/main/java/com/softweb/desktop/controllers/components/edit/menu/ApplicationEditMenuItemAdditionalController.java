@@ -20,35 +20,35 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Контроллер, позволяющий менять дополнительную информацию о приложении.
+ * A controller that allows you to change additional information about the application.
  *
- * В дополнение к редактированию лицензии, контроллер содержит информацию
- * о дате последнего редактирования приложения и позволяет удалить приложение из системы.
+ * In addition to editing the license, the controller contains information about the date the application
+ * was last edited and allows you to remove the application from the system.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationEditMenuItemAdditionalController extends ApplicationEditMenuItem implements Initializable {
 
     /**
-     * FXML узел, содержащий список доступных лицензий.
+     * An FXML node containing a list of available licenses.
      */
     @FXML
     private ComboBox<String> cbLicense;
 
     /**
-     * FXML узел, содержащий дату последнего редактирования приложения.
+     * An FXML node containing the date the application was last modified.
      */
     @FXML
     private Label tbDate;
 
     /**
-     * Список доступных лицензий в системе.
+     * List of available licenses in the system.
      */
     private List<License> licenses;
 
     /**
-     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     * Database cache to perform CRUD operations and save information.
      *
      * @see DBCache
      */
@@ -56,10 +56,10 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
 
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,7 +68,7 @@ public class ApplicationEditMenuItemAdditionalController extends ApplicationEdit
     }
 
     /**
-     * Обновление информации на странице.
+     * Update information on the page.
      */
     @Override
     public void refreshContent() {

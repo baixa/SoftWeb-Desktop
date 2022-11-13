@@ -5,11 +5,11 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * Класс-сущность, содержащий информацию об установщиках приложений для различных операционных систем.
+ * An entity class containing information about application installers for various operating systems.
  *
- * Класс содержит индентификатор, установщик, дополнительную информацию об установщике (его размер и версию)
+ * The class contains an identifier, an installer, additional information about the installer (its size and version)
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Entity
@@ -21,40 +21,40 @@ import javax.persistence.*;
 public class Installer {
 
     /**
-     * Автоматически генерируемый индентификатор
+     * Automatically generated identifier
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
-     * Связанное приложение
+     * Related application
      */
     @ManyToOne
     @JoinColumn(name = "application_id")
     private Application application;
 
     /**
-     * Поддерживаемая операционная система
+     * Supported operating system
      */
     @ManyToOne
     @JoinColumn(name = "system_id")
     private OperatingSystem system;
 
     /**
-     * URL установщика
+     * Installer URL
      */
     @Column(name = "path")
     private String installerPath;
 
     /**
-     * Версия установщика
+     * Installer Version
      */
     @Column(name = "version")
     private String version;
 
     /**
-     * Размер установщика (в байтах)
+     * Installer size (in bytes)
      */
     @Column(name = "size")
     private int size;

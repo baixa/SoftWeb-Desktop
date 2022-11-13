@@ -23,57 +23,57 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Класс-контроллер, содержащий список приложений для каталога
+ * Controller class containing the list of applications for the directory
  */
 public class ListDownloadedApplicationsController implements Initializable {
 
     /**
-     * FXML кнопка, выполняющий поиск по фильтру
+     * FXML button that searches by filter
      */
     @FXML
     public Button btnFilter;
 
     /**
-     * FXML кнопка, очищающая фильтры
+     * FXML button clearing filters
      */
     @FXML
     public Button btnClear;
 
     /**
-     * FXML узел, содержащий список разработчиков
+     * FXML node containing a list of developers
      */
     @FXML
     private ComboBox<String> comboDeveloper;
 
     /**
-     * FXML узел, содержащий строку поиска
+     * FXML node containing the search string
      */
     @FXML
     private TextField tbSearch;
 
     /**
-     * FXML узел, содержащий  список приложений
+     * FXML node containing list of applications
      */
     @FXML
     private ListView<Application> listApplications;
 
     /**
-     * Список приложений
+     * Application List
      */
     private List<Application> applications;
 
     /**
-     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     * Database cache to perform CRUD operations and save information.
      *
      * @see DBCache
      */
     private static DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,8 +87,9 @@ public class ListDownloadedApplicationsController implements Initializable {
     }
 
     /**
-     * Метод генерирует список приложений
-     * @param applications Источник приложений
+     * The method generates a list of applications
+     *
+     * @param applications Application source
      */
     private void renderApplicationList(List<Application> applications) {
         ObservableList<Application> applicationObservableList = FXCollections.observableArrayList();
@@ -98,7 +99,7 @@ public class ListDownloadedApplicationsController implements Initializable {
     }
 
     /**
-     * Метод фильтрует список приложений по полю "Поиск" и "Разработчик"
+     * The method filters the list of applications by the field "Search" and "Developer"
      */
     public void btnFilterClick() {
         String searchName = tbSearch.textProperty().getValue();
@@ -121,7 +122,7 @@ public class ListDownloadedApplicationsController implements Initializable {
     }
 
     /**
-     * Метод выполняет сброс фильтров поиска
+     * The method resets the search filters
      */
     public void btnClearClick(){
         tbSearch.textProperty().setValue(null);

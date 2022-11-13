@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Класс-сущность, содержащий информацию о поддерживаемых лицензиях приложений.
+ * An entity class containing information about supported application licenses.
  *
- * Класс содержит код лицензии (индентификатор) и название лицензии.
+ * The class contains the license code (identifier) and the name of the license.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Getter
@@ -25,20 +25,20 @@ import java.util.Set;
 public class License {
 
     /**
-     * Код лицензии (индентификатор)
+     * License code (identifier)
      */
     @Id
     @Column(name = "code")
     private String code;
 
     /**
-     * Полное название лицензии
+     * Full license name
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * Список приложений, использующих данную лицензию
+     * List of applications using this license
      */
     @OneToMany(mappedBy = "license", fetch = FetchType.EAGER)
     private Set<Application> applications;

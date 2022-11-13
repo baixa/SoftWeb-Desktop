@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Класс-сущность, содержащий информацию об операционных системах, поддерживаемых в приложении.
+ * An entity class containing information about the operating systems supported by the application.
  *
- * Класс содержи индентификатор системы и ее полное имя.
+ * The class contains the system identifier and its fully qualified name.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Getter
@@ -22,20 +22,20 @@ import java.util.Set;
 public class OperatingSystem {
 
     /**
-     * Автоматически генерируемый индентификатор
+     * Automatically generated identifier
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Имя операционной системы
+     * Operating system name
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * Список установщиков, предназначенных для данной ОС
+     * List of installers intended for this OS
      */
     @OneToMany(mappedBy = "system", fetch = FetchType.EAGER)
     private Set<Installer> installers;

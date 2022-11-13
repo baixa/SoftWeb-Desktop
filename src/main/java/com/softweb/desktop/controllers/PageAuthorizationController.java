@@ -14,24 +14,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Класс-контроллер, содержащий страницу авторизации
+ * Controller class containing the authorization page
  */
 public class PageAuthorizationController implements Initializable {
 
     /**
-     * FXML узел, содержащий имя пользователя.
+     * An FXML node containing the username.
      */
     @FXML
     private TextField tbLogin;
 
     /**
-     * FXML узел, содержащий скрытый пароль.
+     * FXML node containing the hidden password.
      */
     @FXML
     private PasswordField tbMaskedPassword;
 
     /**
-     * FXML узел, содержащий текствую версию пароля (нескрытую).
+     * An FXML node containing the text version of the password (unhidden).
      */
     @FXML
     private TextField tbUnmaskedPassword;
@@ -43,16 +43,16 @@ public class PageAuthorizationController implements Initializable {
     private CheckBox cbShowPassword;
 
     /**
-     * FXML узел, содержащий ссылку на страницу регистрации.
+     * An FXML node containing a link to the registration page.
      */
     @FXML
     private Label labelRegistration;
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +66,7 @@ public class PageAuthorizationController implements Initializable {
     }
 
     /**
-     * Метод отображает пароль, если включен флажок "Показать пароль", в ином случае скрывает пароль
+     * The method displays the password if the "Show password" checkbox is enabled, otherwise hides the password
      */
     public void cbShowPasswordChecked() {
         if (cbShowPassword.isSelected()) {
@@ -81,14 +81,14 @@ public class PageAuthorizationController implements Initializable {
     }
 
     /**
-     * Метод связывает поля пароля для работы функции "Показать пароль"
+     * The method binds the password fields for the "Show password" function to work
      */
     private void synchronizePassword() {
         tbMaskedPassword.textProperty().bindBidirectional(tbUnmaskedPassword.textProperty());
     }
 
     /**
-     * Метод выполняет авторизацию пользователя на основе его введенных данных
+     * The method performs authorization of the user based on his entered data
      */
     public void btnLoginClick() {
         if(Authorization.authorize(tbLogin.textProperty().getValue(), tbMaskedPassword.textProperty().getValue())) {

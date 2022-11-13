@@ -12,16 +12,15 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 /**
- * Класс-контроллер ячеек приложений, которые отображаются в каталоге
- * для загрузки приложений.
+ * The controller class for application cells that appear in the application download directory.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationDefaultCell extends AbstractApplicationCell {
 
     /**
-     * FXML кнопка, открывающая страницу приложения
+     * FXML button that opens the application page
      *
      * @see ApplicationController
      */
@@ -29,7 +28,7 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
     private Button btnOpen;
 
     /**
-     * Инициализирует новую пустую ячейку.
+     * Initializes a new empty cell.
      */
     public ApplicationDefaultCell() {
         super();
@@ -49,10 +48,10 @@ public class ApplicationDefaultCell extends AbstractApplicationCell {
 
 
     /**
-     * Метод изменяет дизайн ячейки на свой.
+     * The method changes the design of the cell to its own.
      *
-     * @param application Связанное приложение
-     * @param isEmpty Индикатор, что ячейка пустая
+     * @param application Related application
+     * @param isEmpty An indicator that the cell is empty
      */
     @Override
     protected void updateItem(Application application, boolean isEmpty) {

@@ -9,14 +9,14 @@ import java.util.*;
 
 
 /**
- * Класс-сущность Application содержит данные приложений.
+ * The Application entity class contains application data.
  *
- * Класс содержит автоматически генерируемый индентификатор, имя приложения, его описание и заголовок, путь и
- * изображение логотипа приложения, данные о лицензии и данные об аналитике приложений: количество скачиваний и просмотров.
+ * The class contains an automatically generated identifier, the name of the application,
+ * its description and title, the path and image of the application logo, license information, and application analytics data: the number of downloads and views.
  *
- * Также класс содержит поля, которые связывают приложение с его разработчиком, списком изображений и установщиками приложения.
+ * The class also contains fields that associate the application with its developer, image list, and application installers.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Getter
@@ -28,38 +28,38 @@ import java.util.*;
 public class Application{
 
     /**
-     * Автоматически генерируемый индентификатор
+     * Automatically generated identifier
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Название приложения
+     * App name
      */
     @Column(name = "name")
     private String name;
 
     /**
-     * Заголовок приложения
+     * Application title
      */
     @Column(name = "short_description")
     private String shortDescription;
 
     /**
-     * Описание приложения
+     * Application Description
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * URL изображения логотипа приложения
+     * Application logo image URL
      */
     @Column(name = "logo_path")
     private String logoPath;
 
     /**
-     * Изображение логотипа
+     * Logo image
      *
      * @see this#logoPath
      */
@@ -67,45 +67,45 @@ public class Application{
     private Image logo;
 
     /**
-     * Дата последнего обновления приложения
+     * The date the app was last updated
      */
     @Column(name = "last_update")
     private Date lastUpdate;
 
     /**
-     * Количество загрузок приложения
+     * Number of app downloads
      */
     @Column(name = "downloads")
     private int downloads;
 
     /**
-     * Количество просмотров приложения
+     * App Views
      */
     @Column(name = "views")
     private int views;
 
     /**
-     * Лицензия приложения
+     * Application license
      */
     @ManyToOne
     @JoinColumn(name = "license")
     private License license;
 
     /**
-     * Разработчик приложения
+     * Application developer
      */
     @ManyToOne
     @JoinColumn(name = "developer_id")
     private Developer developer;
 
     /**
-     * Список изображений приложения
+     * Application image list
      */
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     private Set<ApplicationImage> images;
 
     /**
-     * Список установщиков приложения
+     * List of app installers
      */
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER)
     private Set<Installer> installers;
@@ -137,14 +137,14 @@ public class Application{
     }
 
     /**
-     * Метод увеличивает количество загрузок приложения
+     * The method increases the number of app downloads
      */
     public void increaseDownloadsCounter() {
         downloads += 1;
     }
 
     /**
-     * Метод увеличивает количество просмотров приложения
+     * The method increases the number of app views
      */
     public void increaseViewsCounter() {
         views += 1;

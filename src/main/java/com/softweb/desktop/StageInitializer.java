@@ -18,57 +18,58 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * Класс инициализирует окно программы
+ * The class initializes the program window
  */
 @Component
 public class StageInitializer implements ApplicationListener<JavaFXMain.StageReadyEvent> {
 
     /**
-     * FXML узел, содержащий корневой элемент разметки
+     * FXML node containing the root markup element
      */
     @lombok.Getter
     private static BorderPane rootElement;
 
     /**
-     * Контроллер корневого элемента
+     * Root element controller
      */
     @lombok.Getter
     private static RootController rootController;
 
     /**
-     * Контроллер центральной панели
+     * Center console controller
      */
     @lombok.Getter
     @lombok.Setter
     private static Initializable centerPanelController;
 
     /**
-     * Окно программы
+     * Program window
      */
     @lombok.Getter
     private static Stage stage;
 
     /**
-     * Наименование программы
+     * Program title
      */
     private final String applicationTitle;
 
     /**
-     * Контекст Spring программы
+     * Context of a Spring Program
      */
     private final ApplicationContext applicationContext;
 
     /**
-     * Сервис для взаимодействия с репозиториями сущностей
+     * Service for interacting with entity repositories
      */
     public static DataService dataService;
 
     /**
-     * Инициализирует объект класса, устанавливает заголовок окну программы и заполняет поля контекста.
-     * @param applicationTitle Название приложения
-     * @param dbUrl URL базы данных
-     * @param applicationContext Контекст приложения
-     * @param dataService Сервис для взаимодействия с репозиториями сущностей
+     * Initializes the class object, sets the title of the program window, and fills in the context fields.
+     *
+     * @param applicationTitle Application title
+     * @param dbUrl Database URL
+     * @param applicationContext Application context
+     * @param dataService Service for interacting with entity repositories
      */
     public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, @Value("${spring.datasource.full-url}") String dbUrl, ApplicationContext applicationContext, DataService dataService) {
         this.applicationTitle = applicationTitle;
@@ -78,8 +79,9 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
     }
 
     /**
-     * Загрузить корневую разметку при загрузке приложения
-     * @param event Событие загрузки приложения
+     * Load root markup on application load
+     *
+     * @param event Application load event
      */
     @Override
     public void onApplicationEvent(JavaFXMain.StageReadyEvent event) {
@@ -107,8 +109,8 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
 
     /**
      * Загрузить страницу
-     * @param path URL разметки
-     * @return Контроллер страницы
+     *      * @param path URL разметки
+     *      * @return Контроллер страницы
      */
     public static Initializable navigate(String path) {
         FXMLLoader fxmlLoader = new FXMLLoader(StageInitializer.class.getResource(path + ".fxml"));
@@ -126,7 +128,7 @@ public class StageInitializer implements ApplicationListener<JavaFXMain.StageRea
     }
 
     /**
-     * Отобразить начальную страницу
+     * Display start page
      */
     public static void showMainPage() {
         StageInitializer.navigate("/layout/PageDefaultApplicationsLayout");

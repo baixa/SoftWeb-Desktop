@@ -28,71 +28,71 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 /**
- * Контроллер, позволяющий взаимодействовать с установщиками приложения.
+ * A controller that allows you to interact with the app's installers.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationEditMenuItemInstallerController extends ApplicationEditMenuItem implements Initializable {
 
     /**
-     * FXML узел, содержащий надпись о том, что установщик для данной системы отсутствует
+     * FXML node containing an inscription stating that there is no installer for this system
      */
     @FXML
     private Label labelWarning;
 
     /**
-     * FXML узел, содержащий изображение логотипа ОС Windows
+     * FXML node containing the Windows OS logo image
      */
     @FXML
     private ImageView ivWindows;
 
     /**
-     * FXML узел, содержащий изображение логотипа ОС Linux
+     * FXML node containing the Linux OS logo image
      */
     @FXML
     private ImageView ivLinux;
 
     /**
-     * FXML узел, содержащий информацию о размере загрузчика.
+     * An FXML node containing information about the size of the loader.
      */
     @FXML
     private Label tbSize;
 
     /**
-     * FXML узел, содержащий надпись о текущей ОС.
+     * FXML node containing an inscription about the current OS.
      */
     @FXML
     private Label tbOS;
 
     /**
-     * FXML узел, содержащий надпись о команде установки файла загрузчика.
+     * An FXML node containing an inscription about the command to install the loader file.
      */
     @FXML
     private Label tbCommand;
 
     /**
-     * Индикатор, что выбранная ОС - Windows.
+     * Indicator that the selected OS is Windows.
      */
     private boolean windowsSelected = false;
 
     /**
-     * Связанный установщик приложения.
+     * Associated app installer.
      */
     private Installer installer;
 
     /**
-     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     * Database cache to perform CRUD operations and save information.
      *
      * @see DBCache
      */
     private static final DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -183,7 +183,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Обновление информации на странице.
+     * Update information on the page.
      */
     @Override
     public void refreshContent() {
@@ -191,7 +191,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Метод заполняет информацию на странице
+     * The method fills in the information on the page
      */
     private void fillContent() {
         Installer installer = getApplication().getInstallers().stream().filter(appSystem -> appSystem.getSystem().getName().contains("Windows")).findFirst().orElse(null);
@@ -211,8 +211,9 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Метод заполняет информацию об установщице на странице.
-     * @param installer Связанный установщик
+     * The method fills in information about the installer on the page.
+     *
+     * @param installer Associated installer
      */
     private void fillInstallerData(Installer installer) {
         labelWarning.setVisible(false);
@@ -224,7 +225,7 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Метод сохраняет изменения приложения в БД.
+     * The method saves application changes to the database.
      */
     public void saveEdits() {
         if(getApplication().getInstallers() == null)
@@ -241,8 +242,9 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Метод загружает выбранный файл на FTP сервер.
-     * @param file Выбранный файл
+     * The method uploads the selected file to the FTP server.
+     *
+     * @param file Selected file
      */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
@@ -298,8 +300,9 @@ public class ApplicationEditMenuItemInstallerController extends ApplicationEditM
     }
 
     /**
-     * Метод открывает диалоговое окно выбора установщика для дальнейшей загрузки
-     * в систему. Поддерживаемые форматы: EXE, DEB.
+     * The method opens a dialog box for selecting an installer for further loading into the system.
+     *
+     * Supported formats: EXE, DEB.
      */
     public void fileDialogOpen() {
         FileChooser fileChooser = new FileChooser();

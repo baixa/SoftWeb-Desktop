@@ -20,111 +20,111 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Класс-контроллер для страницы приложений, содержащую всю информацию об устанавливаемом приложении.
+ * The controller class for the application page containing all the information about the application being installed.
  */
 public class ApplicationController implements Initializable {
 
     /**
-     * FXML кнопка установки приложения.
+     * FXML app install button.
      */
     @FXML
     public Button btnInstall;
 
     /**
-     * FXML узел, содержащий название приложения.
+     * FXML node containing the name of the application.
      */
     @FXML
     public Label tbAppName;
 
     /**
-     * FXML узел, содержащий имя разработчика приложения.
+     * An FXML node containing the name of the application developer.
      */
     @FXML
     public Label tbDeveloper;
 
     /**
-     * FXML узел, содержащий дополнительную информацию о приложении.
+     * FXML node containing additional information about the application.
      */
     @FXML
     public AnchorPane details;
 
     /**
-     * FXML узел, содержащий дату последнего обновления приложения.
+     * FXML node containing the date the application was last updated.
      */
     @FXML
     public Label tbDateUpdate;
 
     /**
-     * FXML узел, содержащий название лицензии.
+     * FXML node containing license name.
      */
     @FXML
     public Label tbLicense;
 
     /**
-     * FXML узел, содержащий список доступных операционных систем.
+     * FXML node containing a list of available operating systems.
      */
     @FXML
     public HBox hbOperationSystems;
 
     /**
-     * FXML узел, содержащий список изображений приложения.
+     * FXML node containing a list of application images.
      */
     @FXML
     public HBox hbImages;
 
     /**
-     * FXML узел, содержащий заголовок приложения.
+     * FXML node containing the application title.
      */
     @FXML
     public Label tbShortDescription;
 
     /**
-     * FXML узел, содержащий описание приложения.
+     * An FXML node containing a description of the application.
      */
     @FXML
     public Text tbFullDescription;
 
     /**
-     * FXML узел, содержащий изображения логотипа Windows.
+     * FXML node containing Windows logo images.
      */
     @FXML
     public ImageView ivWindows;
 
     /**
-     * FXML узел, содержащий изображение логотипа Linux.
+     * FXML node containing the Linux logo image.
      */
     @FXML
     public ImageView ivLinux;
 
     /**
-     * FXML узел, содержащий изображение логотипа приложения.
+     * FXML node containing the application logo image.
      */
     @FXML
     public ImageView ivLogo;
 
     /**
-     * FXML узел, содержащий надпись-предупреждение.
+     *  FXML node containing warning label.
      */
     @FXML
     public Label labelWarning;
 
     /**
-     * FXML узел, содержащий информацию о том, что отсутствуют поддерживаемые системы.
+     *  FXML node containing information that there are no supported systems.
      */
     @FXML
     public Label labelSystemsIsAbsent;
 
     /**
-     * Связанное приложение
+     * Related application
      */
     private Application application;
 
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -133,7 +133,7 @@ public class ApplicationController implements Initializable {
     }
 
     /**
-     * Метод выполняет эмуляцию установки приложения
+     * The method emulates the installation of the application
      */
     public void btnInstallClick() {
         getApplication().increaseDownloadsCounter();
@@ -145,16 +145,16 @@ public class ApplicationController implements Initializable {
     }
 
     /**
-     * Получить связанное приложение
-     * @return Связанное приложение
+     * Get a related app
+     * @return Related application
      */
     public Application getApplication() {
         return application;
     }
 
     /**
-     * Установить связанное приложение
-     * @param application Связанное приложение
+     * Set a related app
+     * @param application Related application
      */
     public void setApplication(Application application) {
         this.application = application;
@@ -162,7 +162,7 @@ public class ApplicationController implements Initializable {
     }
 
     /**
-     * Обновление информации на странице.
+     * Update information on the page.
      */
     private void refreshInfo() {
         this.tbAppName.setText(application.getName());

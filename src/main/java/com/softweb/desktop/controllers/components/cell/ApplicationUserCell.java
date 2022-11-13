@@ -13,16 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 
 /**
- * Класс контроллер ячеек приложения, которые отображаются в списке приложений
- * в панели администратора (разработчика) этого приложения.
+ * The class is the controller of the application cells that appear in the application list in the admin (developer) panel of this application.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationUserCell extends AbstractApplicationCell {
 
     /**
-     * FXML кнопка, открывающая струницу редактирования приложения.
+     * FXML button that opens the application editing page.
      *
      * @see ApplicationEditController
      */
@@ -30,13 +29,13 @@ public class ApplicationUserCell extends AbstractApplicationCell {
     private Button btnEdit;
 
     /**
-     * FXML кнопка, удаляющая приложение.
+     * FXML button that deletes the application.
      */
     @FXML
     private Button btnRemove;
 
     /**
-     * Инициализирует новую пустую ячейку.
+     * Initializes a new empty cell.
      */
     public ApplicationUserCell() {
         super();
@@ -55,10 +54,10 @@ public class ApplicationUserCell extends AbstractApplicationCell {
     }
 
     /**
-     * Метод изменяет дизайн ячейки на свой.
+     * The method changes the design of the cell to its own.
      *
-     * @param application Связанное приложение
-     * @param isEmpty Индикатор, что ячейка пустая
+     * @param application Related application
+     * @param isEmpty An indicator that the cell is empty
      */
     @Override
     @Transactional

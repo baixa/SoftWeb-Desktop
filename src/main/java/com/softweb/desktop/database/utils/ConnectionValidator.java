@@ -8,20 +8,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Класс выполняет проверку соединения к базе данных.
+ * The class performs a database connection check.
  */
 public class ConnectionValidator {
 
     /**
-     * Логер, фиксирующий ошибки и передающий их в консоль
+     * Logger that captures errors and passes them to the console
      */
     private static final Logger logger = LoggerFactory.getLogger(
             ConnectionValidator.class);
 
     /**
-     * Метод проверяет соединение к базе данных на основе переданного URL соединения и фиксирующий состояние в логгере
-     * @param dbUrl URL базы данных
-     * @return Состояние соединения
+     * The method checks the connection to the database based on the passed connection URL and captures the state in the logger
+     *
+     * @param dbUrl Database URL
+     * @return Connection state
      */
     public static boolean checkConnectionStatus(String dbUrl)
     {

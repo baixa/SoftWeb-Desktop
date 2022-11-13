@@ -17,29 +17,29 @@ import java.util.ResourceBundle;
 import static com.softweb.desktop.StageInitializer.showMainPage;
 
 /**
- * Класс-контроллер, содержащий окно программы
+ * Controller class containing the program window
  */
 @Component
 public class RootController implements Initializable {
 
     /**
-     * FXML кнопка, открывающая окно входа
+     * FXML button that opens the login window
      */
     @FXML
     private Button btnLogin;
 
     /**
-     * FXML кнопка, перемещающая последовательно назад по страницам
+     * FXML button that scrolls back through pages sequentially
      */
     @FXML
     private Button btnBack;
 
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,7 +48,7 @@ public class RootController implements Initializable {
     }
 
     /**
-     * Метод открывает страницу входа в аккаунт разработчика
+     * The method opens the developer account login page
      */
     public void btnLoginClick() {
         rebuildButtons(true, true);
@@ -56,7 +56,7 @@ public class RootController implements Initializable {
     }
 
     /**
-     * Метод выполняет постраничный переход назад.
+     * The method performs a pagination back.
      */
     public void btnBackClick() {
         Initializable centerPanelController = StageInitializer.getCenterPanelController();
@@ -73,9 +73,10 @@ public class RootController implements Initializable {
     }
 
     /**
-     * Метод управляет видимостью и положением кнопок "Войти" и "Назад" в зависимости от возможности перехода и наличии уже имеющейся авторизации
-     * @param canGoBack Индикатор возможности перехода назад
-     * @param isAuthorized Индикатор уже имеющейся авторизации в системе
+     * The method controls the visibility and position of the "Login" and "Back" buttons, depending on the possibility of transition and the presence of an existing authorization
+     *
+     * @param canGoBack Can go back indicator
+     * @param isAuthorized Indicator of already existing authorization in the system
      */
     public void rebuildButtons(boolean canGoBack, boolean isAuthorized) {
         btnBack.setVisible(canGoBack);

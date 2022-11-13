@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Контрольный класс, являющийся начальной точкой запуска программы.
+ * The control class, which is the starting point for starting the program.
  */
 @SpringBootApplication
 public class DesktopApplication {

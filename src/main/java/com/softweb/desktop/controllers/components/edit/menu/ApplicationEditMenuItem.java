@@ -8,19 +8,19 @@ import java.util.Date;
 
 
 /**
- * Абстрактный класс страницы-элемента редактирования приложения.
+ * The abstract class of the application editing page element.
  *
- * Класс содержит ссылку на редактируемое приложение и кэш, для сохранения изменений.
- * Также он содержит методы для взаимодействия с приложением.
+ * The class contains a link to the application being edited and a cache to save the changes.
+ * It also contains methods for interacting with the application.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Связанное приложение
+     * Related application
      *
      * @see Application
      */
@@ -29,7 +29,7 @@ public abstract class ApplicationEditMenuItem {
     protected Application application;
 
     /**
-     * Кэш базы данных для сохранения изменений
+     * Database cache to save changes
      *
      * @see DBCache
      */
@@ -37,9 +37,9 @@ public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Метод обновляет приложение и сохраняет изменения.
-     * Также он обновляет дату обновления приложения на текущую и
-     * после сохранения вызывает обновление кеша и обновляет контент на странице.
+     * The method updates the application and saves the changes.
+     * It also updates the application update date to the current one and after saving
+     * it causes the cache to be updated and updates the content on the page.
      *
      * @see DBCache#clear()
      * @see this#refreshContent()
@@ -56,7 +56,7 @@ public abstract class ApplicationEditMenuItem {
 
 
     /**
-     * Метод обновляет информацию на странице.
+     * The method updates the information on the page.
      */
     public abstract void refreshContent();
 }

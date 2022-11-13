@@ -8,30 +8,28 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Класс содержит методы и поля для реализации механизма
- * авторизации с системе.
+ * The class contains methods and fields for implementing the authorization mechanism with the system.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class Authorization {
 
     /**
-     * Поле содержит ссылку на объект класса Developer и соответствует
-     * текущему авторизованному пользователю.
+     * The field contains a reference to an object of the Developer class and corresponds to the current authorized user.
      *
      * @see Developer
      */
     private static Developer currentUser;
 
     /**
-     * Поле-индикатор, соответсвующий состоянию авторизации в системе.
+     * Field-indicator corresponding to the state of authorization in the system.
      */
     private static boolean authorized = false;
 
 
     /**
-     * Кэш базы данных, предназначенный для выполнений CRUD операций.
+     * A database cache for performing CRUD operations.
      *
      * @see DBCache
      */
@@ -39,16 +37,16 @@ public class Authorization {
 
 
     /**
-     * Метод выполняет авторизацию в системе, согласно переданному логину и паролю.
+     * The method performs authorization in the system according to the given login and password.
      *
-     * Если в системе уже авторизовался пользователь, тогда метод вернет значение false.
-     * В ином случае, введенные данные проверяются на соответствие данным, содержащихся в БД.
+     * If a user has already logged in to the system, then the method will return false.
+     * Otherwise, the entered data is checked against the data contained in the database.
      *
-     * Если введенные данные верны, система обновляет историю входа пользователя и возвращает true.
+     * If the entered data is correct, the system updates the user's login history and returns true.
      *
-     * @param username Логин пользователя
-     * @param password Пароль пользователя
-     * @return статус авторизации
+     * @param username Login
+     * @param password Password
+     * @return status of authorization
      *
      * @see Developer
      */
@@ -71,7 +69,7 @@ public class Authorization {
     }
 
     /**
-     * Метод выполняет выход пользователя из системы
+     * The method logs the user out of the system
      */
     public static void signOut() {
         currentUser = null;
@@ -79,18 +77,18 @@ public class Authorization {
     }
 
     /**
-     * Получить статус авторизации
+     * Get authorization status
      *
-     * @return значение статуса авторизации
+     * @return authorization status value
      */
     public static boolean isAuthorized() {
         return authorized;
     }
 
     /**
-     * Получить ссылку на текущего авторизованного в системе пользователя
+     * Get a link to the current authorized user in the system
      *
-     * @return Авторизованный пользователь
+     * @return Authorized user
      */
     public static Developer getCurrentUser() {
         return currentUser;

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Репозиторий класса Application для выполнения CRUD операций
+ * Application class repository for performing CRUD operations
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Repository

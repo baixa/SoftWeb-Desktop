@@ -6,11 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * Класс-сущность, содержащий информацию об изображениях связанного приложения.
+ * An entity class that contains information about the associated application's images.
  *
- * Класс содержит автоматически генерируемый индентификатор, изображение и ссылку на связанное приложение.
+ * The class contains an automatically generated identifier, an image, and a link to the associated application.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Getter
@@ -22,26 +22,26 @@ import javax.persistence.*;
 public class ApplicationImage {
 
     /**
-     * Автоматически генерируемый индентификатор
+     * Automatically generated identifier
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
-     * URL изображения приложения
+     * App Image URL
      */
     @Column(name = "path")
     private String path;
 
     /**
-     * Изображение приложения
+     * App Image
      */
     @Transient
     private Image image;
 
     /**
-     * Связанное приложение
+     * Related application
      */
     @ManyToOne
     @JoinColumn(name = "Application_ID", nullable = false)

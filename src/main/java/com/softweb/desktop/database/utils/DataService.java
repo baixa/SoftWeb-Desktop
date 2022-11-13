@@ -7,66 +7,66 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * Класс содержит метода для взаимодействия с репозиториями сущностей
+ * The class contains a method for interacting with entity repositories
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Component
 public class DataService {
 
     /**
-     * Репозиторий класса Developer для выполнения CRUD операций
+     * Developer class repository for performing CRUD operations
      */
     @lombok.Getter
     private static DeveloperRepository developerRepository;
 
     /**
-     * Репозиторий класса Application для выполнения CRUD операций
+     * Application class repository for performing CRUD operations
      */
     @lombok.Getter
     private static ApplicationRepository applicationRepository;
 
     /**
-     * Репозиторий класса Operating System для выполнения CRUD операций
+     * Operating System class repository for performing CRUD operations
      */
     @lombok.Getter
     private static OperatingSystemRepository operatingSystemRepository;
 
     /**
-     * Репозиторий класса Application Image для выполнения CRUD операций
+     * Application Image class repository for performing CRUD operations
      */
     private static ApplicationImageRepository applicationImageRepository;
 
     /**
-     * Репозиторий класса Installer для выполнения CRUD операций
+     * Installer class repository for performing CRUD operations
      */
     @lombok.Getter
     private static InstallerRepository installerRepository;
 
     /**
-     * Репозиторий класса License для выполнения CRUD операций
+     * License class repository for performing CRUD operations
      */
     @lombok.Getter
     private static LicenseRepository licenseRepository;
 
     /**
-     * Кэш базы данных, предназначенный для выполнений CRUD операций.
+     * A database cache for performing CRUD operations.
      *
      * @see DBCache
      */
     private static DBCache dbCache;
 
     /**
-     * Иициализирует объект DataService и заполняет поля значениями
+     * Initializes the DataService object and populates the fields with values
      *
-     * @param developerRepository Репозиторий класса Developer
-     * @param applicationRepository Репозиторий класса Application
-     * @param operatingSystemRepository Репозиторий класса Operating System
-     * @param applicationImageRepository Репозиторий класса Application Image
-     * @param installerRepository Репозиторий класса Installer
-     * @param licenseRepository Репозиторий класса License
-     * @param dbCache Кэш базы данных
+     * @param developerRepository Developer class repository
+     * @param applicationRepository Application class repository
+     * @param operatingSystemRepository Operating System class repository
+     * @param applicationImageRepository Application Image class repository
+     * @param installerRepository Installer class repository
+     * @param licenseRepository License class repository
+     * @param dbCache Database cache
      */
     public DataService(DeveloperRepository developerRepository, ApplicationRepository applicationRepository,
                        OperatingSystemRepository operatingSystemRepository, ApplicationImageRepository applicationImageRepository,
@@ -82,40 +82,45 @@ public class DataService {
     }
 
     /**
-     * Сохранить приложение в БД
-     * @param application Сохраняемое приложение
+     * Save application to database
+     *
+     * @param application The application to be saved
      */
     public static void saveApplication(Application application) {
         applicationRepository.save(application);
     }
 
     /**
-     * Сохранить изображение приложения в БД
-     * @param applicationImage Сохраняемый объект
+     * Save application image to DB
+     *
+     * @param applicationImage The object to save
      */
     public static void saveApplicationImage(ApplicationImage applicationImage) {
         applicationImageRepository.save(applicationImage);
     }
 
     /**
-     * Сохранить установщик приложения в БД
-     * @param installer Сохраняемый объект
+     * Save application installer to DB
+     *
+     * @param installer Stored object
      */
     public static void saveInstaller(Installer installer) {
         installerRepository.save(installer);
     }
 
     /**
-     * Сохранить опреационную систему в БД
-     * @param operatingSystem Сохраняемый объект
+     * Save operating system to database
+     *
+     * @param operatingSystem Object to store
      */
     public static void saveOperationSystem(OperatingSystem operatingSystem) {
         operatingSystemRepository.save(operatingSystem);
     }
 
     /**
-     * Сохранить разработчика в БД
-     * @param developer Сохраняемый объект
+     * Save developer to database
+     *
+     * @param developer Stored object
      */
     public static void saveDeveloper(Developer developer) {
         developerRepository.save(developer);
@@ -123,8 +128,9 @@ public class DataService {
     }
 
     /**
-     * Удалить приложение из БД
-     * @param application Удаляемый объект
+     * Delete application from database
+     *
+     * @param application Object to remove
      */
     public static void deleteApplication (Application application) {
         Set<ApplicationImage> images = application.getImages();
@@ -139,8 +145,9 @@ public class DataService {
     }
 
     /**
-     * Удалить изображение приложения из БД
-     * @param applicationImage Удаляемый объект
+     * Remove application image from database
+     *
+     * @param applicationImage Object to remove
      */
     public static void deleteApplicationImage (ApplicationImage applicationImage) {
         applicationImageRepository.delete(applicationImage);

@@ -24,41 +24,41 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Контроллер, позволяющий менять Основную информацию о приложении.
+ * A controller that allows you to change the Basic information about the application.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationEditMenuItemMainController extends ApplicationEditMenuItem implements Initializable{
     /**
-     * FXML узел, содержащий название приложения
+     * FXML node containing the name of the application
      */
     @FXML
     public TextField tbAppName;
 
     /**
-     * FXML узел, содержащий заголовок приложения
+     * FXML node containing the application title
      */
     @FXML
     public TextField tbShortDescription;
 
     /**
-     * FXML узел, содержащий описание приложения
+     * FXML node containing application description
      */
     @FXML
     public TextArea tbDescription;
 
     /**
-     * FXML узел, содержащий изображение логотипа приложения
+     * FXML node containing the application logo image
      */
     @FXML
     public ImageView ivLogo;
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,7 +68,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     /**
-     * Метод сохраняет изменения приложения в БД.
+     * The method saves application changes to the database.
      */
     public void saveEdits() {
         getApplication().setName(tbAppName.textProperty().getValue());
@@ -79,7 +79,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     /**
-     * Обновление информации на странице.
+     * Update information on the page.
      */
     @Override
     public void refreshContent() {
@@ -90,8 +90,9 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     /**
-     * Метод загружает выбранный файл на FTP сервер.
-     * @param file Выбранный файл
+     * The method uploads the selected file to the FTP server.
+     *
+     * @param file Selected file
      */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
@@ -128,8 +129,9 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     /**
-     * Метод открывает диалоговое окно выбора изображения.
-     * Поддерживаемые форматы: PNG, JPEG, JPG.
+     * The method opens an image selection dialog.
+     *
+     * Supported formats: PNG, JPEG, JPG.
      */
     public void fileDialogOpen() {
         if(getApplication().getId() == null || getApplication().getId() < 1) {
@@ -161,7 +163,7 @@ public class ApplicationEditMenuItemMainController extends ApplicationEditMenuIt
     }
 
     /**
-     * Сохранение изменений приложения.
+     * Saving application changes.
      */
     public void save() {
         saveEdits();

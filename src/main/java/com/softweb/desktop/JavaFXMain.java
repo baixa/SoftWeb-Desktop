@@ -8,19 +8,19 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * Контрольный класс, являющийся начальной точкой запуска JavaFX.
+ * The control class that is the starting point for starting JavaFX.
  */
 public class JavaFXMain extends Application {
 
     /**
-     * Контекст Spring
+     * Spring context
      */
     @lombok.Getter
     private static ConfigurableApplicationContext applicationContext;
 
     /**
      * Запуск JavaFX модуля
-     * @param stage Окно программы
+     *      * @param stage Окно программы
      */
     @Override
     public void start(Stage stage) {
@@ -36,7 +36,7 @@ public class JavaFXMain extends Application {
     }
 
     /**
-     * Завершение работы JavaFX модуля
+     * Shutting down a JavaFX module
      */
     @Override
     public void stop() {
@@ -45,20 +45,22 @@ public class JavaFXMain extends Application {
     }
 
     /**
-     * Класс-событие, запускающийся при открытии окна программы
+     * Event class that fires when the program window is opened
      */
     static class StageReadyEvent extends ApplicationEvent {
         /**
-         * Инициализирует объект
-         * @param stage Окно программы
+         * Initializes an object
+         *
+         * @param stage Program window
          */
         public StageReadyEvent(Stage stage) {
             super(stage);
         }
 
         /**
-         * Получить окно программы
-         * @return Окно программы
+         * Get program window
+         *
+         * @return Program window
          */
         public Stage getStage() {
             return ((Stage) getSource());

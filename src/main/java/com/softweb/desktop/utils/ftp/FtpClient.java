@@ -15,68 +15,69 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Класс отвечает за взаимодействие с FTP сервером и оперирование файлами для их загрузки на сервер и скачивания с него.
+ * The class is responsible for interacting with the FTP server and handling files for uploading and downloading from the server.
  */
 @Component
 public class FtpClient {
 
     /**
-     * URL сервера FTP
+     * FTP Server URL
      */
     private final String server;
 
     /**
-     * Порт подключения
+     * Connection port
      */
     private final int port;
 
     /**
-     * Логин пользователя FTP
+     * FTP user login
      */
     private final String username;
 
     /**
-     * Пароль пользователя FTP
+     * FTP user password
      */
     private final String password;
 
     /**
-     * Объект класса  org.apache.commons.net.ftp.FTP для взаимодействия с FTP
+     * Object of class org.apache.commons.net.ftp.FTP for interacting with FTP
      */
     private static FTPClient ftp;
 
     /**
-     * Путь до директории с изображениями приложений на FTP сервере
+     * Path to the directory with application images on the FTP server
      */
     public static final String IMAGE_PATH = "/images/";
 
     /**
-     * Путь до директории с изображениями логотипов на FTP сервере
+     * Path to the directory with logo images on the FTP server
      */
     public static final String LOGO_PATH = "/logo/";
 
     /**
-     * Путь до директории с установщиками приложений на FTP сервере
+     * Path to the directory with application installers on the FTP server
      */
     public static final String INSTALLER_PATH = "/installers/";
 
     /**
-     * URL для доступа к загруженному на сервер контенту
+     * URL to access the content uploaded to the server
      */
-    public static final String WEB_PATH = "http://45.67.35.2/softweb/resources";
+    public static final String WEB_PATH = "http://127.0.0.1/softweb/resources";
 
     /**
-     * Логер, фиксирующий ошибки и передающий их в консоль
+     * Logger that captures errors and passes them to the console
      */
     private static final Logger logger = LoggerFactory.getLogger(
             FtpClient.class);
 
     /**
-     * Инициализирует объект класса FtpClient и заполняет поля для подключения к нему
-     * @param server URL сервера
-     * @param port Порт подключения
-     * @param username Логин пользователя
-     * @param password Пароль пользователя
+     * Initializes an object of the FtpClient class and fills in the fields for connecting to it
+     *
+     * @param server URL of the server
+     * @param port Connection port
+     * @param username User login
+     * @param password User password
      */
     public FtpClient(@Value("${connections.ftp.server}") String server,
                      @Value("${connections.ftp.port}") int port,
@@ -89,8 +90,9 @@ public class FtpClient {
     }
 
     /**
-     * Открыть подключение к серверу FTP
-     * @throws IOException Ошибка при подключении к серверу FTP
+     * Open connection to FTP server
+     *
+     * @throws IOException Error connecting to FTP server
      */
     public void open() throws IOException {
         ftp = new FTPClient();
@@ -108,8 +110,9 @@ public class FtpClient {
     }
 
     /**
-     * Закрыть подключение к серверу
-     * @throws IOException Ошибка при закрытии соединения FTP
+     * Close the connection to the server
+     *
+     * @throws IOException Error closing FTP connection
      */
     public void close() throws IOException {
         logger.info("Disconnect FTP server");
@@ -117,10 +120,11 @@ public class FtpClient {
     }
 
     /**
-     * Получить список файлов в конкретной директории
-     * @param path Обрабатываемый каталог
-     * @return Список названий файлов
-     * @throws IOException Ошибка при получении списка файлов
+     * Get a list of files in a specific directory
+     *
+     * @param path Directory to process
+     * @return List of filenames
+     * @throws IOException Error getting list of files
      */
     public Collection<String> listFiles(String path) throws IOException {
         FTPFile[] files = ftp.listFiles(path);
@@ -130,10 +134,11 @@ public class FtpClient {
     }
 
     /**
-     * Скачать файл в директорию
-     * @param source URL скачиваемого файла
-     * @param destination Путь назначения
-     * @throws IOException Ошибка при скачивании файла
+     * Download file to directory
+     *
+     * @param source Download URL
+     * @param destination Destination path
+     * @throws IOException Error downloading file
      */
     public void downloadFile(String source, String destination) throws IOException {
         OutputStream out = new FileOutputStream(destination);
@@ -142,10 +147,11 @@ public class FtpClient {
     }
 
     /**
-     * Загрузить файл на сервер
-     * @param inputStream Поток данных файла
-     * @param path Путь назначения на сервере
-     * @throws IOException Ошибка при загрузке файла на сервер
+     * Upload file to server
+     *
+     * @param inputStream File data stream
+     * @param path Destination path on the server
+     * @throws IOException Error while uploading file to server
      */
     public void putFileToPath(InputStream inputStream, String path) throws IOException {
         ftpCreateDirectoryTree(path.substring(0, path.lastIndexOf("/")));
@@ -153,19 +159,20 @@ public class FtpClient {
     }
 
     /**
-     * Удалить файл на сервере
-     * @param path URL удаляемого файла
-     * @throws IOException Ошибка при удалении файла
+     * Delete file on server
+     *
+     * @param path URL of file to be deleted
+     * @throws IOException Error while deleting file
      */
     public void deleteFile(String path) throws IOException {
         ftp.deleteFile(path);
     }
 
     /**
-     * Создать рекурсивно каталог
+     * Create directory recursively
      *
-     * @param dirTree Дерево каталогов
-     * @throws IOException Ошибка при создании дерева каталогов
+     * @param dirTree Directory tree
+     * @throws IOException Error creating directory tree
      */
     private void ftpCreateDirectoryTree(String dirTree) throws IOException {
 

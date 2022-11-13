@@ -20,12 +20,13 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Класс выполняет операции по выводу информации и сохранению ее во внешнем окружении
+ * The class performs operations on displaying information and saving it in the external environment.
  */
 public class OutputUtils {
     /**
-     * Отправить диаграмму на печать принтеру, установленному по-умолчанию
-     * @param chart Печатаемая диаграмма
+     * Send the chart to be printed to the default printer
+     *
+     * @param chart Printable chart
      */
     public static void printChart(final BarChart<String, Number> chart) {
         Printer printer = Printer.getDefaultPrinter();
@@ -45,10 +46,11 @@ public class OutputUtils {
     }
 
     /**
-     * Сохранить диаграмму как PDF документ
-     * @param chart Сохраняемая диаграмма
-     * @return URL сохраненного документа PDF
-     * @throws IOException Ошибка при создании PDF документа
+     * Save diagram as PDF document
+     *
+     * @param chart Chart to save
+     * @return URL of saved PDF document
+     * @throws IOException Error creating PDF document
      */
     public static String saveChartAsPDF(final BarChart<String, Number> chart) throws IOException{
 

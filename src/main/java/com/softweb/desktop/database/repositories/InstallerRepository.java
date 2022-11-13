@@ -5,9 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Репозиторий класса Installer для выполнения CRUD операций
+ * Installer class repository for performing CRUD operations
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Repository

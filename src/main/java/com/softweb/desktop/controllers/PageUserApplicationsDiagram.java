@@ -18,21 +18,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Класс-контроллер, содержащий страницу с диаграммами популярности приложений авторизованного пользователя
+ * A controller class containing a page with authorized user's application popularity charts
  */
 public class PageUserApplicationsDiagram implements Initializable {
 
     /**
-     * FXML узел, содержащий график популярности приложений
+     * FXML node containing the application popularity graph
      */
     @FXML
     public BarChart<String, Number> barChar;
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,7 +81,7 @@ public class PageUserApplicationsDiagram implements Initializable {
     }
 
     /**
-     * Метод сохраняет диаграмму как PDF документ
+     * The method saves the diagram as a PDF document
      */
     public void saveDiagramAsPDF() {
         try {

@@ -12,22 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Кэш выполняет операции по «кэшированию» данных для увеличения скорости обработки
- * данных базы данных, не прибегая к постоянному доступу к ней.
+ * The cache performs data "caching" operations to increase the processing speed
+ * of the database data without resorting to constant access to it.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Component
 public class DBCache {
 
     /**
-     * Список приложений
+     * Application List
      */
     private List<Application> applications;
 
     /**
-     * Список разработчиков
+     * List of developers
      */
     private List<Developer> developers;
 
@@ -37,12 +37,12 @@ public class DBCache {
     private List<OperatingSystem> systems;
 
     /**
-     * Список лицензий
+     * List of licenses
      */
     private List<License> licenses;
 
     /**
-     * Загрузить изображение приложения на основе его URL и сохранить его в объекте класса Application Image
+     * Download an application image based on its URL and store it in an object of the Application Image class
      */
     private void loadApplicationsImages() {
         applications.forEach(item -> {
@@ -60,7 +60,7 @@ public class DBCache {
     }
 
     /**
-     * Инициализировать списки и заполнить их данными из базы данных
+     * Initialize lists and populate them with data from the database
      */
     private void fillData() {
         applications = new ArrayList<>();
@@ -75,7 +75,7 @@ public class DBCache {
     }
 
     /**
-     * Инициализировать кэш и заполнить его текущими данными из БД
+     * Initialize the cache and fill it with the current data from the database
      */
     private void initialize() {
         fillData();
@@ -83,14 +83,14 @@ public class DBCache {
     }
 
     /**
-     * Очистить кэш
+     * Clear cache
      */
     public void clear() {
         initialize();
     }
 
     /**
-     * Загрузить полный список разработчиков из БД
+     * Download the full list of developers from the database
      */
     public void loadListOfDevelopers() {
         this.developers = new ArrayList<>();
@@ -98,9 +98,9 @@ public class DBCache {
     }
 
     /**
-     * Получить список приложений
+     * Get a list of applications
      *
-     * @return Список приложений
+     * @return Application List
      */
     public List<Application> getApplications() {
         if(applications == null)
@@ -109,9 +109,9 @@ public class DBCache {
     }
 
     /**
-     * Получить список разработчиков
+     * Get a list of developers
      *
-     * @return Список разработчиков
+     * @return List of developers
      */
     public List<Developer> getDevelopers() {
         if(developers == null)
@@ -120,9 +120,9 @@ public class DBCache {
     }
 
     /**
-     * Получить список лицензий
+     * Get a list of licenses
      *
-     * @return Список лицензий
+     * @return List of licenses
      */
     public List<License> getLicenses() {
         if(licenses == null)
@@ -131,9 +131,9 @@ public class DBCache {
     }
 
     /**
-     * Получить список операционных систем
+     * Get a list of operating systems
      *
-     * @return Список ОС
+     * @return OS list
      */
     public List<OperatingSystem> getSystems() {
         if(systems == null)
@@ -142,7 +142,7 @@ public class DBCache {
     }
 
     /**
-     * Получить объект класса DBCache
+     * Get an object of the DBCache class
      *
      * @return DBCache
      */

@@ -23,7 +23,7 @@ class ConnectionValidatorTest {
      */
     @Test
     void checkConnectionStatusPositive() {
-        String url = "jdbc:mariadb://45.67.35.2:3306/softwebdb?user=softweb_admin&password=SoftWUser";
+        String url = "jdbc:mariadb://127.0.0.1:3306/softwebdb?user=softweb_admin&password=SoftWUser";
         assertTrue(ConnectionValidator.checkConnectionStatus(url));
     }
 }

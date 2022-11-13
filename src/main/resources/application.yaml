@@ -6,11 +6,11 @@ spring:
     ui:
       title: "SoftWeb"
   datasource:
-    url: jdbc:mariadb://45.67.35.2:3306/softwebdb
+    url: jdbc:mariadb://127.0.0.1:3306/softwebdb
     username: softweb_admin
     password: SoftWUser
     driver-class-name: org.mariadb.jdbc.Driver
-    full-url: "jdbc:mariadb://45.67.35.2:3306/softwebdb?user=softweb_admin&password=SoftWUser"
+    full-url: "jdbc:mariadb://127.0.0.1:3306/softwebdb?user=softweb_admin&password=SoftWUser"
   jpa:
     hibernate:
       naming:
@@ -18,7 +18,7 @@ spring:
 
 connections:
   ftp:
-    server: "45.67.35.2"
+    server: "127.0.0.1"
     port: 21
     username: "softwebftp"
     password: "SoftWUser"

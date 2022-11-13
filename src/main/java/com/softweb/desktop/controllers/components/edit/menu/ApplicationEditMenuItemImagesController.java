@@ -24,24 +24,24 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Контроллер, позволяющий взаимодействовать с изображениями приложения.
+ * A controller that allows you to interact with the application's images.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationEditMenuItemImagesController extends ApplicationEditMenuItem implements Initializable {
 
     /**
-     * FXML узел, содержащий список изображений приложения.
+     * An FXML node containing a list of application images.
      */
     @FXML
     private HBox hbImages;
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +49,7 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Обновление информации на странице.
+     * Update information on the page.
      */
     @Override
     public void refreshContent() {
@@ -85,9 +85,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Метод загружает файлы на сервер через FTP и сохраняет данные об изображении в БД
+     * The method uploads files to the server via FTP and saves the image data to the database
      *
-     * @param file Загружаемый файл
+     * @param file Download file
      */
     private void loadFile(File file) {
         FtpClient ftpClient = JavaFXMain.getApplicationContext().getBean(FtpClient.class);
@@ -115,8 +115,8 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Метод открывает диалоговое окно выбора изображения.
-     * Поддерживаемые форматы: PNG, JPEG, JPG.
+     * The method opens an image selection dialog.
+     * Supported formats: PNG, JPEG, JPG.
      */
     public void openFileDialog() {
         FileChooser fileChooser = new FileChooser();
@@ -138,9 +138,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
     }
 
     /**
-     * Метод удаляет изображение, выбранное пользователем после его подтверждения.
+     * The method deletes the image selected by the user after confirming it.
      *
-     * @param imageView Удаляемое изображение.
+     * @param imageView The image to remove.
      */
     public void removeImage(ImageView imageView) {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Вы уверены, что хотите удалить изображение?", ButtonType.YES, ButtonType.NO);
@@ -167,9 +167,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Метод добавляет изображение в систему.
+     * The method adds an image to the system.
      *
-     * @param addableImage Добавляемое изображение
+     * @param addableImage Image to add
      */
     public void addApplicationImage(ApplicationImage addableImage) {
         this.application.setLastUpdate(new Date());
@@ -185,9 +185,9 @@ public class ApplicationEditMenuItemImagesController extends ApplicationEditMenu
 
 
     /**
-     * Метод удаляет выбранный объект ApplicationImage из БД.
+     * The method removes the selected ApplicationImage object from the database.
      *
-     * @param removableImage Удаляемый объект.
+     * @param removableImage The object to be removed.
      */
     public void removeApplicationImage(ApplicationImage removableImage) {
         this.application.setLastUpdate(new Date());

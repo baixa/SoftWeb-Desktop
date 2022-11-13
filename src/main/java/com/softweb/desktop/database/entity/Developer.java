@@ -9,11 +9,11 @@ import java.util.Set;
 
 /**
  * Класс-сущность Developer содержит данные о разработчиках приложения, которые размещают продукты в системе.
+ *  *
+ *  * Класс содержит индентификатор и данные для авторизации пользователя в системе.
+ *  * Также класс содержит ссылку на опубликованные в ситсеме приложения.
  *
- * Класс содержит индентификатор и данные для авторизации пользователя в системе.
- * Также класс содержит ссылку на опубликованные в ситсеме приложения.
- *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 @Getter
@@ -26,7 +26,7 @@ import java.util.Set;
 public class Developer {
 
     /**
-     * Автоматически генерируемый индентификатор
+     * Automatically generated identifier
      */
     @Id
     @Column(name = "id")
@@ -34,37 +34,37 @@ public class Developer {
     private Long id;
 
     /**
-     * Логин разработчика
+     * Developer Login
      */
     @Column(name = "username")
     private String username;
 
     /**
-     * Имя разработчика
+     * Developer name
      */
     @Column(name = "fullname")
     private String fullName;
 
     /**
-     * Пароль разработчика
+     * Developer password
      */
     @Column(name = "password")
     private String password;
 
     /**
-     * Индикатор статуса администратора, позволяющего управлять приложениями других пользователей.
+     * An administrator status indicator that allows you to manage other users' applications.
      */
     @Column(name = "is_admin")
     private boolean isAdmin;
 
     /**
-     * Дата последнего входа в систему.
+     * Last login date.
      */
     @Column(name = "last_entered")
     private Date lastEntered;
 
     /**
-     * Список опубликованных приложений.
+     * List of published applications.
      */
     @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
     private Set<Application> applications;

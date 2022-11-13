@@ -4,14 +4,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * Класс управляет ограничениями на ввод для элементов UI разметки
+ * The class manages input restrictions for UI markup elements.
  */
 public class NodeLimiters {
 
     /**
-     * Метод добавляет ограничение длины для текстового поля
-     * @param textField Ограничеваемое поле
-     * @param maxLength Максимальная длина
+     * The method adds a length constraint for the text field
+     *
+     * @param textField Restricted field
+     * @param maxLength Maximum length
      */
     public static void addTextLimiter(final TextField textField, final int maxLength) {
         if(textField.getText() == null)
@@ -28,9 +29,11 @@ public class NodeLimiters {
         });
     }
 
-    /** Метод добавляет ограничение длины для текстового поля
-     * @param textArea Ограничеваемое поле
-     * @param maxLength Максимальная длина
+    /**
+     * The method adds a length constraint for the text field
+     *
+     * @param textArea Restricted field
+     * @param maxLength Maximum length
      */
     public static void addTextLimiter(final TextArea textArea, final int maxLength) {
 

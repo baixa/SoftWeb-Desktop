@@ -17,63 +17,63 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Главный контроллер, позволяющий менять информацию о приложении.
+ * The main controller that allows you to change information about the application.
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class ApplicationEditController implements Initializable {
 
     /**
-     * FXML узел, содержащий корневой элемент разметки
+     * FXML node containing the root markup element
      */
     @FXML
     public BorderPane rootElement;
 
     /**
-     * FXML узел, содержащий название главной страницы редактирования
+     * FXML node containing the title of the main edit page
      */
     @FXML
     public Label labelMain;
 
     /**
-     * FXML узел, содержащий название страницы редактирования изображений
+     * FXML node containing the title of the image editing page
      */
     @FXML
     public Label labelImages;
 
     /**
-     * FXML узел, содержащий название страницы редактирования установщика
+     * FXML node containing the name of the installer edit page
      */
     @FXML
     public Label labelInstaller;
 
     /**
-     * FXML узел, содержащий название страницы редактирования дополнительной информации
+     * FXML node containing the title of the page for editing additional information
      */
     @FXML
     public Label labelAdditional;
 
     /**
-     * FXML узел, содержащий название текущей страницы редактирования
+     * FXML node containing the title of the current edit page
      */
     private Label currentMenuItem;
 
     /**
-     * Связанное приложение
+     * Related application
      */
     private Application application;
 
     /**
-     * Текущая страница редактирования.
+     * The current edit page.
      */
     private ApplicationEditMenuItem currentItemController;
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -91,23 +91,25 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Получить связанное приложение
-     * @return Связанное приложение
+     * Get a related app
+     *
+     * @return Related application
      */
     public Application getApplication() {
         return application;
     }
 
     /**
-     * Установить связанное приложение
-     * @param application Связанное приложение
+     * Set related app
+     *
+     * @param application Related application
      */
     public void setApplication(Application application) {
         this.application = application;
     }
 
     /**
-     * Отобразить текущую страницу.
+     * Display the current page.
      */
     public void generatePage() {
         currentItemController.setApplication(application);
@@ -115,7 +117,7 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Открыть страницу с главной информацией.
+     * Open the main information page.
      */
     public void openMain() {
         if (currentItemController instanceof ApplicationEditMenuItemMainController)
@@ -126,7 +128,7 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Открыть страницу с изображениями.
+     * Open image page.
      */
     public void openImages() {
         if (currentItemController instanceof ApplicationEditMenuItemImagesController)
@@ -139,7 +141,7 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Сгенерировать страницу редактирования.
+     * Generate edit page.
      */
     private void generateCenterContent(FXMLLoader fxmlLoader, Label labelImages) {
         try {
@@ -157,7 +159,7 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Открыть страницу с установщиками.
+     * Open the page with installers.
      */
     public void openInstaller() {
         if (currentItemController instanceof ApplicationEditMenuItemInstallerController)
@@ -170,7 +172,7 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Открыть страницу с дополнительной информацией.
+     * Open page with additional information.
      */
     public void openAdditional() {
         if (currentItemController instanceof ApplicationEditMenuItemAdditionalController)
@@ -183,8 +185,9 @@ public class ApplicationEditController implements Initializable {
     }
 
     /**
-     * Проверяет возможность сохранения изменений приложения
-     * @return Индикатор, разрешения на сохранение изменений
+     * Checks whether application changes can be saved
+     *
+     * @return Indicator, permissions to save changes
      */
     private boolean checkingApplicationSaving() {
         if(getApplication().getId() == null || getApplication().getId() < 1) {

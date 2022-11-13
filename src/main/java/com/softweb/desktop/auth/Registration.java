@@ -6,25 +6,25 @@ import com.softweb.desktop.database.utils.DataService;
 import java.util.Date;
 
 /**
- * Класс регистрации содержит методы и поля для реализации
- * механизма регистрации пользователей в системе
+ * Registration class contains methods and fields to implement
+ * mechanism for registering users in the system
  *
- * @author Максимчук И.
+ * @author Maksimchuk I.
  * @version 1.0
  */
 public class Registration {
 
     /**
-     * Метод выполняет регистрацию пользователя согласно
-     * преданному логину, имени и паролю.
+     * The method performs user registration according to
+     * dedicated login, name and password.
      *
-     * Метод создает объект класса Developer на основе переданных данных и
-     * затем сохраняет его в базе данных. После создания пользователя система
-     * авторизует его.
+     * The method creates an object of the Developer class based on the passed data and
+     * then stores it in the database. After creating a user, the system
+     * authorizes it.
      *
-     * @param username Логин пользователя
-     * @param fullName Имя пользователя
-     * @param password Пароль пользователя
+     * @param username Login
+     * @param fullName User full name
+     * @param password Password
      *
      * @see Developer
      * @see Authorization#authorize(String, String)

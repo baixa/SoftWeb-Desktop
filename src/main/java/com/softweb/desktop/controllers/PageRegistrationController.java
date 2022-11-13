@@ -17,70 +17,70 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Класс-контроллер, отображающий страницу регистрации
+ * Controller class that displays the registration page
  */
 public class PageRegistrationController  implements Initializable {
 
     /**
-     * FXML узел, содержащий логин пользователя.
+     * An FXML node containing the user's login.
      */
     @FXML
     private TextField tbLogin;
 
     /**
-     * FXML узел, содержащий имя пользователя.
+     * An FXML node containing the username.
      */
     @FXML
     private TextField tbName;
 
     /**
-     * FXML узел, содержащий скрытый пароль пользователя.
+     * An FXML node containing the user's hidden password.
      */
     @FXML
     private PasswordField tbMaskedPassword;
 
     /**
-     * FXML узел, содержащий текстовую версию пароля (нескрытую).
+     * FXML node containing the text version of the password (unhidden).
      */
     @FXML
     private TextField tbUnmaskedPassword;
 
     /**
-     * FXML узел, содержащий скрытый подтвержденный пароль.
+     * An FXML node containing a hidden verified password.
      */
     @FXML
     private PasswordField tbMaskedPasswordConfirm;
 
     /**
-     * FXML узел, содержащий текстовую версию подтвержденного пароля (нескрытую).
+     * An FXML node containing the text version of the verified password (unhidden).
      */
     @FXML
     private TextField tbUnmaskedPasswordConfirm;
 
     /**
-     * FXML узел, содержащий ссылку на страницу входа.
+     * An FXML node containing a link to the login page.
      */
     @FXML
     private Label labelLogin;
 
     /**
-     * FXML узел, содержащий чекбокс "Повторить пароль".
+     * FXML node containing the "Repeat password" checkbox.
      */
     @FXML
     private CheckBox cbShowPassword;
 
     /**
-     * Кэш базы данных для выполнения CRUD операций и сохранения информации.
+     * Database cache to perform CRUD operations and save information.
      *
      * @see DBCache
      */
     private static final DBCache dbCache = JavaFXMain.getApplicationContext().getBean(DBCache.class);
 
     /**
-     * Метод предназначен для инициализации контроллера.
+     * The method is designed to initialize the controller.
      *
-     * @param url URL-адрес, используемый для разрешения относительных путей для корневого объекта, или null, если местоположение неизвестно.
-     * @param resourceBundle Пакет ресурсов, используемый для локализации корневого объекта, или null, если корневой объект не был локализован.
+     * @param url The URL used to resolve relative paths to the root object, or null if the location is unknown.
+     * @param resourceBundle The resource bundle used to localize the root object, or null if the root object has not been localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,7 +97,7 @@ public class PageRegistrationController  implements Initializable {
     }
 
     /**
-     * Метод отображает пароль, если включен флажок "Показать пароль", в ином случае скрывает пароль
+     * The method displays the password if the "Show password" checkbox is enabled, otherwise hides the password
      */
     public void cbShowPasswordChecked() {
         if (cbShowPassword.isSelected()) {
@@ -116,7 +116,7 @@ public class PageRegistrationController  implements Initializable {
     }
 
     /**
-     * Метод связывает поля пароля для работы функции "Показать пароль"
+     * The method binds the password fields for the "Show password" function to work
      */
     private void synchronizePassword() {
         tbMaskedPassword.textProperty().bindBidirectional(tbUnmaskedPassword.textProperty());
@@ -124,7 +124,7 @@ public class PageRegistrationController  implements Initializable {
     }
 
     /**
-     * Метод выполняет регистрацию пользователя на основе введенных данных.
+     * The method performs user registration based on the entered data.
      */
     public void btnRegisterClick() {
         if(!tbMaskedPassword.textProperty().getValue().equals(tbMaskedPasswordConfirm.textProperty().getValue())) {
