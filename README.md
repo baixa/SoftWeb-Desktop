@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <img src="https://vk.com/doc214961402_647202562?hash=hTF8CbzttJS1vONh0pbDB4zb3VzDF7Zb7LnvqVrrrA0&dl=y63vwZwt8dOZ78bkNlveBv7JlZzzQGbHbNrjZDR1V6w" alt="Markdownify" width="200">
+  <img src="https://vk.com/doc214961402_647202562?hash=hTF8CbzttJS1vONh0pbDB4zb3VzDF7Zb7LnvqVrrrA0&dl=y63vwZwt8dOZ78bkNlveBv7JlZzzQGbHbNrjZDR1V6w" alt="SoftWeb" width="200">
   <br>
   SoftWeb-Desktop
   <br>
@@ -56,5 +56,5 @@ $ ./mvnw spring-boot:run
 
 ---
 
-> GitHub [@baixa](https://github.com/amitmerchant1990)
+> GitHub [@baixa](https://github.com/baixa)
 
